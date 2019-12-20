@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public UserDto deleteMessageById(@PathVariable int id) throws UserNotFoundException {
+    public UserDto deleteUserById(@PathVariable int id) throws UserNotFoundException {
         return userService.deleteUserById(id);
     }
 }
