@@ -6,7 +6,7 @@ import pl.pretkejshop.webstore.service.dto.AdDto;
 import pl.pretkejshop.webstore.service.dto.CreateUpdateAdDto;
 
 @Service
-public class AdMapper {
+public class AdDtoMapper {
     public AdDto toDto(Ad ad) {
         return AdDto.builder()
                 .id(ad.getId())
