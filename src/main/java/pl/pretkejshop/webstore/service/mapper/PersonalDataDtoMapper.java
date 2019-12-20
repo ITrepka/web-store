@@ -1,8 +1,10 @@
 package pl.pretkejshop.webstore.service.mapper;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.pretkejshop.webstore.model.PersonalData;
 import pl.pretkejshop.webstore.model.User;
+import pl.pretkejshop.webstore.repository.UserRepository;
 import pl.pretkejshop.webstore.service.dto.CreateUpdatePersonalDataDto;
 import pl.pretkejshop.webstore.service.dto.PersonalDataDto;
 
@@ -10,7 +12,13 @@ import java.time.LocalDate;
 
 @Service
 public class PersonalDataDtoMapper {
+    @Autowired
+    private UserRepository userRepository;
+
     public PersonalDataDto toDto(PersonalData personalData) {
+        User user = userRepository.findByPersonalData(personalData)
+                .orElse(null);
+        Integer userId = user == null ? null : user.getId();
         return PersonalDataDto.builder()
                 .id(personalData.getId())
                 .name(personalData.getName())
@@ -21,6 +29,7 @@ public class PersonalDataDtoMapper {
                 .birthDate(personalData.getBirthDate())
                 .createdAt(personalData.getCreatedAt())
                 .updatedAt(personalData.getUpdatedAt())
+                .userId(userId)
                 .build();
     }
 

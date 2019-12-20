@@ -18,11 +18,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @OneToOne(mappedBy = "user")
+    @OneToOne(cascade = CascadeType.ALL)
     private PersonalData personalData;
     private String login;
     private String password;
-    @OneToOne(mappedBy = "user")
+    @OneToOne
     private Basket basket;
     private Integer loyaltyPoints;
     @OneToMany(mappedBy = "user")

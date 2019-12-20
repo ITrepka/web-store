@@ -20,7 +20,7 @@ public class PersonalData {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @OneToOne
+    @OneToOne(mappedBy = "personalData")
     private User user;
     private String name;
     private String surname;

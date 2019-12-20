@@ -79,9 +79,14 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("Not Found User with id = " + id));
         CreateUpdatePersonalDataDto createUpdatePersonalDataDto = userToUpdate.getCreateUpdatePersonalDataDto();
-        user.setPersonalData(personalDataDtoMapper.toModel(createUpdatePersonalDataDto));
+        PersonalData personalData = personalDataDtoMapper.toModel(createUpdatePersonalDataDto);
+        personalData.setId(user.getPersonalData().getId());
+        user.setPersonalData(personalData);
         user.setPassword(userToUpdate.getPassword()); // todo szyfry
         user.setUpdatedAt(OffsetDateTime.now());
+        personalData.setUser(user);
+        PersonalData data = personalDataRepository.save(personalData);
+        user.setPersonalData(data);
         User savedUser = userRepository.save(user);
         return userDtoMapper.toDto(savedUser);
     }
@@ -90,7 +95,7 @@ public class UserService {
     public UserDto deleteUserById(int id) throws UserNotFoundException {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("Not found user with id = " + id));
-        userRepository.delete(user);
+        userRepository.deleteById(id);
         return userDtoMapper.toDto(user);
     }
 
