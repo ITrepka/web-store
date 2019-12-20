@@ -20,7 +20,8 @@ public class UserDto {
     private Integer basketId;
     private Integer loyaltyPoints;
     private List<Integer> ordersIds;
-    private List<Integer> messagesIds;
+    private List<Integer> receivedMessagesIds;
+    private List<Integer> sentMessagesIds;
     private String role;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;

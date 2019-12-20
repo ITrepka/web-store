@@ -18,7 +18,8 @@ public class UserDtoMapper {
     public UserDto toDto(User user) {
         Integer basketId = user.getBasket() == null ? null : user.getBasket().getId();
         String role = user.getRole() == null ? null : String.valueOf(user.getRole());
-        List<Integer> messagesIds = user.getMessages() == null ? null : user.getMessages().stream().map(message -> message.getId()).collect(Collectors.toList());
+        List<Integer> receivedMessagesIds = user.getReceivedMessages() == null ? null : user.getReceivedMessages().stream().map(message -> message.getId()).collect(Collectors.toList());
+        List<Integer> sentMessagesIds = user.getSentMessages() == null ? null : user.getSentMessages().stream().map(message -> message.getId()).collect(Collectors.toList());
         List<Integer> ordersIds = user.getOrders() == null ? null : user.getOrders().stream().map(order -> order.getId()).collect(Collectors.toList());
 
         return UserDto.builder()
@@ -30,7 +31,8 @@ public class UserDtoMapper {
                 .updatedAt(user.getUpdatedAt())
                 .role(role)
                 .loyaltyPoints(user.getLoyaltyPoints())
-                .messagesIds(messagesIds)
+                .receivedMessagesIds(receivedMessagesIds)
+                .sentMessagesIds(sentMessagesIds)
                 .ordersIds(ordersIds)
                 .build();
     }
@@ -46,7 +48,8 @@ public class UserDtoMapper {
                 .basket(null)
                 .loyaltyPoints(null) //todo
                 .orders(null)
-                .messages(null)
+                .receivedMessages(null)
+                .sentMessages(null)
                 .role(null) //todo
                 .createdAt(null) //todo
                 .updatedAt(null)
