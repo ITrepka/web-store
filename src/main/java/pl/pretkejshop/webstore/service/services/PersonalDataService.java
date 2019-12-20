@@ -25,11 +25,11 @@ public class PersonalDataService {
     @Autowired
     private PersonalDataDtoMapper personalDataDtoMapper;
 
-    @PostConstruct
-    public void init() throws PersonalDataInvalidDataException {
-        addPersonalData(new CreateUpdatePersonalDataDto("Janek", "Zbyszkowski", "Zaokopowa 4, Brzeg", "dziadzior@ll.pl", LocalDate.now().toString(), null));
-        addPersonalData(new CreateUpdatePersonalDataDto("Włodzimierz", "Szaranowicz", "Barszcz 4, Katowice", "lloooll@ll.pl", LocalDate.now().toString(), null));
-    }
+//    @PostConstruct
+//    public void init() throws PersonalDataInvalidDataException {
+//        addPersonalData(new CreateUpdatePersonalDataDto("Janek", "Zbyszkowski", "Zaokopowa 4, Brzeg", "dziadzior@ll.pl", LocalDate.now().toString(), null));
+//        addPersonalData(new CreateUpdatePersonalDataDto("Włodzimierz", "Szaranowicz", "Barszcz 4, Katowice", "lloooll@ll.pl", LocalDate.now().toString(), null));
+//    }
 
     @Transactional
     public List<PersonalDataDto> getAllPersonalData() {
