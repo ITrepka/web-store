@@ -17,5 +17,6 @@ public class Basket {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @OneToOne
+    @JoinColumn(name = "user_id")
     User user;
 }

@@ -17,7 +17,9 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
     @ManyToOne
+    @JoinColumn(name = "user_from_id")
     User userFrom;
     @ManyToOne
+    @JoinColumn(name = "user_to_id")
     User userTo;
 }

@@ -7,4 +7,5 @@ import pl.pretkejshop.webstore.model.User;
 
 @Repository
 public interface PersonalDataRepository extends JpaRepository<PersonalData, Integer> {
+    boolean existsByEmail(String email);
 }

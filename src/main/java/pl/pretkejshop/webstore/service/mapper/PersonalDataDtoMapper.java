@@ -6,6 +6,8 @@ import pl.pretkejshop.webstore.model.User;
 import pl.pretkejshop.webstore.service.dto.CreateUpdatePersonalDataDto;
 import pl.pretkejshop.webstore.service.dto.PersonalDataDto;
 
+import java.time.LocalDate;
+
 @Service
 public class PersonalDataDtoMapper {
     public PersonalDataDto toDto(PersonalData personalData) {
@@ -28,7 +30,7 @@ public class PersonalDataDtoMapper {
                 .name(createPersonalDataDto.getName())
                 .surname(createPersonalDataDto.getSurname())
                 .email(createPersonalDataDto.getEmail())
-                .birthDate(createPersonalDataDto.getBirthDate())
+                .birthDate(LocalDate.parse(createPersonalDataDto.getBirthDate()))
                 .sex(createPersonalDataDto.getSex())
                 .address(createPersonalDataDto.getAddress())
                 .createdAt(null)

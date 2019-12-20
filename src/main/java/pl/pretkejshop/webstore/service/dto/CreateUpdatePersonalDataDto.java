@@ -1,5 +1,6 @@
 package pl.pretkejshop.webstore.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +18,7 @@ public class CreateUpdatePersonalDataDto {
     private String surname;
     private String address;
     private String email;
-    private LocalDate birthDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private String birthDate;
     private Sex sex;
 }

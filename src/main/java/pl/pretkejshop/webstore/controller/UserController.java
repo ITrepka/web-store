@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.pretkejshop.webstore.service.dto.CreateUserDto;
 import pl.pretkejshop.webstore.service.dto.UpdateUserDto;
 import pl.pretkejshop.webstore.service.dto.UserDto;
+import pl.pretkejshop.webstore.service.exception.PersonalDataInvalidDataException;
 import pl.pretkejshop.webstore.service.exception.UserAlreadyExistsException;
 import pl.pretkejshop.webstore.service.exception.UserInvalidDataException;
 import pl.pretkejshop.webstore.service.exception.UserNotFoundException;
@@ -29,7 +30,7 @@ public class UserController {
     }
 
     @PostMapping
-    public UserDto addNewUser(CreateUserDto createUserDto) throws UserAlreadyExistsException, UserInvalidDataException {
+    public UserDto addNewUser(@RequestBody CreateUserDto createUserDto) throws UserAlreadyExistsException, UserInvalidDataException, PersonalDataInvalidDataException {
         return userService.addNewUser(createUserDto);
     }
 

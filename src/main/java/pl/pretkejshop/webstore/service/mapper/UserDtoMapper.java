@@ -21,10 +21,10 @@ public class UserDtoMapper {
         List<Integer> receivedMessagesIds = user.getReceivedMessages() == null ? null : user.getReceivedMessages().stream().map(message -> message.getId()).collect(Collectors.toList());
         List<Integer> sentMessagesIds = user.getSentMessages() == null ? null : user.getSentMessages().stream().map(message -> message.getId()).collect(Collectors.toList());
         List<Integer> ordersIds = user.getOrders() == null ? null : user.getOrders().stream().map(order -> order.getId()).collect(Collectors.toList());
-
+        Integer personalDataId = user.getPersonalData() == null ? null : user.getPersonalData().getId();
         return UserDto.builder()
                 .id(user.getId())
-                .personalData(user.getPersonalData())
+                .personalDataId(personalDataId)
                 .login(user.getLogin())
                 .basketId(basketId)
                 .createdAt(user.getCreatedAt())
@@ -37,9 +37,7 @@ public class UserDtoMapper {
                 .build();
     }
 
-    public User toModel(CreateUserDto createUserDto) {
-        PersonalData personalData = createUserDto.getCreatePersonalData() == null ? null :
-                personalDataDtoMapper.toModel(createUserDto.getCreatePersonalData());
+    public User toModel(CreateUserDto createUserDto, PersonalData personalData) {
         return User.builder()
                 .id(null)
                 .personalData(personalData)

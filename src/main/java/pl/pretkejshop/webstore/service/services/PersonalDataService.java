@@ -27,8 +27,8 @@ public class PersonalDataService {
 
     @PostConstruct
     public void init() throws PersonalDataInvalidDataException {
-        addPersonalData(new CreateUpdatePersonalDataDto("Janek", "Zbyszkowski", "Zaokopowa 4, Brzeg", "dziadzior@ll.pl", LocalDate.now(), null));
-        addPersonalData(new CreateUpdatePersonalDataDto("Włodzimierz", "Szaranowicz", "Barszcz 4, Katowice", "lloooll@ll.pl", LocalDate.now(), null));
+        addPersonalData(new CreateUpdatePersonalDataDto("Janek", "Zbyszkowski", "Zaokopowa 4, Brzeg", "dziadzior@ll.pl", LocalDate.now().toString(), null));
+        addPersonalData(new CreateUpdatePersonalDataDto("Włodzimierz", "Szaranowicz", "Barszcz 4, Katowice", "lloooll@ll.pl", LocalDate.now().toString(), null));
     }
 
     @Transactional
@@ -62,7 +62,7 @@ public class PersonalDataService {
         personalData.setName(updatePersonalDataDto.getName());
         personalData.setSurname(updatePersonalDataDto.getSurname());
         personalData.setAddress(updatePersonalDataDto.getAddress());
-        personalData.setBirthDate(updatePersonalDataDto.getBirthDate());
+        personalData.setBirthDate(LocalDate.parse(updatePersonalDataDto.getBirthDate()));
         personalData.setSex(updatePersonalDataDto.getSex());
         personalData.setUpdatedAt(OffsetDateTime.now());
         PersonalData savedPersonalData = personalDataRepository.save(personalData);

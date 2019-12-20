@@ -26,18 +26,18 @@ public class PersonalDataController {
         return personalDataService.getPersonalDataById(id);
     }
 
-    @PostMapping
-    public PersonalDataDto addPersonalData(@RequestBody CreateUpdatePersonalDataDto createPersonalDataDto) throws PersonalDataInvalidDataException {
-        return personalDataService.addPersonalData(createPersonalDataDto);
-    }
-
-    @PutMapping("/{id}")
-    public PersonalDataDto updatePersonalDataById(@PathVariable int id, @RequestBody CreateUpdatePersonalDataDto updatePersonalDataDto) throws PersonalDataNotFoundException, PersonalDataInvalidDataException {
-        return personalDataService.updatePersonalData(id, updatePersonalDataDto);
-    }
-
-    @DeleteMapping("/{id}")
-    public PersonalDataDto deletePersonalDataById(@PathVariable int id) throws PersonalDataNotFoundException {
-        return personalDataService.deletePersonalData(id);
-    }
+//    @PostMapping
+//    public PersonalDataDto addPersonalData(@RequestBody CreateUpdatePersonalDataDto createPersonalDataDto) throws PersonalDataInvalidDataException {
+//        return personalDataService.addPersonalData(createPersonalDataDto);
+//    }
+//
+//    @PutMapping("/{id}")
+//    public PersonalDataDto updatePersonalDataById(@PathVariable int id, @RequestBody CreateUpdatePersonalDataDto updatePersonalDataDto) throws PersonalDataNotFoundException, PersonalDataInvalidDataException {
+//        return personalDataService.updatePersonalData(id, updatePersonalDataDto);
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    public PersonalDataDto deletePersonalDataById(@PathVariable int id) throws PersonalDataNotFoundException {
+//        return personalDataService.deletePersonalData(id);
+//    }
 }

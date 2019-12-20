@@ -3,12 +3,16 @@ package pl.pretkejshop.webstore.service.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ResponseBody;
+import pl.pretkejshop.webstore.model.PersonalData;
 import pl.pretkejshop.webstore.model.User;
+import pl.pretkejshop.webstore.repository.PersonalDataRepository;
 import pl.pretkejshop.webstore.repository.UserRepository;
 import pl.pretkejshop.webstore.service.dto.CreateUpdatePersonalDataDto;
 import pl.pretkejshop.webstore.service.dto.CreateUserDto;
 import pl.pretkejshop.webstore.service.dto.UpdateUserDto;
 import pl.pretkejshop.webstore.service.dto.UserDto;
+import pl.pretkejshop.webstore.service.exception.PersonalDataInvalidDataException;
 import pl.pretkejshop.webstore.service.exception.UserAlreadyExistsException;
 import pl.pretkejshop.webstore.service.exception.UserInvalidDataException;
 import pl.pretkejshop.webstore.service.exception.UserNotFoundException;
@@ -28,11 +32,8 @@ public class UserService {
     private UserDtoMapper userDtoMapper;
     @Autowired
     private PersonalDataDtoMapper personalDataDtoMapper;
-
-    @PostConstruct
-    public void init() {
-
-    }
+    @Autowired
+    private PersonalDataRepository personalDataRepository;
 
     public List<UserDto> getAllUsers() {
         return userRepository.findAll().stream()
@@ -48,15 +49,24 @@ public class UserService {
     }
 
     @Transactional
-    public UserDto addNewUser(CreateUserDto createUserDto) throws UserAlreadyExistsException, UserInvalidDataException {
+    public UserDto addNewUser(CreateUserDto createUserDto) throws UserAlreadyExistsException, UserInvalidDataException, PersonalDataInvalidDataException {
         validateCreateUser(createUserDto);
         if (userRepository.existsByLogin(createUserDto.getLogin())) {
             throw new UserAlreadyExistsException("User with login = " + createUserDto.getLogin() + " already exists");
         }
-
-        User user = userDtoMapper.toModel(createUserDto);
+        if (createUserDto.getCreatePersonalData() == null) {
+            throw new PersonalDataInvalidDataException("personal data cannot be null") ;
+        }
+        if (personalDataRepository.existsByEmail(createUserDto.getCreatePersonalData().getEmail())) {
+            throw new UserAlreadyExistsException("User with email = " + createUserDto.getCreatePersonalData().getEmail()
+                    + " already exists");
+        }
+        PersonalData personalData = personalDataDtoMapper.toModel(createUserDto.getCreatePersonalData());
+        PersonalData savedPersonalData = personalDataRepository.save(personalData);
+        User user = userDtoMapper.toModel(createUserDto, savedPersonalData);
         user.setLoyaltyPoints(0);
         user.setCreatedAt(OffsetDateTime.now());
+        //roleDoUstawienia todo
         //password set na zaszyfrowane todo
         user.setPassword(createUserDto.getPassword());
         User savedUser = userRepository.save(user);
@@ -75,7 +85,6 @@ public class UserService {
         User savedUser = userRepository.save(user);
         return userDtoMapper.toDto(savedUser);
     }
-
 
     @Transactional
     public UserDto deleteUserById(int id) throws UserNotFoundException {

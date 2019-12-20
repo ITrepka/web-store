@@ -24,4 +24,5 @@ public class PersonalDataDto {
     private Sex sex;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
+    private Integer userId;
 }
