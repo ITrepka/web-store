@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -21,17 +22,23 @@ public class Product {
     private Integer id;
     private String name;
     private String description;
-    private Category category;
-    @ManyToMany
-    private List<Tag> tagList;
-    private Sex targetGender;
     @ManyToOne
-    private Photo photo;
+    private Brand brand;
+    @ManyToOne
+    private Category category;
+    @ManyToMany(mappedBy = "products")
+    @Builder.Default
+    private List<Tag> tagList = new ArrayList<>();
+    private Sex targetGender;
+    @ManyToMany(mappedBy = "products")
+    @Builder.Default
+    private List<Photo> photos = new ArrayList<>();
     private BigDecimal sellingPrice;
     private BigDecimal boughtFor;
     private BigDecimal discount;
-    @OneToMany
-    private List<Rate> rates;
+    @ManyToMany(mappedBy = "products")
+    @Builder.Default
+    private List<Rate> rates = new ArrayList<>();
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
 }

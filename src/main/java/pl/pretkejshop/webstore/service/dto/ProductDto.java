@@ -21,10 +21,11 @@ public class ProductDto {
     private Integer categoryId;
     private List<Integer> tagListIds;
     private String targetGender;
-    private Integer photoId;
+    private List<Integer> photoIds;
     private BigDecimal sellingPrice;
     private BigDecimal discount;
     private List<Integer> ratesIds;
+    private Integer brandId;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
 }

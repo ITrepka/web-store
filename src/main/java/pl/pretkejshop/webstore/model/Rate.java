@@ -5,11 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Builder
 @NoArgsConstructor
@@ -21,7 +19,10 @@ public class Rate {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private Integer rate;
-    private Comment comment;
+    @OneToMany(mappedBy = "rate")
+    private List<Comment> comments;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
+    @ManyToMany
+    private List<Product> products;
 }

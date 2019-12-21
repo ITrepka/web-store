@@ -2,10 +2,7 @@ package pl.pretkejshop.webstore.service.mapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.pretkejshop.webstore.model.Category;
-import pl.pretkejshop.webstore.model.Product;
-import pl.pretkejshop.webstore.model.Rate;
-import pl.pretkejshop.webstore.model.Tag;
+import pl.pretkejshop.webstore.model.*;
 import pl.pretkejshop.webstore.repository.CategoryRepository;
 import pl.pretkejshop.webstore.service.dto.CreateUpdateProductDto;
 import pl.pretkejshop.webstore.service.dto.ProductDto;
@@ -21,7 +18,10 @@ public class ProductDtoMappper {
 
     public ProductDto toDto(Product product) {
         Integer categoryId = product.getCategory() == null ? null : product.getCategory().getId();
-        Integer photoId = product.getPhoto() == null ? null : product.getPhoto().getId();
+        List <Integer> photoIds = product.getPhotos() == null ? null :
+                product.getPhotos().stream()
+                .map(Photo::getId)
+                .collect(Collectors.toList());
         List<Integer> tagsIds = product.getTagList() == null ? null :
                 product.getTagList().stream()
                         .map(Tag::getId)
@@ -32,15 +32,16 @@ public class ProductDtoMappper {
                         .collect(Collectors.toList());
 
         String targetGender = product.getTargetGender() == null ? null : String.valueOf(product.getTargetGender());
-
+        Integer brandId = product.getBrand() == null ? null : product.getBrand().getId();
         return ProductDto.builder()
                 .id(product.getId())
                 .name(product.getName())
                 .description(product.getDescription())
                 .categoryId(categoryId)
-                .photoId(photoId) //todo dtos
+                .photoIds(photoIds)
                 .tagListIds(tagsIds)
                 .ratesIds(ratesIds)
+                .brandId(brandId)
                 .targetGender(targetGender)
                 .discount(product.getDiscount())
                 .sellingPrice(product.getSellingPrice())
@@ -62,7 +63,8 @@ public class ProductDtoMappper {
                 .discount(createProductDto.getDiscount())
                 .targetGender(createProductDto.getTargetGender())
                 .category(category)
-                .photo(null)
+                .brand(null)
+                .photos(null)
                 .rates(null)
                 .tagList(null)
                 .createdAt(null)

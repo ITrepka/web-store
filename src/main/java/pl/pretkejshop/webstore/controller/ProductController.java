@@ -10,10 +10,11 @@ import pl.pretkejshop.webstore.service.exception.ProductNotFoundException;
 import pl.pretkejshop.webstore.service.services.ProductService;
 
 import java.util.List;
-
+@RestController
+@RequestMapping("/api/v1/product")
 public class ProductController {
     @Autowired
-    ProductService productService;
+    private ProductService productService;
 
     @GetMapping
     public List<ProductDto> getAllProducts() {

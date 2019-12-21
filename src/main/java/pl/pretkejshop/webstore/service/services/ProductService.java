@@ -1,6 +1,7 @@
 package pl.pretkejshop.webstore.service.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pretkejshop.webstore.model.Category;
 import pl.pretkejshop.webstore.model.Product;
@@ -17,6 +18,7 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class ProductService {
     @Autowired
     private ProductRepository productRepository;
