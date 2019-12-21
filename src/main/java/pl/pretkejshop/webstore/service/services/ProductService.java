@@ -61,7 +61,6 @@ public class ProductService {
                         .orElseThrow(CategoryNotFoundException::new);
         product.setCategory(category);
         product.setDescription(updateProductDto.getDescription());
-        product.setDiscount(updateProductDto.getDiscount());
         product.setTargetGender(updateProductDto.getTargetGender());
         product.setUpdatedAt(OffsetDateTime.now());
         Product savedProduct = productRepository.save(product);

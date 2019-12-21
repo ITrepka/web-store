@@ -5,10 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.OffsetDateTime;
 
 @Builder
 @NoArgsConstructor
@@ -18,5 +16,10 @@ import javax.persistence.Id;
 public class SubCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
+    private String name;
+    private OffsetDateTime createdAt;
+    private OffsetDateTime updatedAt;
+    @ManyToOne
+    private Category category;
 }

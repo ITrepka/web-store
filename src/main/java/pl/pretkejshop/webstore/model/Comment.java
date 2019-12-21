@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.OffsetDateTime;
 
 @Builder
 @NoArgsConstructor
@@ -16,6 +17,9 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    private String text;
+    private OffsetDateTime createdAt;
+    private OffsetDateTime updatedAt;
     @ManyToOne
     private Rate rate;
 }

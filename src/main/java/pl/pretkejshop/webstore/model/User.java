@@ -18,13 +18,15 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @OneToOne(cascade = CascadeType.ALL)
-    private PersonalData personalData;
     private String login;
     private String password;
+    private Integer loyaltyPoints;
+    private OffsetDateTime createdAt;
+    private OffsetDateTime updatedAt;
+    @OneToOne(cascade = CascadeType.ALL)
+    private PersonalData personalData;
     @OneToOne
     private Basket basket;
-    private Integer loyaltyPoints;
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
     @OneToMany(mappedBy = "userFrom")
@@ -33,6 +35,6 @@ public class User {
     private List<Message> receivedMessages;
     @ManyToOne
     private Role role;
-    private OffsetDateTime createdAt;
-    private OffsetDateTime updatedAt;
+    @OneToMany(mappedBy = "user")
+    private List<Rate> rates;
 }

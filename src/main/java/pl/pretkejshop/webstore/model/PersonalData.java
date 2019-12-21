@@ -21,8 +21,6 @@ public class PersonalData {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @OneToOne(mappedBy = "personalData")
-    private User user;
     private String name;
     private String surname;
     private String address;
@@ -30,8 +28,10 @@ public class PersonalData {
     private LocalDate birthDate;
     private Sex sex;
     private String phoneNumber;
-    @OneToOne(mappedBy = "personalData")
-    private Order order;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
+    @OneToOne(mappedBy = "personalData")
+    private Order order;
+    @OneToOne(mappedBy = "personalData")
+    private User user;
 }

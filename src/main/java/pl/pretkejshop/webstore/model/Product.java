@@ -22,6 +22,11 @@ public class Product {
     private Integer id;
     private String name;
     private String description;
+    private Sex targetGender;
+    private BigDecimal sellingPrice;
+    private BigDecimal boughtFor;
+    private OffsetDateTime createdAt;
+    private OffsetDateTime updatedAt;
     @ManyToOne
     private Brand brand;
     @ManyToOne
@@ -29,18 +34,16 @@ public class Product {
     @ManyToMany(mappedBy = "products")
     @Builder.Default
     private List<Tag> tagList = new ArrayList<>();
-    private Sex targetGender;
     @ManyToMany(mappedBy = "products")
     @Builder.Default
     private List<Photo> photos = new ArrayList<>();
-    private BigDecimal sellingPrice;
-    private BigDecimal boughtFor;
-    private BigDecimal discount;
     @ManyToMany(mappedBy = "products")
     @Builder.Default
     private List<Rate> rates = new ArrayList<>();
-    private OffsetDateTime createdAt;
-    private OffsetDateTime updatedAt;
+    @ManyToOne
+    private Discount discount;
     @ManyToOne
     private Order order;
+    @ManyToOne
+    private Basket basket;
 }

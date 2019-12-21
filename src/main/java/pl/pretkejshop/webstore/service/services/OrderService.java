@@ -42,6 +42,7 @@ public class OrderService {
     }
 
     public OrderDto addNewOrder(CreateOrderUserDto createOrderUserDto) throws UserNotFoundException, ProductNotFoundException {
+        //todo validate
         Order order = orderDtoMapper.toModel(createOrderUserDto);
         order.setCreatedAt(OffsetDateTime.now());
         order.setOrderPrice(null); //todo
@@ -50,6 +51,7 @@ public class OrderService {
     }
 
     public OrderDto addNewOrder(CreateOrderPersonalDataDto createOrderPersonalDataDto) throws PersonalDataNotFoundException {
+        //todo validate
         Order order = orderDtoMapper.toModel(createOrderPersonalDataDto);
         order.setCreatedAt(OffsetDateTime.now());
         order.setOrderPrice(null); //todo
@@ -58,6 +60,7 @@ public class OrderService {
     }
 
     public OrderDto updateOrder(int id, UpdateOrderPersonalDataDto orderToUpdate) throws OrderNotFoundException, PersonalDataNotFoundException {
+        //todo validate
         Order order = orderRepository.findById(id).orElseThrow(OrderNotFoundException::new);
         Integer personalDataId = orderToUpdate.getPersonalDataId();
         PersonalData personalData = personalDataId == null ? null :

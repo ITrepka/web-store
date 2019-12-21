@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.OffsetDateTime;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -16,7 +18,11 @@ public class Basket {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    private OffsetDateTime createdAt;
+    private OffsetDateTime updatedAt;
     @OneToOne
     @JoinColumn(name = "user_id")
-    User user;
+    private User user;
+    @OneToMany(mappedBy = "basket")
+    private List<Product> products;
 }
