@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -28,6 +29,9 @@ public class PersonalData {
     private String email;
     private LocalDate birthDate;
     private Sex sex;
+    private String phoneNumber;
+    @OneToOne(mappedBy = "personalData")
+    private Order order;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
 }
