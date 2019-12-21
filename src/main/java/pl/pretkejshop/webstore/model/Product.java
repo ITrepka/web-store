@@ -41,4 +41,6 @@ public class Product {
     private List<Rate> rates = new ArrayList<>();
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
+    @ManyToOne
+    private Order order;
 }

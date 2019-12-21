@@ -25,4 +25,6 @@ public class PersonalDataDto {
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
     private Integer userId;
+    private String phoneNumber;
+    private Integer orderId;
 }

@@ -13,10 +13,10 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-public class PromoCode {
+public class PaymentType {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @OneToMany(mappedBy = "promoCode")
+    @OneToMany(mappedBy = "paymentType")
     private List<Order> orders;
 }

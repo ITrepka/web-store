@@ -30,6 +30,7 @@ public class PersonalDataDtoMapper {
                 .createdAt(personalData.getCreatedAt())
                 .updatedAt(personalData.getUpdatedAt())
                 .userId(userId)
+                .phoneNumber(personalData.getPhoneNumber())
                 .build();
     }
 
@@ -42,6 +43,7 @@ public class PersonalDataDtoMapper {
                 .birthDate(LocalDate.parse(createPersonalDataDto.getBirthDate()))
                 .sex(createPersonalDataDto.getSex())
                 .address(createPersonalDataDto.getAddress())
+                .phoneNumber(createPersonalDataDto.getPhoneNumber())
                 .createdAt(null)
                 .updatedAt(null)
                 .build();

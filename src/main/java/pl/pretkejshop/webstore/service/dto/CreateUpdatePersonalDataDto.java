@@ -21,4 +21,5 @@ public class CreateUpdatePersonalDataDto {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private String birthDate;
     private Sex sex;
+    private String phoneNumber;
 }
