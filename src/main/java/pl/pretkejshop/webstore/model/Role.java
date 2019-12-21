@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Builder
@@ -17,6 +18,9 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    private RoleEnum name;
+    private OffsetDateTime createdAt;
+    private OffsetDateTime updatedAt;
     @OneToMany(mappedBy = "role")
     private List<User> userList;
 }

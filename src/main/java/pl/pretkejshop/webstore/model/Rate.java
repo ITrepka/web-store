@@ -19,10 +19,12 @@ public class Rate {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private Integer rate;
-    @OneToMany(mappedBy = "rate")
-    private List<Comment> comments;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
+    @OneToMany(mappedBy = "rate")
+    private List<Comment> comments;
+    @ManyToOne
+    private User user;
     @ManyToMany
     private List<Product> products;
 }

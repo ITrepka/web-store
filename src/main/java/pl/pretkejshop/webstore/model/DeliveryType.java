@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Builder
@@ -16,7 +18,11 @@ import java.util.List;
 public class DeliveryType {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Integer id;
+    private Integer id;
+    private String name;
+    private BigDecimal price;
+    private OffsetDateTime createdAt;
+    private OffsetDateTime updatedAt;
     @OneToMany(mappedBy = "deliveryType")
     private List<Order> orders;
 }

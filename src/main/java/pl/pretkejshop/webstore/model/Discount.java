@@ -7,23 +7,21 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-public class Message {
+public class Discount {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String text;
+    private String description;
+    private Integer percentageValueReduction;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    @ManyToOne
-    @JoinColumn(name = "user_from_id")
-    private User userFrom;
-    @ManyToOne
-    @JoinColumn(name = "user_to_id")
-    private User userTo;
+    @OneToMany(mappedBy = "discount")
+    private List<Product> products;
 }

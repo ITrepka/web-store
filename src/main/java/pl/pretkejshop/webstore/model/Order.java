@@ -20,6 +20,9 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    private BigDecimal orderPrice;
+    private OffsetDateTime createdAt;
+    private OffsetDateTime updatedAt;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -29,13 +32,10 @@ public class Order {
     private DeliveryType deliveryType;
     @ManyToOne
     private PromoCode promoCode;
-    private BigDecimal orderPrice;
     @ManyToOne
     private OrderStatus orderStatus;
     @OneToOne
     private PersonalData personalData;
     @ManyToOne
     private PaymentType paymentType;
-    private OffsetDateTime createdAt;
-    private OffsetDateTime updatedAt;
 }
