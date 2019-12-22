@@ -5,16 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.OffsetDateTime;
 import java.util.List;
 
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class BasketDto {
-    private OffsetDateTime createdAt;
-    private OffsetDateTime updatedAt;
-    private Integer userId;
+public class CreateUpdateRateDto {
+    private Integer rate;
     private List<Integer> productsIds;
 }

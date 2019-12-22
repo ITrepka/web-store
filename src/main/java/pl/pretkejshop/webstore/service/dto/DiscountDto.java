@@ -1,11 +1,12 @@
-package pl.pretkejshop.webstore.model;
+package pl.pretkejshop.webstore.service.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.pretkejshop.webstore.model.Product;
 
-import javax.persistence.*;
+import javax.persistence.OneToMany;
 import java.time.OffsetDateTime;
 import java.util.List;
 
@@ -13,14 +14,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Entity
-public class PaymentType {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class DiscountDto {
     private Integer id;
-    private String paymentType;
+    private String description;
+    private Integer percentageValueReduction;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    @OneToMany(mappedBy = "paymentType")
-    private List<Order> orders;
+    private List<Integer> productsIds;
 }

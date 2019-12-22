@@ -18,7 +18,7 @@ public class OrderStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private OrderStatusEnum status;
+    private String status;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
     @OneToMany

@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class CreateUpdateBasketDto {
-    private Integer userId;
+public class CreateUpdateTagDto {
+    private String name;
 }
