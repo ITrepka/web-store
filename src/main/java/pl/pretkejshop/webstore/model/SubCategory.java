@@ -16,7 +16,7 @@ import java.time.OffsetDateTime;
 public class SubCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
     private String name;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;

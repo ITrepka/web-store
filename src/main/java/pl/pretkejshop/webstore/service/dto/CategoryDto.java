@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class CategoryDto {
-    Integer id;
+    private Integer id;
     private String name;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;

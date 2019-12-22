@@ -24,5 +24,5 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<Product> products;
     @OneToMany(mappedBy = "category")
-    private List<SubCategory> subCategory;
+    private List<SubCategory> subCategories;
 }

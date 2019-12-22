@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class BasketDto {
+    private Integer id;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
     private Integer userId;
