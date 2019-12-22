@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class CreateUpdateBasketDto {
-    private Integer userId;
+public class CreateUpdateDiscountDto {
+    private String description;
+    private Integer percentageValueReduction;
 }

@@ -4,7 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.pretkejshop.webstore.model.Order;
+import pl.pretkejshop.webstore.model.PaymentTypeEnum;
 
+import javax.persistence.OneToMany;
 import java.time.OffsetDateTime;
 import java.util.List;
 
@@ -12,9 +15,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class BasketDto {
+public class PaymentTypeDto {
+    private Integer id;
+    private String paymentType;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    private Integer userId;
-    private List<Integer> productsIds;
+    private List<Integer> ordersIds;
 }

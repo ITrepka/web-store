@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class CreateUpdateBasketDto {
-    private Integer userId;
+public class CreateUpdateMessageDto {
+    private String text;
+    private Integer userFromId;
+    private Integer userToId;
 }

@@ -4,7 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.pretkejshop.webstore.model.Product;
+import pl.pretkejshop.webstore.model.SubCategory;
 
+import javax.persistence.OneToMany;
 import java.time.OffsetDateTime;
 import java.util.List;
 
@@ -12,9 +15,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class BasketDto {
+public class CategoryDto {
+    Integer id;
+    private String name;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    private Integer userId;
     private List<Integer> productsIds;
+    private List<Integer> subCategoryIds;
 }

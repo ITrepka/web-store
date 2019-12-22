@@ -6,15 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.OffsetDateTime;
-import java.util.List;
 
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class BasketDto {
+public class SubCategoryDto {
+    private Long id;
+    private String name;
+    private Integer categoryId;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    private Integer userId;
-    private List<Integer> productsIds;
 }
