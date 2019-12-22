@@ -23,27 +23,27 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public OrderDto getOrder(@PathVariable int id) throws OrderNotFoundException {
+    public OrderDto getOrder(@PathVariable int id) throws NotFoundException {
         return orderService.getOrderById(id);
     }
 
     @PostMapping("/user")
-    public OrderDto addNewOrderByUser(@RequestBody CreateOrderUserDto createOrderUserDto) throws OrderInvalidDataException, CategoryNotFoundException, UserNotFoundException, ProductNotFoundException {
+    public OrderDto addNewOrderByUser(@RequestBody CreateOrderUserDto createOrderUserDto) throws InvalidDataException, NotFoundException {
         return orderService.addNewOrder(createOrderUserDto);
     }
 
     @PostMapping("/personal-data")
-    public OrderDto addNewUserByPersonalData (@RequestBody CreateOrderPersonalDataDto createOrderPersonalDataDto) throws PersonalDataNotFoundException {
+    public OrderDto addNewUserByPersonalData (@RequestBody CreateOrderPersonalDataDto createOrderPersonalDataDto) throws NotFoundException {
         return orderService.addNewOrder(createOrderPersonalDataDto);
     }
 
     @PutMapping("/{id}")
-    public OrderDto updateOrder(@PathVariable int id, @RequestBody UpdateOrderPersonalDataDto orderToUpdate) throws OrderNotFoundException, OrderInvalidDataException, CategoryNotFoundException, PersonalDataNotFoundException {
+    public OrderDto updateOrder(@PathVariable int id, @RequestBody UpdateOrderPersonalDataDto orderToUpdate) throws NotFoundException, InvalidDataException {
         return orderService.updateOrder(id, orderToUpdate);
     }
 
     @DeleteMapping("/{id}")
-    public OrderDto deleteOrder(@PathVariable int id) throws OrderNotFoundException {
+    public OrderDto deleteOrder(@PathVariable int id) throws NotFoundException {
         return orderService.deleteOrder(id);
     }
 }

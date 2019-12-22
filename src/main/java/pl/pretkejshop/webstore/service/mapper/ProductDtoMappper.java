@@ -6,7 +6,7 @@ import pl.pretkejshop.webstore.model.*;
 import pl.pretkejshop.webstore.repository.CategoryRepository;
 import pl.pretkejshop.webstore.service.dto.CreateUpdateProductDto;
 import pl.pretkejshop.webstore.service.dto.ProductDto;
-import pl.pretkejshop.webstore.service.exception.CategoryNotFoundException;
+import pl.pretkejshop.webstore.service.exception.NotFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,10 +50,10 @@ public class ProductDtoMappper {
                 .build();
     }
 
-    public Product toModel(CreateUpdateProductDto createProductDto) throws CategoryNotFoundException {
+    public Product toModel(CreateUpdateProductDto createProductDto) throws NotFoundException {
         Category category = createProductDto.getCategoryId() == null ? null :
                 categoryRepository.findById(createProductDto.getCategoryId())
-                        .orElseThrow(CategoryNotFoundException::new);
+                        .orElseThrow(() -> new NotFoundException("Category with id = " + createProductDto.getCategoryId() + " not found"));
         return Product.builder()
                 .id(null)
                 .name(createProductDto.getName())

@@ -10,10 +10,7 @@ import pl.pretkejshop.webstore.service.dto.CreateOrderPersonalDataDto;
 import pl.pretkejshop.webstore.service.dto.CreateOrderUserDto;
 import pl.pretkejshop.webstore.service.dto.OrderDto;
 import pl.pretkejshop.webstore.service.dto.UpdateOrderPersonalDataDto;
-import pl.pretkejshop.webstore.service.exception.OrderNotFoundException;
-import pl.pretkejshop.webstore.service.exception.PersonalDataNotFoundException;
-import pl.pretkejshop.webstore.service.exception.ProductNotFoundException;
-import pl.pretkejshop.webstore.service.exception.UserNotFoundException;
+import pl.pretkejshop.webstore.service.exception.NotFoundException;
 import pl.pretkejshop.webstore.service.mapper.OrderDtoMapper;
 
 import java.time.OffsetDateTime;
@@ -35,13 +32,13 @@ public class OrderService {
         .collect(Collectors.toList());
     }
 
-    public OrderDto getOrderById(int id) throws OrderNotFoundException {
+    public OrderDto getOrderById(int id) throws NotFoundException {
         return orderRepository.findById(id)
                 .map(order -> orderDtoMapper.toDto(order))
-                .orElseThrow(OrderNotFoundException::new);
+                .orElseThrow(() -> new NotFoundException("Order with id = " + id + " not found"));
     }
 
-    public OrderDto addNewOrder(CreateOrderUserDto createOrderUserDto) throws UserNotFoundException, ProductNotFoundException {
+    public OrderDto addNewOrder(CreateOrderUserDto createOrderUserDto) throws NotFoundException {
         //todo validate
         Order order = orderDtoMapper.toModel(createOrderUserDto);
         order.setCreatedAt(OffsetDateTime.now());
@@ -50,7 +47,7 @@ public class OrderService {
         return orderDtoMapper.toDto(savedOrder);
     }
 
-    public OrderDto addNewOrder(CreateOrderPersonalDataDto createOrderPersonalDataDto) throws PersonalDataNotFoundException {
+    public OrderDto addNewOrder(CreateOrderPersonalDataDto createOrderPersonalDataDto) throws NotFoundException {
         //todo validate
         Order order = orderDtoMapper.toModel(createOrderPersonalDataDto);
         order.setCreatedAt(OffsetDateTime.now());
@@ -59,13 +56,13 @@ public class OrderService {
         return orderDtoMapper.toDto(savedOrder);
     }
 
-    public OrderDto updateOrder(int id, UpdateOrderPersonalDataDto orderToUpdate) throws OrderNotFoundException, PersonalDataNotFoundException {
+    public OrderDto updateOrder(int id, UpdateOrderPersonalDataDto orderToUpdate) throws NotFoundException {
         //todo validate
-        Order order = orderRepository.findById(id).orElseThrow(OrderNotFoundException::new);
+        Order order = orderRepository.findById(id).orElseThrow(() -> new NotFoundException("Order with id = " + id + " not found"));
         Integer personalDataId = orderToUpdate.getPersonalDataId();
         PersonalData personalData = personalDataId == null ? null :
                 personalDataRepository.findById(personalDataId)
-                        .orElseThrow(() -> new PersonalDataNotFoundException(""));
+                        .orElseThrow(() -> new NotFoundException("Personal data not found id =" + personalDataId));
         order.setPersonalData(personalData);
         order.setUpdatedAt(OffsetDateTime.now());
         order.setOrderPrice(null); // todo
@@ -73,8 +70,8 @@ public class OrderService {
         return orderDtoMapper.toDto(savedOrder);
     }
 
-    public OrderDto deleteOrder(int id) throws OrderNotFoundException {
-        Order order = orderRepository.findById(id).orElseThrow(OrderNotFoundException::new);
+    public OrderDto deleteOrder(int id) throws NotFoundException {
+        Order order = orderRepository.findById(id).orElseThrow(() -> new NotFoundException("Order with id = " + id + " not found"));
         orderRepository.deleteById(id);
         return orderDtoMapper.toDto(order);
     }

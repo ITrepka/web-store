@@ -12,9 +12,7 @@ import pl.pretkejshop.webstore.repository.UserRepository;
 import pl.pretkejshop.webstore.service.dto.CreateOrderPersonalDataDto;
 import pl.pretkejshop.webstore.service.dto.CreateOrderUserDto;
 import pl.pretkejshop.webstore.service.dto.OrderDto;
-import pl.pretkejshop.webstore.service.exception.PersonalDataNotFoundException;
-import pl.pretkejshop.webstore.service.exception.ProductNotFoundException;
-import pl.pretkejshop.webstore.service.exception.UserNotFoundException;
+import pl.pretkejshop.webstore.service.exception.NotFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,10 +51,10 @@ public class OrderDtoMapper {
                 .build();
     }
 
-    public Order toModel(CreateOrderUserDto createOrderUserDto) throws UserNotFoundException, ProductNotFoundException {
+    public Order toModel(CreateOrderUserDto createOrderUserDto) throws NotFoundException {
         Integer userId = createOrderUserDto.getUserId();
         User user = userId == null ? null : userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("Not found user with id = " + userId));
+                .orElseThrow(() -> new NotFoundException("Not found user with id = " + userId));
 
         PersonalData personalData = user == null ? null : user.getPersonalData();
         List<Product> products = createOrderUserDto.getProductsIds() == null ? null :
@@ -76,14 +74,14 @@ public class OrderDtoMapper {
                 .build();
     }
 
-    public Order toModel(CreateOrderPersonalDataDto createOrderPersonalDataDto) throws PersonalDataNotFoundException {
+    public Order toModel(CreateOrderPersonalDataDto createOrderPersonalDataDto) throws NotFoundException {
         List<Product> products = createOrderPersonalDataDto.getProductsIds() == null ? null :
                 createOrderPersonalDataDto.getProductsIds().stream()
                         .map(id -> productRepository.findById(id).orElse(null))
                         .collect(Collectors.toList());
         Integer personalDataId = createOrderPersonalDataDto.getPersonalDataId();
         PersonalData personalData = personalDataId == null ? null :
-                personalDataRepository.findById(personalDataId).orElseThrow(() -> new PersonalDataNotFoundException(""));
+                personalDataRepository.findById(personalDataId).orElseThrow(() -> new NotFoundException("Not Found personal data with id=" + personalDataId));
         return Order.builder()
                 .id(null)
                 .orderPrice(null)

@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.pretkejshop.webstore.service.dto.AdDto;
 import pl.pretkejshop.webstore.service.dto.CreateUpdateAdDto;
-import pl.pretkejshop.webstore.service.exception.AdInvalidDataException;
-import pl.pretkejshop.webstore.service.exception.AdNotFoundException;
+import pl.pretkejshop.webstore.service.exception.InvalidDataException;
+import pl.pretkejshop.webstore.service.exception.NotFoundException;
 import pl.pretkejshop.webstore.service.services.AdService;
 
 import java.util.List;
@@ -22,22 +22,22 @@ public class AdController {
     }
 
     @GetMapping("/{id}")
-    public AdDto getAdById(@PathVariable int id) throws AdNotFoundException {
+    public AdDto getAdById(@PathVariable int id) throws NotFoundException {
         return adService.getAdById(id);
     }
 
     @PostMapping
-    public AdDto addNewAd(@RequestBody CreateUpdateAdDto createAdDto) throws AdInvalidDataException {
+    public AdDto addNewAd(@RequestBody CreateUpdateAdDto createAdDto) throws InvalidDataException {
         return adService.addNewAd(createAdDto);
     }
 
     @PutMapping("/{id}")
-    public AdDto updateAd(@PathVariable int id, @RequestBody CreateUpdateAdDto updateAdDto) throws AdNotFoundException, AdInvalidDataException {
+    public AdDto updateAd(@PathVariable int id, @RequestBody CreateUpdateAdDto updateAdDto) throws NotFoundException, InvalidDataException {
         return adService.updateAd(id, updateAdDto);
     }
 
     @DeleteMapping("/{id}")
-    public AdDto deleteAd(@PathVariable int id) throws AdNotFoundException {
+    public AdDto deleteAd(@PathVariable int id) throws NotFoundException {
         return adService.deleteAd(id);
     }
 }

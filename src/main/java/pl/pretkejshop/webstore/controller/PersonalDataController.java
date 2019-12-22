@@ -2,10 +2,8 @@ package pl.pretkejshop.webstore.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pl.pretkejshop.webstore.service.dto.CreateUpdatePersonalDataDto;
 import pl.pretkejshop.webstore.service.dto.PersonalDataDto;
-import pl.pretkejshop.webstore.service.exception.PersonalDataInvalidDataException;
-import pl.pretkejshop.webstore.service.exception.PersonalDataNotFoundException;
+import pl.pretkejshop.webstore.service.exception.NotFoundException;
 import pl.pretkejshop.webstore.service.services.PersonalDataService;
 
 import java.util.List;
@@ -22,7 +20,7 @@ public class PersonalDataController {
     }
 
     @GetMapping("/{id}")
-    public PersonalDataDto getPersonalDataById(@PathVariable int id) throws PersonalDataNotFoundException {
+    public PersonalDataDto getPersonalDataById(@PathVariable int id) throws NotFoundException {
         return personalDataService.getPersonalDataById(id);
     }
 

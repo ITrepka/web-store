@@ -7,8 +7,8 @@ import pl.pretkejshop.webstore.model.Ad;
 import pl.pretkejshop.webstore.repository.AdRepository;
 import pl.pretkejshop.webstore.service.dto.AdDto;
 import pl.pretkejshop.webstore.service.dto.CreateUpdateAdDto;
-import pl.pretkejshop.webstore.service.exception.AdInvalidDataException;
-import pl.pretkejshop.webstore.service.exception.AdNotFoundException;
+import pl.pretkejshop.webstore.service.exception.InvalidDataException;
+import pl.pretkejshop.webstore.service.exception.NotFoundException;
 import pl.pretkejshop.webstore.service.mapper.AdDtoMapper;
 
 import javax.annotation.PostConstruct;
@@ -25,7 +25,7 @@ public class AdService {
     private AdDtoMapper adDtoMapper;
 
     @PostConstruct
-    public void init() throws AdInvalidDataException {
+    public void init() throws InvalidDataException {
         addNewAd(new CreateUpdateAdDto(new BigDecimal(200), "Google", "Search something"));
         addNewAd(new CreateUpdateAdDto(new BigDecimal(100), "Allegro", "Go buy as much as you can"));
     }
@@ -38,14 +38,14 @@ public class AdService {
     }
 
     @Transactional
-    public AdDto getAdById(int id) throws AdNotFoundException {
+    public AdDto getAdById(int id) throws NotFoundException {
         return adRepository.findById(id)
                 .map(ad -> adDtoMapper.toDto(ad))
-                .orElseThrow(AdNotFoundException::new);
+                .orElseThrow(() -> new NotFoundException("Ad with id = " + id + " not found"));
     }
 
     @Transactional
-    public AdDto addNewAd(CreateUpdateAdDto createAdDto) throws AdInvalidDataException {
+    public AdDto addNewAd(CreateUpdateAdDto createAdDto) throws InvalidDataException {
         validCreateUpdateAd(createAdDto);
         Ad ad = adDtoMapper.toModel(createAdDto);
         ad.setCreatedAt(OffsetDateTime.now());
@@ -54,10 +54,10 @@ public class AdService {
     }
 
     @Transactional
-    public AdDto updateAd(int id, CreateUpdateAdDto updateAdDto) throws AdNotFoundException, AdInvalidDataException {
+    public AdDto updateAd(int id, CreateUpdateAdDto updateAdDto) throws NotFoundException, InvalidDataException {
         validCreateUpdateAd(updateAdDto);
         Ad ad = adRepository.findById(id)
-                .orElseThrow(AdNotFoundException::new);
+                .orElseThrow(() -> new NotFoundException("Ad with id = " + id + " not found"));
         ad.setPrice(updateAdDto.getPrice());
         ad.setTitle(updateAdDto.getTitle());
         ad.setText(updateAdDto.getText());
@@ -67,17 +67,17 @@ public class AdService {
     }
 
     @Transactional
-    public AdDto deleteAd(int id) throws AdNotFoundException {
+    public AdDto deleteAd(int id) throws NotFoundException {
         Ad ad = adRepository.findById(id)
-                .orElseThrow(AdNotFoundException::new);
+                .orElseThrow(() -> new NotFoundException("Ad with id = " + id + " not found"));
         adRepository.delete(ad);
         return adDtoMapper.toDto(ad);
     }
 
-    private void validCreateUpdateAd(CreateUpdateAdDto createAdDto) throws AdInvalidDataException {
+    private void validCreateUpdateAd(CreateUpdateAdDto createAdDto) throws InvalidDataException {
         if (createAdDto.getText() == null || createAdDto.getPrice() == null || createAdDto.getTitle() == null ||
         createAdDto.getText().length() < 5 || createAdDto.getPrice().doubleValue() < 0 || createAdDto.getTitle().length() < 3) {
-            throw new AdInvalidDataException();
+            throw new InvalidDataException("Ad Invalid data");
         }
     }
 }
