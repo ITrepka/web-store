@@ -18,7 +18,7 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private RoleEnum name;
+    private String name;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
     @OneToMany(mappedBy = "role")

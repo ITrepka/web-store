@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.pretkejshop.webstore.model.Order;
-import pl.pretkejshop.webstore.model.PaymentTypeEnum;
 
-import javax.persistence.OneToMany;
 import java.time.OffsetDateTime;
 import java.util.List;
 
