@@ -61,7 +61,7 @@ public class RateService {
         Comment comment = commentId == null ? null : commentRepository.findById(commentId)
                 .orElseThrow(() -> new NotFoundException("Not found comment with id = " + commentId));
 
-        rate.setComments(comment);
+        rate.setComment(comment);
         rate.setUser(user);
         rate.setRate(rateToUpdate.getRate());
         rate.setUpdatedAt(OffsetDateTime.now());

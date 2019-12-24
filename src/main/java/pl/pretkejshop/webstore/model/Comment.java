@@ -18,6 +18,6 @@ public class Comment {
     private String text;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Rate rate;
 }

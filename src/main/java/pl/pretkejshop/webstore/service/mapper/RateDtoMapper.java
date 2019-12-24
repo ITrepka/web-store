@@ -24,7 +24,7 @@ public class RateDtoMapper {
 
     public RateDto toDto(Rate rate) {
         Integer userId = rate.getUser() == null ? null : rate.getUser().getId();
-        Integer commentId = rate.getComments() == null ? null : rate.getId();
+        Integer commentId = rate.getComment() == null ? null : rate.getId();
         List<Integer> productsIds = rate.getProducts() == null ? null :
                 rate.getProducts().stream().map(Product::getId).collect(Collectors.toList());
         return RateDto.builder()
@@ -52,7 +52,7 @@ public class RateDtoMapper {
                 .updatedAt(null)
                 .rate(createRateDto.getRate())
                 .user(user)
-                .comments(comment)
+                .comment(comment)
                 .products(null) // todo
                 .build();
     }

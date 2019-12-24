@@ -28,7 +28,7 @@ public class SubCategoryController {
     }
 
     @PostMapping
-    public SubCategoryDto addNewSubCategory(@RequestBody CreateUpdateSubCategoryDto createSubCategoryDto) throws AlreadyExistsException, InvalidDataException {
+    public SubCategoryDto addNewSubCategory(@RequestBody CreateUpdateSubCategoryDto createSubCategoryDto) throws AlreadyExistsException, InvalidDataException, NotFoundException {
         return subCategoryService.addNewSubCategory(createSubCategoryDto);
     }
 

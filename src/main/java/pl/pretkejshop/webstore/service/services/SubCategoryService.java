@@ -39,7 +39,7 @@ public class SubCategoryService {
     }
 
     @Transactional
-    public SubCategoryDto addNewSubCategory(CreateUpdateSubCategoryDto createSubCategoryDto) {
+    public SubCategoryDto addNewSubCategory(CreateUpdateSubCategoryDto createSubCategoryDto) throws NotFoundException {
         SubCategory subCategory = subCategoryDtoMapper.toModel(createSubCategoryDto);
         subCategory.setCreatedAt(OffsetDateTime.now());
         SubCategory savedSubCategory = subCategoryRepository.save(subCategory);

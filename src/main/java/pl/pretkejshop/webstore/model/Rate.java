@@ -20,7 +20,7 @@ public class Rate {
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
     @OneToOne(mappedBy = "rate")
-    private Comment comments;
+    private Comment comment;
     @ManyToOne
     private User user;
     @ManyToMany
