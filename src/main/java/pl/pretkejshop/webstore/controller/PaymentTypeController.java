@@ -1,7 +1,14 @@
 package pl.pretkejshop.webstore.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import pl.pretkejshop.webstore.service.dto.CreateUpdatePaymentTypeDto;
+import pl.pretkejshop.webstore.service.dto.PaymentTypeDto;
+import pl.pretkejshop.webstore.service.exception.AlreadyExistsException;
+import pl.pretkejshop.webstore.service.exception.NotFoundException;
+import pl.pretkejshop.webstore.service.services.PaymentTypeService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/payment_type")
@@ -20,12 +27,12 @@ public class PaymentTypeController {
     }
 
     @PostMapping
-    public PaymentTypeDto addNewPaymentType(@RequestBody CreateUpdatePaymentTypeDto createPaymentTypeDto) throws AlreadyExistsException, InvalidDataException {
+    public PaymentTypeDto addNewPaymentType(@RequestBody CreateUpdatePaymentTypeDto createPaymentTypeDto) throws NotFoundException {
         return paymentTypeService.addNewPaymentType(createPaymentTypeDto);
     }
 
     @PutMapping("/{id}")
-    public PaymentTypeDto updatePaymentTypeById(@PathVariable int id, @RequestBody CreateUpdatePaymentTypeDto paymentTypeToUpdate) throws NotFoundException, InvalidDataException {
+    public PaymentTypeDto updatePaymentTypeById(@PathVariable int id, @RequestBody CreateUpdatePaymentTypeDto paymentTypeToUpdate) throws NotFoundException {
         return paymentTypeService.updatePaymentTypeById(id, paymentTypeToUpdate);
     }
 

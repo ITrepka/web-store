@@ -12,7 +12,7 @@ import java.time.OffsetDateTime;
 @AllArgsConstructor
 @Data
 public class SubCategoryDto {
-    private Long id;
+    private Integer id;
     private String name;
     private Integer categoryId;
     private OffsetDateTime createdAt;

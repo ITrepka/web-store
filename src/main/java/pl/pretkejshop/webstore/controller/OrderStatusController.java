@@ -1,13 +1,21 @@
 package pl.pretkejshop.webstore.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import pl.pretkejshop.webstore.service.dto.CreateUpdateOrderStatusDto;
+import pl.pretkejshop.webstore.service.dto.OrderStatusDto;
+import pl.pretkejshop.webstore.service.exception.AlreadyExistsException;
+import pl.pretkejshop.webstore.service.exception.InvalidDataException;
+import pl.pretkejshop.webstore.service.exception.NotFoundException;
+import pl.pretkejshop.webstore.service.services.OrderStatusService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/order_status")
 public class OrderStatusController {
     @Autowired
-    OrderStatusService orderStatusService;
+    private OrderStatusService orderStatusService;
 
     @GetMapping
     public List<OrderStatusDto> getAllOrderStatuss() {
@@ -20,12 +28,12 @@ public class OrderStatusController {
     }
 
     @PostMapping
-    public OrderStatusDto addNewOrderStatus(@RequestBody CreateUpdateOrderStatusDto createOrderStatusDto) throws AlreadyExistsException, InvalidDataException {
+    public OrderStatusDto addNewOrderStatus(@RequestBody CreateUpdateOrderStatusDto createOrderStatusDto) throws NotFoundException {
         return orderStatusService.addNewOrderStatus(createOrderStatusDto);
     }
 
     @PutMapping("/{id}")
-    public OrderStatusDto updateOrderStatusById(@PathVariable int id, @RequestBody CreateUpdateOrderStatusDto orderStatusToUpdate) throws NotFoundException, InvalidDataException {
+    public OrderStatusDto updateOrderStatusById(@PathVariable int id, @RequestBody CreateUpdateOrderStatusDto orderStatusToUpdate) throws NotFoundException {
         return orderStatusService.updateOrderStatusById(id, orderStatusToUpdate);
     }
 

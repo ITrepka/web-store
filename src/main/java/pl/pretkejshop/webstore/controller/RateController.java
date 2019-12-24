@@ -1,13 +1,19 @@
 package pl.pretkejshop.webstore.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import pl.pretkejshop.webstore.service.dto.CreateUpdateRateDto;
+import pl.pretkejshop.webstore.service.dto.RateDto;
+import pl.pretkejshop.webstore.service.exception.NotFoundException;
+import pl.pretkejshop.webstore.service.services.RateService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/rate")
 public class RateController {
     @Autowired
-    RateService rateService;
+    private RateService rateService;
 
     @GetMapping
     public List<RateDto> getAllRates() {
@@ -20,12 +26,12 @@ public class RateController {
     }
 
     @PostMapping
-    public RateDto addNewRate(@RequestBody CreateUpdateRateDto createRateDto) throws AlreadyExistsException, InvalidDataException {
+    public RateDto addNewRate(@RequestBody CreateUpdateRateDto createRateDto) throws NotFoundException {
         return rateService.addNewRate(createRateDto);
     }
 
     @PutMapping("/{id}")
-    public RateDto updateRateById(@PathVariable int id, @RequestBody CreateUpdateRateDto rateToUpdate) throws NotFoundException, InvalidDataException {
+    public RateDto updateRateById(@PathVariable int id, @RequestBody CreateUpdateRateDto rateToUpdate) throws NotFoundException {
         return rateService.updateRateById(id, rateToUpdate);
     }
 

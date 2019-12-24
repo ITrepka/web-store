@@ -21,8 +21,8 @@ public class Rate {
     private Integer rate;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    @OneToMany(mappedBy = "rate")
-    private List<Comment> comments;
+    @OneToOne(mappedBy = "rate")
+    private Comment comments;
     @ManyToOne
     private User user;
     @ManyToMany

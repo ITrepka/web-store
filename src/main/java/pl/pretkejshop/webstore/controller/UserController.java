@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/api/v1/user")
 public class UserController {
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @GetMapping
     public List<UserDto> getAllUsers() {

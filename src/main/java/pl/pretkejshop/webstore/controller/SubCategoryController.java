@@ -1,13 +1,21 @@
 package pl.pretkejshop.webstore.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import pl.pretkejshop.webstore.service.dto.CreateUpdateSubCategoryDto;
+import pl.pretkejshop.webstore.service.dto.SubCategoryDto;
+import pl.pretkejshop.webstore.service.exception.AlreadyExistsException;
+import pl.pretkejshop.webstore.service.exception.InvalidDataException;
+import pl.pretkejshop.webstore.service.exception.NotFoundException;
+import pl.pretkejshop.webstore.service.services.SubCategoryService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/sub_category")
 public class SubCategoryController {
     @Autowired
-    SubCategoryService subCategoryService;
+    private SubCategoryService subCategoryService;
 
     @GetMapping
     public List<SubCategoryDto> getAllSubCategorys() {

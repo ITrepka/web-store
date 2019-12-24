@@ -1,13 +1,21 @@
 package pl.pretkejshop.webstore.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import pl.pretkejshop.webstore.service.dto.CreateUpdatePromoCodeDto;
+import pl.pretkejshop.webstore.service.dto.PromoCodeDto;
+import pl.pretkejshop.webstore.service.exception.AlreadyExistsException;
+import pl.pretkejshop.webstore.service.exception.InvalidDataException;
+import pl.pretkejshop.webstore.service.exception.NotFoundException;
+import pl.pretkejshop.webstore.service.services.PromoCodeService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/promo_code")
 public class PromoCodeController {
     @Autowired
-    PromoCodeService promoCodeService;
+    private PromoCodeService promoCodeService;
 
     @GetMapping
     public List<PromoCodeDto> getAllPromoCodes() {

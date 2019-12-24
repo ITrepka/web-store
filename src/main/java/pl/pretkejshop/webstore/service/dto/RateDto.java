@@ -23,7 +23,7 @@ public class RateDto {
     private Integer rate;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    private List<Integer> commentsIds;
+    private Integer commentId;
     private Integer userId;
     private List<Integer> productsIds;
 }
