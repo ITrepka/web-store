@@ -3,7 +3,9 @@ package pl.pretkejshop.webstore.service.mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.pretkejshop.webstore.model.*;
+import pl.pretkejshop.webstore.repository.BrandRepository;
 import pl.pretkejshop.webstore.repository.CategoryRepository;
+import pl.pretkejshop.webstore.repository.ProductRepository;
 import pl.pretkejshop.webstore.service.dto.CreateUpdateProductDto;
 import pl.pretkejshop.webstore.service.dto.ProductDto;
 import pl.pretkejshop.webstore.service.exception.NotFoundException;
@@ -15,6 +17,8 @@ import java.util.stream.Collectors;
 public class ProductDtoMappper {
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private BrandRepository brandRepository;
 
     public ProductDto toDto(Product product) {
         Integer categoryId = product.getCategory() == null ? null : product.getCategory().getId();
@@ -59,6 +63,9 @@ public class ProductDtoMappper {
         Category category = createProductDto.getCategoryId() == null ? null :
                 categoryRepository.findById(createProductDto.getCategoryId())
                         .orElseThrow(() -> new NotFoundException("Category with id = " + createProductDto.getCategoryId() + " not found"));
+        Integer brandId = createProductDto.getBrandId();
+        Brand brand = brandId == null ? null : brandRepository.findById(brandId)
+                .orElseThrow(() -> new NotFoundException("Brand with id = " + brandId + " not found"));
         return Product.builder()
                 .id(null)
                 .name(createProductDto.getName())
@@ -69,7 +76,7 @@ public class ProductDtoMappper {
                 .targetGender(createProductDto.getTargetGender())
                 .category(category)
                 .numberOfCopies(createProductDto.getNumberOfCopies())
-                .brand(null)
+                .brand(brand)
                 .photos(null)
                 .rates(null)
                 .tagList(null)

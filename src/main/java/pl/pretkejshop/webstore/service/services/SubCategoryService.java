@@ -2,7 +2,9 @@ package pl.pretkejshop.webstore.service.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.pretkejshop.webstore.model.Category;
 import pl.pretkejshop.webstore.model.SubCategory;
+import pl.pretkejshop.webstore.repository.CategoryRepository;
 import pl.pretkejshop.webstore.repository.SubCategoryRepository;
 import pl.pretkejshop.webstore.service.dto.CreateUpdateSubCategoryDto;
 import pl.pretkejshop.webstore.service.dto.SubCategoryDto;
@@ -20,6 +22,8 @@ public class SubCategoryService {
     private SubCategoryRepository subCategoryRepository;
     @Autowired
     private SubCategoryDtoMapper subCategoryDtoMapper;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     public List<SubCategoryDto> getAllSubCategorys() {
         return subCategoryRepository.findAll().stream()
@@ -47,6 +51,10 @@ public class SubCategoryService {
         SubCategory subCategory = subCategoryRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Not Found SubCategory with id = " + id));
 
+        Integer categoryId = subCategoryToUpdate.getCategoryId();
+        Category category = categoryId == null ? null : categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new NotFoundException("Not Found Category with id = " + categoryId));
+        subCategory.setCategory(category);
         subCategory.setName(subCategoryToUpdate.getName());
         subCategory.setUpdatedAt(OffsetDateTime.now());
         SubCategory savedSubCategory = subCategoryRepository.save(subCategory);

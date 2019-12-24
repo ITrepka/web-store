@@ -19,4 +19,5 @@ public class CreateUpdateProductDto {
     private Sex targetGender;
     private BigDecimal sellingPrice;
     private Integer numberOfCopies;
+    private Integer brandId;
 }

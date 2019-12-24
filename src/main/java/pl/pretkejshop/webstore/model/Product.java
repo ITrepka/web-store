@@ -1,6 +1,7 @@
 package pl.pretkejshop.webstore.model;
 
 import lombok.*;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -26,7 +27,7 @@ public class Product {
     private Integer numberOfCopies;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    @ManyToOne
+    @ManyToOne()
     private Brand brand;
     @ManyToOne
     private Category category;

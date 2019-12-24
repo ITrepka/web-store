@@ -19,8 +19,8 @@ public class Category {
     private String name;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Product> products;
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<SubCategory> subCategories;
 }

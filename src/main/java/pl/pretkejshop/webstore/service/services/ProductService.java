@@ -3,8 +3,10 @@ package pl.pretkejshop.webstore.service.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.pretkejshop.webstore.model.Brand;
 import pl.pretkejshop.webstore.model.Category;
 import pl.pretkejshop.webstore.model.Product;
+import pl.pretkejshop.webstore.repository.BrandRepository;
 import pl.pretkejshop.webstore.repository.CategoryRepository;
 import pl.pretkejshop.webstore.repository.ProductRepository;
 import pl.pretkejshop.webstore.service.dto.CreateUpdateProductDto;
@@ -25,6 +27,8 @@ public class ProductService {
     private ProductDtoMappper productDtoMapper;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private BrandRepository brandRepository;
 
     @Transactional
     public List<ProductDto> getAllProducts() {
@@ -58,7 +62,11 @@ public class ProductService {
         Category category = updateProductDto.getCategoryId() == null ? null :
                 categoryRepository.findById(updateProductDto.getCategoryId())
                         .orElseThrow(() -> new NotFoundException("Category with id = " + updateProductDto.getCategoryId() + " not found"));
+        Integer brandId = updateProductDto.getBrandId();
+        Brand brand = brandId == null ? null : brandRepository.findById(brandId)
+                .orElseThrow(() -> new NotFoundException("Brand with id = " + brandId + " not found"));
         product.setNumberOfCopies(updateProductDto.getNumberOfCopies());
+        product.setBrand(brand);
         product.setCategory(category);
         product.setDescription(updateProductDto.getDescription());
         product.setTargetGender(updateProductDto.getTargetGender());

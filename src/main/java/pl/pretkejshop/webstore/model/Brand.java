@@ -19,6 +19,6 @@ public class Brand {
     private String name;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    @OneToMany(mappedBy = "brand")
+    @OneToMany(mappedBy = "brand", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Product> products;
 }
