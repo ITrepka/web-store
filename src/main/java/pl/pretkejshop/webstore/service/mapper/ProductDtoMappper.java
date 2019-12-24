@@ -33,6 +33,9 @@ public class ProductDtoMappper {
 
         String targetGender = product.getTargetGender() == null ? null : String.valueOf(product.getTargetGender());
         Integer brandId = product.getBrand() == null ? null : product.getBrand().getId();
+        Integer discountId = product.getDiscount() == null ? null : product.getDiscount().getId();
+        List<Integer> basketsIds = product.getBaskets() == null ? null :
+                product.getBaskets().stream().map(Basket::getId).collect(Collectors.toList());
         return ProductDto.builder()
                 .id(product.getId())
                 .name(product.getName())
@@ -43,8 +46,10 @@ public class ProductDtoMappper {
                 .ratesIds(ratesIds)
                 .brandId(brandId)
                 .targetGender(targetGender)
-                .discount(null)
+                .discountId(discountId)
                 .sellingPrice(product.getSellingPrice())
+                .numberOfCopies(product.getNumberOfCopies())
+                .basketsIds(basketsIds)
                 .createdAt(null)
                 .updatedAt(null)
                 .build();
@@ -63,6 +68,7 @@ public class ProductDtoMappper {
                 .discount(null)
                 .targetGender(createProductDto.getTargetGender())
                 .category(category)
+                .numberOfCopies(createProductDto.getNumberOfCopies())
                 .brand(null)
                 .photos(null)
                 .rates(null)

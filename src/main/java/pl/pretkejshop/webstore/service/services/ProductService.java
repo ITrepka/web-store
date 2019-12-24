@@ -58,6 +58,7 @@ public class ProductService {
         Category category = updateProductDto.getCategoryId() == null ? null :
                 categoryRepository.findById(updateProductDto.getCategoryId())
                         .orElseThrow(() -> new NotFoundException("Category with id = " + updateProductDto.getCategoryId() + " not found"));
+        product.setNumberOfCopies(updateProductDto.getNumberOfCopies());
         product.setCategory(category);
         product.setDescription(updateProductDto.getDescription());
         product.setTargetGender(updateProductDto.getTargetGender());

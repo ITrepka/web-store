@@ -1,9 +1,6 @@
 package pl.pretkejshop.webstore.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -15,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@EqualsAndHashCode(of = "id")
 @Entity
 public class Product {
     @Id
@@ -25,6 +23,7 @@ public class Product {
     private Sex targetGender;
     private BigDecimal sellingPrice;
     private BigDecimal boughtFor;
+    private Integer numberOfCopies;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
     @ManyToOne
@@ -44,6 +43,6 @@ public class Product {
     private Discount discount;
     @ManyToOne
     private Order order;
-    @ManyToOne
-    private Basket basket;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Basket> baskets;
 }

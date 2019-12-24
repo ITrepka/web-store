@@ -1,9 +1,6 @@
 package pl.pretkejshop.webstore.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +14,7 @@ import java.time.OffsetDateTime;
 @AllArgsConstructor
 @Data
 @Entity
+@EqualsAndHashCode(of = "id")
 public class Ad {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
