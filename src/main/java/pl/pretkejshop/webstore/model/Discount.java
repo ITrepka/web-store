@@ -20,6 +20,6 @@ public class Discount {
     private Integer percentageValueReduction;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    @OneToMany(mappedBy = "discount")
+    @OneToMany(mappedBy = "discount", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Product> products;
 }

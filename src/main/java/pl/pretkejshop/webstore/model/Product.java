@@ -40,7 +40,7 @@ public class Product {
     @ManyToMany(mappedBy = "products")
     @Builder.Default
     private List<Rate> rates = new ArrayList<>();
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Discount discount;
     @ManyToOne
     private Order order;
