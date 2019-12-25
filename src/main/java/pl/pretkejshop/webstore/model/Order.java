@@ -30,7 +30,7 @@ public class Order {
     private DeliveryType deliveryType;
     @ManyToOne
     private PromoCode promoCode;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private OrderStatus orderStatus;
     @OneToOne
     private PersonalData personalData;
