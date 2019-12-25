@@ -34,6 +34,6 @@ public class Order {
     private OrderStatus orderStatus;
     @OneToOne
     private PersonalData personalData;
-    @ManyToOne
-    private PaymentType paymentType;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private PaymentType paymentType; //todo relation
 }
