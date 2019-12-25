@@ -13,9 +13,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class DeliveryTypeDtoMapper {
-    @Autowired
-    private DeliveryTypeRepository deliveryTypeRepository;
-
     public DeliveryTypeDto toDto(DeliveryType deliveryType) {
         List<Integer> ordersIds = deliveryType.getOrders() == null ? null :
                 deliveryType.getOrders().stream().map(Order::getId).collect(Collectors.toList());

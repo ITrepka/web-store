@@ -2,14 +2,11 @@ package pl.pretkejshop.webstore.service.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.pretkejshop.webstore.model.Order;
-import pl.pretkejshop.webstore.model.PersonalData;
-import pl.pretkejshop.webstore.repository.OrderRepository;
-import pl.pretkejshop.webstore.repository.PersonalDataRepository;
-import pl.pretkejshop.webstore.service.dto.CreateOrderPersonalDataDto;
-import pl.pretkejshop.webstore.service.dto.CreateOrderUserDto;
+import pl.pretkejshop.webstore.model.*;
+import pl.pretkejshop.webstore.repository.*;
+import pl.pretkejshop.webstore.service.dto.CreateUpdateOrderPersonalDataDto;
+import pl.pretkejshop.webstore.service.dto.CreateUpdateOrderUserDto;
 import pl.pretkejshop.webstore.service.dto.OrderDto;
-import pl.pretkejshop.webstore.service.dto.UpdateOrderPersonalDataDto;
 import pl.pretkejshop.webstore.service.exception.NotFoundException;
 import pl.pretkejshop.webstore.service.mapper.OrderDtoMapper;
 
@@ -25,6 +22,12 @@ public class OrderService {
     private OrderRepository orderRepository;
     @Autowired
     private PersonalDataRepository personalDataRepository;
+    @Autowired
+    private DeliveryTypeRepository deliveryTypeRepository;
+    @Autowired
+    private PromoCodeRepository promoCodeRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     public List<OrderDto> getAllOrders() {
         return orderRepository.findAll().stream()
@@ -38,31 +41,42 @@ public class OrderService {
                 .orElseThrow(() -> new NotFoundException("Order with id = " + id + " not found"));
     }
 
-    public OrderDto addNewOrder(CreateOrderUserDto createOrderUserDto) throws NotFoundException {
+    public OrderDto addNewOrder(CreateUpdateOrderUserDto createUpdateOrderUserDto) throws NotFoundException {
         //todo validate
-        Order order = orderDtoMapper.toModel(createOrderUserDto);
+        Order order = orderDtoMapper.toModel(createUpdateOrderUserDto);
         order.setCreatedAt(OffsetDateTime.now());
         order.setOrderPrice(null); //todo
         Order savedOrder = orderRepository.save(order);
         return orderDtoMapper.toDto(savedOrder);
     }
 
-    public OrderDto addNewOrder(CreateOrderPersonalDataDto createOrderPersonalDataDto) throws NotFoundException {
+    public OrderDto addNewOrder(CreateUpdateOrderPersonalDataDto createUpdateOrderPersonalDataDto) throws NotFoundException {
         //todo validate
-        Order order = orderDtoMapper.toModel(createOrderPersonalDataDto);
+        Order order = orderDtoMapper.toModel(createUpdateOrderPersonalDataDto);
         order.setCreatedAt(OffsetDateTime.now());
         order.setOrderPrice(null); //todo
         Order savedOrder = orderRepository.save(order);
         return orderDtoMapper.toDto(savedOrder);
     }
 
-    public OrderDto updateOrder(int id, UpdateOrderPersonalDataDto orderToUpdate) throws NotFoundException {
+    public OrderDto updateOrder(int id, CreateUpdateOrderPersonalDataDto orderToUpdate) throws NotFoundException {
         //todo validate
         Order order = orderRepository.findById(id).orElseThrow(() -> new NotFoundException("Order with id = " + id + " not found"));
         Integer personalDataId = orderToUpdate.getPersonalDataId();
         PersonalData personalData = personalDataId == null ? null :
                 personalDataRepository.findById(personalDataId)
                         .orElseThrow(() -> new NotFoundException("Personal data not found id =" + personalDataId));
+        Integer deliveryTypeId = orderToUpdate.getDeliveryTypeId();
+        DeliveryType deliveryType = deliveryTypeId == null ? null : deliveryTypeRepository.findById(deliveryTypeId)
+                .orElseThrow(() -> new NotFoundException("Delivery Type not found id =" + deliveryTypeId));
+        Integer promoCodeId = orderToUpdate.getPromoCodeId();
+        PromoCode promoCode = promoCodeId == null ? null : promoCodeRepository.findById(promoCodeId)
+                .orElseThrow(() -> new NotFoundException("Promo Code not found id =" + promoCodeId));
+        List<Integer> productsIds = orderToUpdate.getProductsIds();
+        List<Product> products = productsIds == null ? null : productRepository.findAllById(productsIds);
+        order.setProducts(products);
+        order.setPromoCode(promoCode);
+        order.setDeliveryType(deliveryType);
         order.setPersonalData(personalData);
         order.setUpdatedAt(OffsetDateTime.now());
         order.setOrderPrice(null); // todo

@@ -2,10 +2,9 @@ package pl.pretkejshop.webstore.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pl.pretkejshop.webstore.service.dto.CreateOrderPersonalDataDto;
-import pl.pretkejshop.webstore.service.dto.CreateOrderUserDto;
+import pl.pretkejshop.webstore.service.dto.CreateUpdateOrderPersonalDataDto;
+import pl.pretkejshop.webstore.service.dto.CreateUpdateOrderUserDto;
 import pl.pretkejshop.webstore.service.dto.OrderDto;
-import pl.pretkejshop.webstore.service.dto.UpdateOrderPersonalDataDto;
 import pl.pretkejshop.webstore.service.exception.*;
 import pl.pretkejshop.webstore.service.services.OrderService;
 
@@ -28,17 +27,17 @@ public class OrderController {
     }
 
     @PostMapping("/user")
-    public OrderDto addNewOrderByUser(@RequestBody CreateOrderUserDto createOrderUserDto) throws InvalidDataException, NotFoundException {
-        return orderService.addNewOrder(createOrderUserDto);
+    public OrderDto addNewOrderByUser(@RequestBody CreateUpdateOrderUserDto createUpdateOrderUserDto) throws InvalidDataException, NotFoundException {
+        return orderService.addNewOrder(createUpdateOrderUserDto);
     }
 
     @PostMapping("/personal-data")
-    public OrderDto addNewUserByPersonalData (@RequestBody CreateOrderPersonalDataDto createOrderPersonalDataDto) throws NotFoundException {
-        return orderService.addNewOrder(createOrderPersonalDataDto);
+    public OrderDto addNewUserByPersonalData (@RequestBody CreateUpdateOrderPersonalDataDto createUpdateOrderPersonalDataDto) throws NotFoundException {
+        return orderService.addNewOrder(createUpdateOrderPersonalDataDto);
     }
 
     @PutMapping("/{id}")
-    public OrderDto updateOrder(@PathVariable int id, @RequestBody UpdateOrderPersonalDataDto orderToUpdate) throws NotFoundException, InvalidDataException {
+    public OrderDto updateOrder(@PathVariable int id, @RequestBody CreateUpdateOrderPersonalDataDto orderToUpdate) throws NotFoundException, InvalidDataException {
         return orderService.updateOrder(id, orderToUpdate);
     }
 

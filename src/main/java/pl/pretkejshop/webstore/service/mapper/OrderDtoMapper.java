@@ -9,8 +9,8 @@ import pl.pretkejshop.webstore.model.User;
 import pl.pretkejshop.webstore.repository.PersonalDataRepository;
 import pl.pretkejshop.webstore.repository.ProductRepository;
 import pl.pretkejshop.webstore.repository.UserRepository;
-import pl.pretkejshop.webstore.service.dto.CreateOrderPersonalDataDto;
-import pl.pretkejshop.webstore.service.dto.CreateOrderUserDto;
+import pl.pretkejshop.webstore.service.dto.CreateUpdateOrderPersonalDataDto;
+import pl.pretkejshop.webstore.service.dto.CreateUpdateOrderUserDto;
 import pl.pretkejshop.webstore.service.dto.OrderDto;
 import pl.pretkejshop.webstore.service.exception.NotFoundException;
 
@@ -51,14 +51,14 @@ public class OrderDtoMapper {
                 .build();
     }
 
-    public Order toModel(CreateOrderUserDto createOrderUserDto) throws NotFoundException {
-        Integer userId = createOrderUserDto.getUserId();
+    public Order toModel(CreateUpdateOrderUserDto createUpdateOrderUserDto) throws NotFoundException {
+        Integer userId = createUpdateOrderUserDto.getUserId();
         User user = userId == null ? null : userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Not found user with id = " + userId));
 
         PersonalData personalData = user == null ? null : user.getPersonalData();
-        List<Product> products = createOrderUserDto.getProductsIds() == null ? null :
-                createOrderUserDto.getProductsIds().stream()
+        List<Product> products = createUpdateOrderUserDto.getProductsIds() == null ? null :
+                createUpdateOrderUserDto.getProductsIds().stream()
                         .map(id -> productRepository.findById(id).orElse(null))
                         .collect(Collectors.toList());
         return Order.builder()
@@ -74,12 +74,12 @@ public class OrderDtoMapper {
                 .build();
     }
 
-    public Order toModel(CreateOrderPersonalDataDto createOrderPersonalDataDto) throws NotFoundException {
-        List<Product> products = createOrderPersonalDataDto.getProductsIds() == null ? null :
-                createOrderPersonalDataDto.getProductsIds().stream()
+    public Order toModel(CreateUpdateOrderPersonalDataDto createUpdateOrderPersonalDataDto) throws NotFoundException {
+        List<Product> products = createUpdateOrderPersonalDataDto.getProductsIds() == null ? null :
+                createUpdateOrderPersonalDataDto.getProductsIds().stream()
                         .map(id -> productRepository.findById(id).orElse(null))
                         .collect(Collectors.toList());
-        Integer personalDataId = createOrderPersonalDataDto.getPersonalDataId();
+        Integer personalDataId = createUpdateOrderPersonalDataDto.getPersonalDataId();
         PersonalData personalData = personalDataId == null ? null :
                 personalDataRepository.findById(personalDataId).orElseThrow(() -> new NotFoundException("Not Found personal data with id=" + personalDataId));
         return Order.builder()
