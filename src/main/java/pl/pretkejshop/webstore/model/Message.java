@@ -18,7 +18,7 @@ public class Message {
     private String text;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "user_from_id")
     private User userFrom;
     @ManyToOne

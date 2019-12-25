@@ -27,9 +27,9 @@ public class User {
     private Basket basket;
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
-    @OneToMany(mappedBy = "userFrom")
+    @OneToMany(mappedBy = "userFrom", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Message> sentMessages;
-    @OneToMany(mappedBy = "userTo")
+    @OneToMany(mappedBy = "userTo", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Message> receivedMessages;
     @ManyToOne
     private Role role;
