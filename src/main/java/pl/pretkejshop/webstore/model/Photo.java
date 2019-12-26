@@ -20,6 +20,6 @@ public class Photo {
     private String size;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Product> products;
 }

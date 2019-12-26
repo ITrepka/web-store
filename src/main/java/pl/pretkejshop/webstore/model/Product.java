@@ -34,7 +34,7 @@ public class Product {
     @ManyToMany(mappedBy = "products")
     @Builder.Default
     private List<Tag> tagList = new ArrayList<>();
-    @ManyToMany(mappedBy = "products")
+    @ManyToMany(mappedBy = "products", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @Builder.Default
     private List<Photo> photos = new ArrayList<>();
     @ManyToMany(mappedBy = "products")
