@@ -23,6 +23,6 @@ public class Rate {
     private Comment comment;
     @ManyToOne
     private User user;
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Product> products;
 }
