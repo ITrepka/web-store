@@ -45,5 +45,6 @@ public class Product {
     @ManyToOne
     private Order order;
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Basket> baskets;
+    @Builder.Default
+    private List<Basket> baskets = new ArrayList<>();
 }

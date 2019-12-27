@@ -20,7 +20,7 @@ public class Tag {
     private String name;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @Builder.Default
     private List<Product> products = new ArrayList<>();
 }

@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -21,5 +22,6 @@ public class Photo {
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Product> products;
+    @Builder.Default
+    private List<Product> products = new ArrayList<>();
 }
