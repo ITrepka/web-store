@@ -19,6 +19,6 @@ public class Role {
     private String name;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    @OneToMany(mappedBy = "role")
+    @OneToMany(mappedBy = "role",cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<User> userList;
 }

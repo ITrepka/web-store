@@ -31,7 +31,7 @@ public class User {
     private List<Message> sentMessages;
     @OneToMany(mappedBy = "userTo", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Message> receivedMessages;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Role role;
     @OneToMany(mappedBy = "user")
     private List<Rate> rates;
