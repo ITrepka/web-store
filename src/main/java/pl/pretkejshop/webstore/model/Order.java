@@ -28,7 +28,7 @@ public class Order {
     private List<Product> products;
     @ManyToOne
     private DeliveryType deliveryType;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private PromoCode promoCode;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private OrderStatus orderStatus;
