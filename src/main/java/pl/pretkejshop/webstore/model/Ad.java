@@ -24,4 +24,5 @@ public class Ad {
     private String text;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
+    private OffsetDateTime terminateDate;
 }

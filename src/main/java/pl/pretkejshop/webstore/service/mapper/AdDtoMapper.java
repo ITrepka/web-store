@@ -15,6 +15,7 @@ public class AdDtoMapper {
                 .text(ad.getText())
                 .createdAt(ad.getCreatedAt())
                 .updatedAt(ad.getUpdatedAt())
+                .terminateDate(ad.getTerminateDate())
                 .build();
     }
 
@@ -26,6 +27,7 @@ public class AdDtoMapper {
                 .text(createAdDto.getText())
                 .createdAt(null)
                 .updatedAt(null)
+                .terminateDate(null)
                 .build();
     }
 }

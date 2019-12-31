@@ -19,4 +19,5 @@ public class AdDto {
     private String text;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
+    private OffsetDateTime terminateDate;
 }

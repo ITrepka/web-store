@@ -49,6 +49,7 @@ public class AdService {
         validCreateUpdateAd(createAdDto);
         Ad ad = adDtoMapper.toModel(createAdDto);
         ad.setCreatedAt(OffsetDateTime.now());
+        ad.setTerminateDate(OffsetDateTime.now().plusMonths(1));
         Ad savedAd = adRepository.save(ad);
         return adDtoMapper.toDto(savedAd);
     }

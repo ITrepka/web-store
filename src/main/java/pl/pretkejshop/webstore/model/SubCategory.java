@@ -18,6 +18,6 @@ public class SubCategory {
     private String name;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Category category;
 }
