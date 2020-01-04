@@ -32,8 +32,6 @@ public class Order {
     private PromoCode promoCode;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private OrderStatus orderStatus;
-    @OneToOne
-    private PersonalData personalData;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private PaymentType paymentType; //todo relation
 }

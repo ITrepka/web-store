@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.pretkejshop.webstore.model.*;
 import pl.pretkejshop.webstore.repository.*;
-import pl.pretkejshop.webstore.service.dto.CreateUpdateOrderPersonalDataDto;
 import pl.pretkejshop.webstore.service.dto.CreateUpdateOrderUserDto;
 import pl.pretkejshop.webstore.service.dto.OrderDto;
 import pl.pretkejshop.webstore.service.exception.NotFoundException;
@@ -21,7 +20,7 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
     @Autowired
-    private PersonalDataRepository personalDataRepository;
+    private UserRepository userRepository;
     @Autowired
     private DeliveryTypeRepository deliveryTypeRepository;
     @Autowired
@@ -50,22 +49,13 @@ public class OrderService {
         return orderDtoMapper.toDto(savedOrder);
     }
 
-    public OrderDto addNewOrder(CreateUpdateOrderPersonalDataDto createUpdateOrderPersonalDataDto) throws NotFoundException {
-        //todo validate
-        Order order = orderDtoMapper.toModel(createUpdateOrderPersonalDataDto);
-        order.setCreatedAt(OffsetDateTime.now());
-        order.setOrderPrice(null); //todo
-        Order savedOrder = orderRepository.save(order);
-        return orderDtoMapper.toDto(savedOrder);
-    }
-
-    public OrderDto updateOrder(int id, CreateUpdateOrderPersonalDataDto orderToUpdate) throws NotFoundException {
+    public OrderDto updateOrder(int id, CreateUpdateOrderUserDto orderToUpdate) throws NotFoundException {
         //todo validate
         Order order = orderRepository.findById(id).orElseThrow(() -> new NotFoundException("Order with id = " + id + " not found"));
-        Integer personalDataId = orderToUpdate.getPersonalDataId();
-        PersonalData personalData = personalDataId == null ? null :
-                personalDataRepository.findById(personalDataId)
-                        .orElseThrow(() -> new NotFoundException("Personal data not found id =" + personalDataId));
+        Integer userId = orderToUpdate.getUserId();
+        User user = userId == null ? null : userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("Not found user with id = " + userId));
+        order.setUser(user);
         Integer deliveryTypeId = orderToUpdate.getDeliveryTypeId();
         DeliveryType deliveryType = deliveryTypeId == null ? null : deliveryTypeRepository.findById(deliveryTypeId)
                 .orElseThrow(() -> new NotFoundException("Delivery Type not found id =" + deliveryTypeId));
@@ -77,7 +67,6 @@ public class OrderService {
         order.setProducts(products);
         order.setPromoCode(promoCode);
         order.setDeliveryType(deliveryType);
-        order.setPersonalData(personalData);
         order.setUpdatedAt(OffsetDateTime.now());
         order.setOrderPrice(null); // todo
         Order savedOrder = orderRepository.save(order);

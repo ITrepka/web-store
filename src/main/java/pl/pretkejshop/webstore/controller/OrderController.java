@@ -2,7 +2,6 @@ package pl.pretkejshop.webstore.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pl.pretkejshop.webstore.service.dto.CreateUpdateOrderPersonalDataDto;
 import pl.pretkejshop.webstore.service.dto.CreateUpdateOrderUserDto;
 import pl.pretkejshop.webstore.service.dto.OrderDto;
 import pl.pretkejshop.webstore.service.exception.*;
@@ -26,18 +25,13 @@ public class OrderController {
         return orderService.getOrderById(id);
     }
 
-    @PostMapping("/user")
+    @PostMapping
     public OrderDto addNewOrderByUser(@RequestBody CreateUpdateOrderUserDto createUpdateOrderUserDto) throws InvalidDataException, NotFoundException {
         return orderService.addNewOrder(createUpdateOrderUserDto);
     }
 
-    @PostMapping("/personal-data")
-    public OrderDto addNewUserByPersonalData (@RequestBody CreateUpdateOrderPersonalDataDto createUpdateOrderPersonalDataDto) throws NotFoundException {
-        return orderService.addNewOrder(createUpdateOrderPersonalDataDto);
-    }
-
     @PutMapping("/{id}")
-    public OrderDto updateOrder(@PathVariable int id, @RequestBody CreateUpdateOrderPersonalDataDto orderToUpdate) throws NotFoundException, InvalidDataException {
+    public OrderDto updateOrder(@PathVariable int id, @RequestBody CreateUpdateOrderUserDto orderToUpdate) throws NotFoundException, InvalidDataException {
         return orderService.updateOrder(id, orderToUpdate);
     }
 

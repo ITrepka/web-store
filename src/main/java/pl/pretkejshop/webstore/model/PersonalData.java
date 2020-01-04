@@ -29,7 +29,5 @@ public class PersonalData {
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
     @OneToOne(mappedBy = "personalData")
-    private Order order;
-    @OneToOne(mappedBy = "personalData")
     private User user;
 }
