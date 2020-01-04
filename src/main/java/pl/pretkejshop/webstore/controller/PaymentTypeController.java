@@ -11,7 +11,7 @@ import pl.pretkejshop.webstore.service.services.PaymentTypeService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/payment_type")
+@RequestMapping("/api/v1/payment-types")
 public class PaymentTypeController {
     @Autowired
     PaymentTypeService paymentTypeService;

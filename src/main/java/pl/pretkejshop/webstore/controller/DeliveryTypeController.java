@@ -12,7 +12,7 @@ import pl.pretkejshop.webstore.service.services.DeliveryTypeService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/delivery_type")
+@RequestMapping("/api/v1/delivery-types")
 public class DeliveryTypeController {
     @Autowired
     DeliveryTypeService deliveryTypeService;

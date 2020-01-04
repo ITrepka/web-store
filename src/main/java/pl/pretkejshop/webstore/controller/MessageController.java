@@ -12,7 +12,7 @@ import pl.pretkejshop.webstore.service.services.MessageService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/message")
+@RequestMapping("/api/v1/messages")
 public class MessageController {
     @Autowired
     MessageService messageService;

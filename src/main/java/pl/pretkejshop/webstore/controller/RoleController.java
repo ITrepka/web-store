@@ -12,7 +12,7 @@ import pl.pretkejshop.webstore.service.services.RoleService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/role")
+@RequestMapping("/api/v1/roles")
 public class RoleController {
     @Autowired
     private RoleService roleService;

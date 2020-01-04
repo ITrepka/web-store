@@ -12,7 +12,7 @@ import pl.pretkejshop.webstore.service.services.CommentService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/comment")
+@RequestMapping("/api/v1/comments")
 public class CommentController {
     @Autowired
     CommentService commentService;

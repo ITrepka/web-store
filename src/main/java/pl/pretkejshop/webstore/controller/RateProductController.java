@@ -10,16 +10,17 @@ import pl.pretkejshop.webstore.service.services.RateProductService;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/v1")
 public class RateProductController {
     @Autowired
     private RateProductService rateProductService;
 
-    @GetMapping("/product/{productId}/rates")
+    @GetMapping("/products/{productId}/rates")
     public List<RateDto> getProductPhotos(@PathVariable Integer productId) throws NotFoundException {
         return rateProductService.getProductPhotos(productId);
     }
 
-    @PostMapping("/product/{productId}/rate/{rateId}")
+    @PostMapping("/products/{productId}/rates/{rateId}")
     private ProductDto addRateToProduct(@PathVariable Integer productId, @PathVariable Integer rateId) throws NotFoundException {
         return rateProductService.addPhotoToProduct(productId, rateId);
     }

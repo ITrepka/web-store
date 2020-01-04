@@ -12,7 +12,7 @@ import pl.pretkejshop.webstore.service.services.OrderStatusService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/order_status")
+@RequestMapping("/api/v1/order-status")
 public class OrderStatusController {
     @Autowired
     private OrderStatusService orderStatusService;

@@ -12,7 +12,7 @@ import pl.pretkejshop.webstore.service.services.PhotoService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/photo")
+@RequestMapping("/api/v1/photos")
 public class PhotoController {
     @Autowired
     PhotoService photoService;

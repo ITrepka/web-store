@@ -10,7 +10,7 @@ import pl.pretkejshop.webstore.service.services.RateService;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/rate")
+@RequestMapping("api/v1/rates")
 public class RateController {
     @Autowired
     private RateService rateService;

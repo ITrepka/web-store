@@ -12,7 +12,7 @@ import pl.pretkejshop.webstore.service.services.BasketService;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/basket")
+@RequestMapping("api/v1/baskets")
 public class BasketController {
     @Autowired
     BasketService basketService;

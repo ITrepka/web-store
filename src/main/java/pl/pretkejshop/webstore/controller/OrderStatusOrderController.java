@@ -20,7 +20,7 @@ public class OrderStatusOrderController {
         return orderStatusOrderService.getAllOrdersWithOrderStatus(orderStatusId);
     }
 
-    @PostMapping("/order/{orderId}/orderStatus/{orderStatusId}")
+    @PostMapping("/orders/{orderId}/orderStatus/{orderStatusId}")
     private OrderDto saveStatusForOrder(@PathVariable Integer orderId, @PathVariable Integer orderStatusId) throws NotFoundException {
         return orderStatusOrderService.saveStatusForOrder(orderId, orderStatusId);
     }

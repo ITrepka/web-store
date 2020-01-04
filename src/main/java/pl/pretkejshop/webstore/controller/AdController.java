@@ -11,7 +11,7 @@ import pl.pretkejshop.webstore.service.services.AdService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/ad")
+@RequestMapping("/api/v1/ads")
 public class AdController {
     @Autowired
     private AdService adService;

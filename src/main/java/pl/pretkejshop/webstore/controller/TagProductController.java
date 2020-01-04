@@ -15,17 +15,17 @@ public class TagProductController {
     @Autowired
     private TagProductService tagProductService;
 
-    @GetMapping("/product/{productId}/tags")
+    @GetMapping("/products/{productId}/tags")
     public List<TagDto> getProductPhotos(@PathVariable Integer productId) throws NotFoundException {
         return tagProductService.getProductPhotos(productId);
     }
 
-    @PostMapping("/product/{productId}/tag/{tagId}")
+    @PostMapping("/products/{productId}/tags/{tagId}")
     private ProductDto addTagToProduct(@PathVariable Integer productId, @PathVariable Integer tagId) throws NotFoundException {
         return tagProductService.addPhotoToProduct(productId, tagId);
     }
 
-    @DeleteMapping("/product/{productId}/tag/{tagId}")
+    @DeleteMapping("/products/{productId}/tags/{tagId}")
     private ProductDto deleteTagFromProduct(@PathVariable Integer productId, @PathVariable Integer tagId) throws NotFoundException {
         return tagProductService.deletePhotoFromProduct(productId, tagId);
     }

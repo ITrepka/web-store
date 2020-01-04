@@ -15,17 +15,17 @@ public class ProductPhotoController {
     @Autowired
     private ProductPhotoService productPhotoService;
 
-    @GetMapping("/product/{productId}/photos")
+    @GetMapping("/products/{productId}/photos")
     public List<PhotoDto> getProductPhotos(@PathVariable Integer productId) throws NotFoundException {
         return productPhotoService.getProductPhotos(productId);
     }
 
-    @PostMapping("/product/{productId}/photo/{photoId}")
+    @PostMapping("/products/{productId}/photos/{photoId}")
     private ProductDto addPhotoToProduct(@PathVariable Integer productId, @PathVariable Integer photoId) throws NotFoundException {
         return productPhotoService.addPhotoToProduct(productId, photoId);
     }
 
-    @DeleteMapping("/product/{productId}/photo/{photoId}")
+    @DeleteMapping("/products/{productId}/photos/{photoId}")
     private ProductDto deletePhotoFromProduct(@PathVariable Integer productId, @PathVariable Integer photoId) throws NotFoundException {
         return productPhotoService.deletePhotoFromProduct(productId, photoId);
     }

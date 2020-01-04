@@ -12,7 +12,7 @@ import pl.pretkejshop.webstore.service.services.SubCategoryService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/sub_category")
+@RequestMapping("/api/v1/sub-categories")
 public class SubCategoryController {
     @Autowired
     private SubCategoryService subCategoryService;

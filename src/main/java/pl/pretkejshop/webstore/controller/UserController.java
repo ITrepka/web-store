@@ -13,7 +13,7 @@ import pl.pretkejshop.webstore.service.services.UserService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1/users")
 public class UserController {
     @Autowired
     private UserService userService;

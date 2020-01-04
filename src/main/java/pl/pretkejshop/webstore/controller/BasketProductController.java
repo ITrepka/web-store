@@ -17,12 +17,12 @@ public class BasketProductController {
     @Autowired
     private BasketProductService basketProductService;
 
-    @GetMapping("/basket/{basketId}/products")
+    @GetMapping("/baskets/{basketId}/products")
     private List<ProductDto> getBasketProducts(@PathVariable Integer basketId) throws NotFoundException {
         return basketProductService.getBasketProducts(basketId);
     }
 
-    @PostMapping("/basket/{basketId}/products/{productId}")
+    @PostMapping("/baskets/{basketId}/products/{productId}")
     private BasketDto addProductToBasket(@PathVariable Integer basketId, @PathVariable Integer productId) throws NotFoundException {
         return basketProductService.addProductToBasket(basketId, productId);
     }

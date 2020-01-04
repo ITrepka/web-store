@@ -12,7 +12,7 @@ import pl.pretkejshop.webstore.service.services.DiscountService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/discount")
+@RequestMapping("/api/v1/discounts")
 public class DiscountController {
     @Autowired
     DiscountService discountService;

@@ -14,17 +14,17 @@ public class UserRoleController {
     @Autowired
     private UserRoleService userRoleService;
 
-    @GetMapping("/role/{roleId}/users")
+    @GetMapping("/roles/{roleId}/users")
     public List<UserDto> getUsersWithRole(@PathVariable Integer roleId) throws NotFoundException {
         return userRoleService.getRoleUsers(roleId);
     }
 
-    @PostMapping("/user/{userId}/role/{roleId}")
+    @PostMapping("/users/{userId}/roles/{roleId}")
     private UserDto addRoleToUser(@PathVariable Integer userId, @PathVariable Integer roleId) throws NotFoundException {
         return userRoleService.addRoleToUser(userId, roleId);
     }
 
-    @DeleteMapping("/user/{userId}/role/{roleId}")
+    @DeleteMapping("/users/{userId}/roles/{roleId}")
     private UserDto deleteRoleFromUser(@PathVariable Integer userId, @PathVariable Integer roleId) throws NotFoundException {
         return userRoleService.deleteRoleFromUser(userId, roleId);
     }

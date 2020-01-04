@@ -10,7 +10,7 @@ import pl.pretkejshop.webstore.service.services.ProductService;
 
 import java.util.List;
 @RestController
-@RequestMapping("/api/v1/product")
+@RequestMapping("/api/v1/products")
 public class ProductController {
     @Autowired
     private ProductService productService;

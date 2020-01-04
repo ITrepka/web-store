@@ -16,17 +16,17 @@ public class DiscountProductController {
     @Autowired
     private DiscountProductService discountProductService;
 
-    @GetMapping("/discount/{discountId}/products")
+    @GetMapping("/discounts/{discountId}/products")
     private List<ProductDto> getProductsWithDiscount(@PathVariable Integer discountId) throws NotFoundException {
         return discountProductService.getProductsWithDiscount(discountId);
     }
 
-    @PostMapping("/product/{productId}/discounts/{discountId}")
+    @PostMapping("/products/{productId}/discounts/{discountId}")
     private ProductDto addDiscountToProduct(@PathVariable Integer productId, @PathVariable Integer discountId) throws NotFoundException {
         return discountProductService.addDiscountToProduct(productId, discountId);
     }
 
-    @DeleteMapping("/product/{productId}/discounts/{discountId}")
+    @DeleteMapping("/products/{productId}/discounts/{discountId}")
     private ProductDto deleteDiscountFromProduct(@PathVariable Integer productId, @PathVariable Integer discountId) throws NotFoundException {
         return discountProductService.deleteDiscountFromProduct(productId, discountId);
     }

@@ -12,7 +12,7 @@ import pl.pretkejshop.webstore.service.services.TagService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/tag")
+@RequestMapping("/api/v1/tags")
 public class TagController {
     @Autowired
     private TagService tagService;

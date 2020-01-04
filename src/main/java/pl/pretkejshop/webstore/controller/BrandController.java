@@ -13,7 +13,7 @@ import pl.pretkejshop.webstore.service.services.BrandService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/brand")
+@RequestMapping("/api/v1/brands")
 public class BrandController {
     @Autowired
     BrandService brandService;

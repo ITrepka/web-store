@@ -14,17 +14,17 @@ public class OrderPaymentTypeController {
     @Autowired
     private OrderPaymentTypeService paymentTypeOrderService;
 
-    @GetMapping("/paymentType/{paymentTypeId}/orders")
+    @GetMapping("/paymentTypes/{paymentTypeId}/orders")
     public List<OrderDto> getAllOrdersWithPaymentType(@PathVariable Integer paymentTypeId) throws NotFoundException {
         return paymentTypeOrderService.getAllOrdersWithPaymentType(paymentTypeId);
     }
 
-    @PostMapping("/order/{orderId}/paymentType/{paymentTypeId}")
+    @PostMapping("/orders/{orderId}/paymentTypes/{paymentTypeId}")
     private OrderDto saveStatusForOrder(@PathVariable Integer orderId, @PathVariable Integer paymentTypeId) throws NotFoundException {
         return paymentTypeOrderService.saveOrderPaymentType(orderId, paymentTypeId);
     }
 
-    @DeleteMapping("/order/{orderId}/paymentType/{paymentTypeId}")
+    @DeleteMapping("/orders/{orderId}/paymentTypes/{paymentTypeId}")
     private OrderDto deleteStatusFromOrder(@PathVariable Integer orderId, @PathVariable Integer paymentTypeId) throws NotFoundException {
         return paymentTypeOrderService.deleteOrderPaymentType(orderId, paymentTypeId);
     }

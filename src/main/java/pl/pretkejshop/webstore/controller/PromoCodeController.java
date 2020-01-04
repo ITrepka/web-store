@@ -12,7 +12,7 @@ import pl.pretkejshop.webstore.service.services.PromoCodeService;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/promo_code")
+@RequestMapping("api/v1/promo_codes")
 public class PromoCodeController {
     @Autowired
     private PromoCodeService promoCodeService;
