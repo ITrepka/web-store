@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring template app</title>
+    <div th:replace="layout/layout :: head"></div>
+</head>
+<body>
+<div id="wrapper">
+    <div th:replace="layout/layout :: navbar"></div>
+
+    <div id="content-wrapper p-3" class="d-flex flex-column">
+        <div id="content">
+            <h1>Spring template app!</h1>
+
+            <h3>Admin pages</h3>
+            <ul>
+                <li><a href="/admin/users">Users table</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
