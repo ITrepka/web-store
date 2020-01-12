@@ -15,14 +15,12 @@ import java.util.List;
 @Controller
 public class ManageProductsViewController {
     @Autowired
-    private ProductService productService;
-    @Autowired
     private ProductRepository productRepository;
     
     @GetMapping("/admin/products-table")
     public ModelAndView displayProductsTable() {
         List<Product> products = productRepository.findAll();
-        ModelAndView mv = new ModelAndView("products-table");
+        ModelAndView mv = new ModelAndView("admin/products-table");
         mv.addObject("products", products);
         return mv;
     }

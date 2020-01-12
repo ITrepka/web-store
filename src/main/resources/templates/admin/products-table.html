@@ -9,37 +9,42 @@
 <table>
     <tr>
         <th>ID</th>
-        <th>Result Number</th>
-        <th>Organizer</th>
-        <th>Country</th>
-        <th>PrizeAmount</th>
-        <th>Year</th>
-        <th>Month</th>
-        <th>Day</th>
-        <th>TicketsIds</th>
+        <th>Product Copies</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Target Gender</th>
+        <th>Selling price</th>
+        <th>boughtFor</th>
+        <th>createdAt</th>
+        <th>updatedAt</th>
+        <th>brand</th>
+        <th>category</th>
+        <th>Tag list</th>
+        <th>Photos</th>
+        <th>Rates</th>
+        <th>Discount</th>
+        <th>Baskets</th>
     </tr>
     <tr th:each="product : ${products}">
-        <td th:text="${lottery.id}" th:if="${lottery.prizeAmount} > 100000" style="color:red;"></td>
-        <td th:text="${lottery.id}" th:if="${lottery.prizeAmount} <= 100000"></td>
-        <td th:text="${lottery.resultNumber}" th:if="${lottery.prizeAmount} > 100000" style="color:red;"></td>
-        <td th:text="${lottery.resultNumber}" th:if="${lottery.prizeAmount} <= 100000"></td>
-        <td th:text="${lottery.organizer}" th:if="${lottery.prizeAmount} > 100000" style="color:red;"></td>
-        <td th:text="${lottery.organizer}" th:if="${lottery.prizeAmount} <= 100000"></td>
-        <td th:text="${lottery.country}" th:if="${lottery.prizeAmount} > 100000" style="color:red;"></td>
-        <td th:text="${lottery.country}" th:if="${lottery.prizeAmount} <= 100000"></td>
-        <td th:text="${lottery.prizeAmount}" th:if="${lottery.prizeAmount} > 100000" style="color:red;"></td>
-        <td th:text="${lottery.prizeAmount}" th:if="${lottery.prizeAmount} <= 100000"></td>
-        <td th:text="${lottery.year}" th:if="${lottery.prizeAmount} > 100000" style="color:red;"></td>
-        <td th:text="${lottery.year}" th:if="${lottery.prizeAmount} <= 100000"></td>
-        <td th:text="${lottery.month}" th:if="${lottery.prizeAmount} > 100000" style="color:red;"></td>
-        <td th:text="${lottery.month}" th:if="${lottery.prizeAmount} <= 100000"></td>
-        <td th:text="${lottery.day}" th:if="${lottery.prizeAmount} > 100000" style="color:red;"></td>
-        <td th:text="${lottery.day}" th:if="${lottery.prizeAmount} <= 100000"></td>
-        <td th:text="${lottery.ticketsIds}" th:if="${lottery.prizeAmount} > 100000" style="color:red;"></td>
-        <td th:text="${lottery.ticketsIds}" th:if="${lottery.prizeAmount} <= 100000"></td>
+        <td th:text="${product.id}"></td>
+        <td th:text="${product.productCopies}"></td>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.description}"></td>
+        <td th:text="${product.targetGender}"></td>
+        <td th:text="${product.sellingPrice}"></td>
+        <td th:text="${product.boughtFor}"></td>
+        <td th:text="${product.createdAt}"></td>
+        <td th:text="${product.updatedAt}"></td>
+        <td th:text="${product.brand}"></td>
+        <td th:text="${product.category}"></td>
+        <td th:text="${product.tagList}"></td>
+        <td th:text="${product.photos}"></td>
+        <td th:text="${product.rates}"></td>
+        <td th:text="${product.discount}"></td>
+        <td th:text="${product.baskets}"></td>
     </tr>
 </table>
 
-<a th:href="create-lottery">CREATE LOTTERY</a>
+<a th:href="create-lottery">CREATE Product</a>
 </body>
 </html>
