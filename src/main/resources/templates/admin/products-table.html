@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <div th:replace="layout/layout :: head"></div>
+</head>
+<body>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Result Number</th>
+        <th>Organizer</th>
+        <th>Country</th>
+        <th>PrizeAmount</th>
+        <th>Year</th>
+        <th>Month</th>
+        <th>Day</th>
+        <th>TicketsIds</th>
+    </tr>
+    <tr th:each="product : ${products}">
+        <td th:text="${lottery.id}" th:if="${lottery.prizeAmount} > 100000" style="color:red;"></td>
+        <td th:text="${lottery.id}" th:if="${lottery.prizeAmount} <= 100000"></td>
+        <td th:text="${lottery.resultNumber}" th:if="${lottery.prizeAmount} > 100000" style="color:red;"></td>
+        <td th:text="${lottery.resultNumber}" th:if="${lottery.prizeAmount} <= 100000"></td>
+        <td th:text="${lottery.organizer}" th:if="${lottery.prizeAmount} > 100000" style="color:red;"></td>
+        <td th:text="${lottery.organizer}" th:if="${lottery.prizeAmount} <= 100000"></td>
+        <td th:text="${lottery.country}" th:if="${lottery.prizeAmount} > 100000" style="color:red;"></td>
+        <td th:text="${lottery.country}" th:if="${lottery.prizeAmount} <= 100000"></td>
+        <td th:text="${lottery.prizeAmount}" th:if="${lottery.prizeAmount} > 100000" style="color:red;"></td>
+        <td th:text="${lottery.prizeAmount}" th:if="${lottery.prizeAmount} <= 100000"></td>
+        <td th:text="${lottery.year}" th:if="${lottery.prizeAmount} > 100000" style="color:red;"></td>
+        <td th:text="${lottery.year}" th:if="${lottery.prizeAmount} <= 100000"></td>
+        <td th:text="${lottery.month}" th:if="${lottery.prizeAmount} > 100000" style="color:red;"></td>
+        <td th:text="${lottery.month}" th:if="${lottery.prizeAmount} <= 100000"></td>
+        <td th:text="${lottery.day}" th:if="${lottery.prizeAmount} > 100000" style="color:red;"></td>
+        <td th:text="${lottery.day}" th:if="${lottery.prizeAmount} <= 100000"></td>
+        <td th:text="${lottery.ticketsIds}" th:if="${lottery.prizeAmount} > 100000" style="color:red;"></td>
+        <td th:text="${lottery.ticketsIds}" th:if="${lottery.prizeAmount} <= 100000"></td>
+    </tr>
+</table>
+
+<a th:href="create-lottery">CREATE LOTTERY</a>
+</body>
+</html>

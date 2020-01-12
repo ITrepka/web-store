@@ -16,6 +16,7 @@ import java.util.List;
 @Data
 public class ProductDto {
     private Integer id;
+    private List<Long> productCopiesIds;
     private String name;
     private String description;
     private Integer categoryId;
@@ -26,7 +27,6 @@ public class ProductDto {
     private Integer discountId;
     private List<Integer> ratesIds;
     private Integer brandId;
-    private Integer numberOfCopies;
     private List<Integer> basketsIds;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;

@@ -19,12 +19,13 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @OneToMany(mappedBy = "product")
+    private List<ProductCopy> productCopies;
     private String name;
     private String description;
     private Sex targetGender;
     private BigDecimal sellingPrice;
     private BigDecimal boughtFor;
-    private Integer numberOfCopies;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
     @ManyToOne()
@@ -42,8 +43,6 @@ public class Product {
     private List<Rate> rates = new ArrayList<>();
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Discount discount;
-    @ManyToOne
-    private Order order;
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @Builder.Default
     private List<Basket> baskets = new ArrayList<>();

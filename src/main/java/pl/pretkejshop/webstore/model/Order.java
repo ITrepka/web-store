@@ -25,7 +25,7 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
     @OneToMany(mappedBy = "order")
-    private List<Product> products;
+    private List<ProductCopy> productCopies;
     @ManyToOne
     private DeliveryType deliveryType;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})

@@ -65,7 +65,6 @@ public class ProductService {
         Integer brandId = updateProductDto.getBrandId();
         Brand brand = brandId == null ? null : brandRepository.findById(brandId)
                 .orElseThrow(() -> new NotFoundException("Brand with id = " + brandId + " not found"));
-        product.setNumberOfCopies(updateProductDto.getNumberOfCopies());
         product.setBrand(brand);
         product.setCategory(category);
         product.setDescription(updateProductDto.getDescription());

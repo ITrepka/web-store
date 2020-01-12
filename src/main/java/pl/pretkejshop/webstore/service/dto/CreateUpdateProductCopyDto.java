@@ -5,15 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class CreateUpdateOrderUserDto {
-    private Integer userId;
-    private List<Long> productsCopiesIds;
-    private Integer deliveryTypeId;
-    private Integer promoCodeId;
+public class CreateUpdateProductCopyDto {
+    private Integer productId;
 }

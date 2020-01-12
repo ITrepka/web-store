@@ -16,7 +16,7 @@ import java.util.List;
 public class OrderDto {
     private Integer id;
     private Integer userId;
-    private List<Integer> productsIds;
+    private List<Long> productsCopiesIds;
     private Integer deliveryTypeId;
     private Integer promoCodeId;
     private BigDecimal orderPrice;

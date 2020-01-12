@@ -40,8 +40,11 @@ public class ProductDtoMappper {
         Integer discountId = product.getDiscount() == null ? null : product.getDiscount().getId();
         List<Integer> basketsIds = product.getBaskets() == null ? null :
                 product.getBaskets().stream().map(Basket::getId).collect(Collectors.toList());
+        List<Long> productCopiesIds = product.getProductCopies() == null ? null :
+                product.getProductCopies().stream().map(ProductCopy::getId).collect(Collectors.toList());
         return ProductDto.builder()
                 .id(product.getId())
+                .productCopiesIds(productCopiesIds)
                 .name(product.getName())
                 .description(product.getDescription())
                 .categoryId(categoryId)
@@ -52,7 +55,6 @@ public class ProductDtoMappper {
                 .targetGender(targetGender)
                 .discountId(discountId)
                 .sellingPrice(product.getSellingPrice())
-                .numberOfCopies(product.getNumberOfCopies())
                 .basketsIds(basketsIds)
                 .createdAt(null)
                 .updatedAt(null)
@@ -68,6 +70,7 @@ public class ProductDtoMappper {
                 .orElseThrow(() -> new NotFoundException("Brand with id = " + brandId + " not found"));
         return Product.builder()
                 .id(null)
+                .productCopies(null)
                 .name(createProductDto.getName())
                 .description(createProductDto.getDescription())
                 .boughtFor(null)
@@ -75,7 +78,6 @@ public class ProductDtoMappper {
                 .discount(null)
                 .targetGender(createProductDto.getTargetGender())
                 .category(category)
-                .numberOfCopies(createProductDto.getNumberOfCopies())
                 .brand(brand)
                 .photos(null)
                 .rates(null)

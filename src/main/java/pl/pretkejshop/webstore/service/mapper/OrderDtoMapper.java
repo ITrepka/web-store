@@ -2,10 +2,8 @@ package pl.pretkejshop.webstore.service.mapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.pretkejshop.webstore.model.Order;
-import pl.pretkejshop.webstore.model.PersonalData;
-import pl.pretkejshop.webstore.model.Product;
-import pl.pretkejshop.webstore.model.User;
+import pl.pretkejshop.webstore.model.*;
+import pl.pretkejshop.webstore.repository.ProductCopyRepository;
 import pl.pretkejshop.webstore.repository.ProductRepository;
 import pl.pretkejshop.webstore.repository.UserRepository;
 import pl.pretkejshop.webstore.service.dto.CreateUpdateOrderUserDto;
@@ -20,7 +18,7 @@ public class OrderDtoMapper {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private ProductRepository productRepository;
+    private ProductCopyRepository productCopyRepository;
 
     public OrderDto toDto(Order order) {
         Integer orderStatusId = order.getOrderStatus() == null ? null : order.getOrderStatus().getId();
@@ -28,9 +26,9 @@ public class OrderDtoMapper {
         Integer deliveryTypeId = order.getDeliveryType() == null ? null : order.getDeliveryType().getId();
         Integer promoCodeId = order.getPromoCode() == null ? null : order.getPromoCode().getId();
         Integer userId = order.getUser() == null ? null : order.getUser().getId();
-        List<Integer> productsIds = order.getProducts() == null ? null :
-                order.getProducts().stream()
-                        .map(Product::getId)
+        List<Long> productsCopiesIds = order.getProductCopies() == null ? null :
+                order.getProductCopies().stream()
+                        .map(ProductCopy::getId)
                         .collect(Collectors.toList());
 
         return OrderDto.builder()
@@ -41,7 +39,7 @@ public class OrderDtoMapper {
                 .paymentTypeId(paymentTypeId)
                 .promoCodeId(promoCodeId)
                 .userId(userId)
-                .productsIds(productsIds)
+                .productsCopiesIds(productsCopiesIds)
                 .build();
     }
 
@@ -50,9 +48,9 @@ public class OrderDtoMapper {
         User user = userId == null ? null : userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Not found user with id = " + userId));
 
-        List<Product> products = createUpdateOrderUserDto.getProductsIds() == null ? null :
-                createUpdateOrderUserDto.getProductsIds().stream()
-                        .map(id -> productRepository.findById(id).orElse(null))
+        List<ProductCopy> productsCopies = createUpdateOrderUserDto.getProductsCopiesIds() == null ? null :
+                createUpdateOrderUserDto.getProductsCopiesIds().stream()
+                        .map(id -> productCopyRepository.findById(id).orElse(null))
                         .collect(Collectors.toList());
         return Order.builder()
                 .id(null)
@@ -62,7 +60,7 @@ public class OrderDtoMapper {
                 .promoCode(null)
                 .orderStatus(null)
                 .paymentType(null)
-                .products(products)
+                .productCopies(productsCopies)
                 .build();
     }
 }

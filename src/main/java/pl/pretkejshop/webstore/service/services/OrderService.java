@@ -26,7 +26,7 @@ public class OrderService {
     @Autowired
     private PromoCodeRepository promoCodeRepository;
     @Autowired
-    private ProductRepository productRepository;
+    private ProductCopyRepository productCopyRepository;
 
     public List<OrderDto> getAllOrders() {
         return orderRepository.findAll().stream()
@@ -62,9 +62,9 @@ public class OrderService {
         Integer promoCodeId = orderToUpdate.getPromoCodeId();
         PromoCode promoCode = promoCodeId == null ? null : promoCodeRepository.findById(promoCodeId)
                 .orElseThrow(() -> new NotFoundException("Promo Code not found id =" + promoCodeId));
-        List<Integer> productsIds = orderToUpdate.getProductsIds();
-        List<Product> products = productsIds == null ? null : productRepository.findAllById(productsIds);
-        order.setProducts(products);
+        List<Long> productsCopiesIds = orderToUpdate.getProductsCopiesIds();
+        List<ProductCopy> productsCopies = productsCopiesIds == null ? null : productCopyRepository.findAllById(productsCopiesIds);
+        order.setProductCopies(productsCopies);
         order.setPromoCode(promoCode);
         order.setDeliveryType(deliveryType);
         order.setUpdatedAt(OffsetDateTime.now());
