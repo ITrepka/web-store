@@ -1,9 +1,11 @@
 package pl.pretkejshop.webstore.service.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pretkejshop.webstore.model.PersonalData;
+import pl.pretkejshop.webstore.model.Role;
 import pl.pretkejshop.webstore.model.User;
 import pl.pretkejshop.webstore.repository.PersonalDataRepository;
 import pl.pretkejshop.webstore.repository.UserRepository;
@@ -17,7 +19,9 @@ import pl.pretkejshop.webstore.service.exception.NotFoundException;
 import pl.pretkejshop.webstore.service.mapper.PersonalDataDtoMapper;
 import pl.pretkejshop.webstore.service.mapper.UserDtoMapper;
 
+import javax.annotation.PostConstruct;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,6 +35,14 @@ public class UserService {
     private PersonalDataDtoMapper personalDataDtoMapper;
     @Autowired
     private PersonalDataRepository personalDataRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @PostConstruct
+    public void init() {
+        userRepository.save(new User(0, "user", passwordEncoder.encode("user"), null, null, null, null, null, null, null, null, new Role(0, "USER", null, null, new ArrayList<>()), null));
+        userRepository.save(new User(1, "admin", passwordEncoder.encode("user"), null, null, null, null, null, null, null, null, new Role(1, "ADMIN", null, null, new ArrayList<>()), null));
+    }
 
     public List<UserDto> getAllUsers() {
         return userRepository.findAll().stream()
@@ -64,8 +76,7 @@ public class UserService {
         user.setLoyaltyPoints(0);
         user.setCreatedAt(OffsetDateTime.now());
         //roleDoUstawienia todo
-        //password set na zaszyfrowane todo
-        user.setPassword(createUserDto.getPassword());
+        user.setPassword(passwordEncoder.encode(createUserDto.getPassword()));
         User savedUser = userRepository.save(user);
         return userDtoMapper.toDto(savedUser);
     }
@@ -79,7 +90,7 @@ public class UserService {
         PersonalData personalData = personalDataDtoMapper.toModel(createUpdatePersonalDataDto);
         personalData.setId(user.getPersonalData().getId());
         user.setPersonalData(personalData);
-        user.setPassword(userToUpdate.getPassword()); // todo szyfry
+        user.setPassword(passwordEncoder.encode(userToUpdate.getPassword())); // todo szyfry
         user.setUpdatedAt(OffsetDateTime.now());
         personalData.setUser(user);
         PersonalData data = personalDataRepository.save(personalData);
