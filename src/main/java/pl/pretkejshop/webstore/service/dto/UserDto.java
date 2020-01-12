@@ -22,7 +22,7 @@ public class UserDto {
     private List<Integer> ordersIds;
     private List<Integer> receivedMessagesIds;
     private List<Integer> sentMessagesIds;
-    private String role;
+    private Integer roleId;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
 }

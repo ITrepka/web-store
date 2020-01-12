@@ -17,7 +17,7 @@ public class UserDtoMapper {
 
     public UserDto toDto(User user) {
         Integer basketId = user.getBasket() == null ? null : user.getBasket().getId();
-        String role = user.getRole() == null ? null : String.valueOf(user.getRole());
+        Integer roleId = user.getRole() == null ? null : user.getRole().getId();
         List<Integer> receivedMessagesIds = user.getReceivedMessages() == null ? null : user.getReceivedMessages().stream().map(message -> message.getId()).collect(Collectors.toList());
         List<Integer> sentMessagesIds = user.getSentMessages() == null ? null : user.getSentMessages().stream().map(message -> message.getId()).collect(Collectors.toList());
         List<Integer> ordersIds = user.getOrders() == null ? null : user.getOrders().stream().map(order -> order.getId()).collect(Collectors.toList());
@@ -29,7 +29,7 @@ public class UserDtoMapper {
                 .basketId(basketId)
                 .createdAt(user.getCreatedAt())
                 .updatedAt(user.getUpdatedAt())
-                .role(role)
+                .roleId(roleId)
                 .loyaltyPoints(user.getLoyaltyPoints())
                 .receivedMessagesIds(receivedMessagesIds)
                 .sentMessagesIds(sentMessagesIds)

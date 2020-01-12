@@ -58,6 +58,13 @@ public class UserService {
     }
 
     @Transactional
+    public UserDto getUserByLogin(String login) throws NotFoundException {
+        return userRepository.findByLogin(login)
+                .map(user -> userDtoMapper.toDto(user))
+                .orElseThrow(() -> new NotFoundException("Not found user with login = " + login));
+    }
+
+    @Transactional
     public UserDto addNewUser(CreateUserDto createUserDto) throws AlreadyExistsException, InvalidDataException {
         validateCreateUser(createUserDto);
         if (userRepository.existsByLogin(createUserDto.getLogin())) {

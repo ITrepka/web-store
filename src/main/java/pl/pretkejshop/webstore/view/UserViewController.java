@@ -2,6 +2,7 @@ package pl.pretkejshop.webstore.view;
 
 import io.swagger.models.Model;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,9 +18,10 @@ public class UserViewController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/user/{id}")
-    public ModelAndView displayMyAccountPage(@PathVariable Integer id) throws NotFoundException {
-        UserDto user = userService.getUserById(id);
+    @GetMapping("/user")
+    public ModelAndView displayMyAccountPage(Authentication authentication) throws NotFoundException {
+        String username = authentication.getName();
+        UserDto user = userService.getUserByLogin(username);
         ModelAndView mv = new ModelAndView("my-account");
         mv.addObject("user", user);
         return mv;
