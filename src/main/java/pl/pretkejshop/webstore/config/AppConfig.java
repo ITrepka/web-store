@@ -18,11 +18,21 @@ import org.springframework.web.servlet.config.annotation.*;
 @Configuration
 @EnableWebSecurity
 public class AppConfig extends WebSecurityConfigurerAdapter {
+
+    String[] staticResources = {
+            "/css/**",
+            "/img/**",
+            "/js/**",
+            "/vendor/**",
+            "/scss/**"
+    };
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable() // tymczasowe wylaczenie zabezpieczenia przed csrf
                 .authorizeRequests() //autoryzuj wszystkie zadania
                 .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers(staticResources).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin() //generowanie formularza logowania
