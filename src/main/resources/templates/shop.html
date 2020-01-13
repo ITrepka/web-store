@@ -4,19 +4,36 @@
     <meta charset="UTF-8">
     <title>Pretchee</title>
     <div th:replace="layout/layout :: head"></div>
-    <link rel='stylesheet' id='woocommerce-layout-css' href='https://colorlib.com/tyche/wp-content/plugins/woocommerce/assets/css/woocommerce-layout.css?ver=3.8.1' type='text/css' media='all' />
-    <link rel='stylesheet' id='woocommerce-general-css' href='https://colorlib.com/tyche/wp-content/plugins/woocommerce/assets/css/woocommerce.css?ver=3.8.1' type='text/css' media='all' />
+    <link rel='stylesheet' id='woocommerce-layout-css'
+          href='https://colorlib.com/tyche/wp-content/plugins/woocommerce/assets/css/woocommerce-layout.css?ver=3.8.1'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='woocommerce-general-css'
+          href='https://colorlib.com/tyche/wp-content/plugins/woocommerce/assets/css/woocommerce.css?ver=3.8.1'
+          type='text/css' media='all'/>
     <style id='woocommerce-inline-inline-css' type='text/css'>
-        .woocommerce form .form-row .required { visibility: visible; }
+        .woocommerce form .form-row .required {
+            visibility: visible;
+        }
     </style>
-    <link crossorigin="anonymous" rel='stylesheet' id='google-fonts-css' href='//fonts.googleapis.com/css?family=Karla%3A400%2C700&#038;ver=5.3.2' type='text/css' media='all' />
-    <link rel='stylesheet' id='font-awesome-css' href='https://colorlib.com/tyche/wp-content/themes/tyche/assets/vendors/fontawesome/font-awesome.min.css?ver=5.3.2' type='text/css' media='all' />
-    <link rel='stylesheet' id='owlCarousel-css' href='https://colorlib.com/tyche/wp-content/themes/tyche/assets/vendors/owl-carousel/owl.carousel.min.css?ver=5.3.2' type='text/css' media='all' />
-    <link rel='stylesheet' id='owlCarousel-theme-css' href='https://colorlib.com/tyche/wp-content/themes/tyche/assets/vendors/owl-carousel/owl.theme.default.css?ver=5.3.2' type='text/css' media='all' />
-    <link rel='stylesheet' id='dashicons-css' href='https://colorlib.com/tyche/wp-includes/css/dashicons.min.css?ver=5.3.2' type='text/css' media='all' />
-    <link rel='stylesheet' id='tyche-css' href='https://colorlib.com/tyche/wp-content/themes/tyche/style.css?ver=5.3.2' type='text/css' media='all' />
-    <link rel='stylesheet' id='tyche-style-css' href='https://colorlib.com/tyche/wp-content/themes/tyche/assets/css/style.css?ver=5.3.2' type='text/css' media='all' />
-
+    <link crossorigin="anonymous" rel='stylesheet' id='google-fonts-css'
+          href='//fonts.googleapis.com/css?family=Karla%3A400%2C700&#038;ver=5.3.2' type='text/css' media='all'/>
+    <link rel='stylesheet' id='font-awesome-css'
+          href='https://colorlib.com/tyche/wp-content/themes/tyche/assets/vendors/fontawesome/font-awesome.min.css?ver=5.3.2'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='owlCarousel-css'
+          href='https://colorlib.com/tyche/wp-content/themes/tyche/assets/vendors/owl-carousel/owl.carousel.min.css?ver=5.3.2'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='owlCarousel-theme-css'
+          href='https://colorlib.com/tyche/wp-content/themes/tyche/assets/vendors/owl-carousel/owl.theme.default.css?ver=5.3.2'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='dashicons-css'
+          href='https://colorlib.com/tyche/wp-includes/css/dashicons.min.css?ver=5.3.2' type='text/css' media='all'/>
+    <link rel='stylesheet' id='tyche-css' href='https://colorlib.com/tyche/wp-content/themes/tyche/style.css?ver=5.3.2'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='tyche-style-css'
+          href='https://colorlib.com/tyche/wp-content/themes/tyche/assets/css/style.css?ver=5.3.2' type='text/css'
+          media='all'/>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body class="archive post-type-archive post-type-archive-product wp-custom-logo theme-tyche woocommerce woocommerce-page woocommerce-no-js hfeed">
 <div id="page" class="site">
@@ -25,7 +42,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <nav class="woocommerce-breadcrumb"><a href="https://colorlib.com/tyche">Home</a>&nbsp;&#47;&nbsp;Shop
+                    <nav class="woocommerce-breadcrumb"><a th:href="@{'/'}">Strona Domowa</a>&nbsp;&#47;&nbsp;Sklep
                     </nav>
                 </div>
             </div>
@@ -34,16 +51,16 @@
                     <div id="woocommerce_product_search-3" class="widget woocommerce widget_product_search">
                         <form role="search" method="get" class="woocommerce-product-search"
                               action="https://colorlib.com/tyche/">
-                            <label class="screen-reader-text" for="woocommerce-product-search-field-0">Search
-                                for:</label>
+                            <label class="screen-reader-text" for="woocommerce-product-search-field-0">Wyszukaj
+                                dla:</label>
                             <input type="search" id="woocommerce-product-search-field-0" class="search-field"
                                    placeholder="Search products&hellip;" value="" name="s"/>
-                            <button type="submit" value="Search">Search</button>
+                            <button type="submit" value="Search">Szukaj</button>
                             <input type="hidden" name="post_type" value="product"/>
                         </form>
                     </div>
                     <div id="woocommerce_price_filter-3" class="widget woocommerce widget_price_filter"><h5
-                            class="widget-title"><span>Filter by price</span></h5>
+                            class="widget-title"><span>Filtruj po cenie</span></h5>
                         <form method="get" action="https://colorlib.com/tyche/shop/">
                             <div class="price_slider_wrapper">
                                 <div class="price_slider" style="display:none;"></div>
@@ -62,17 +79,18 @@
                         </form>
                     </div>
                     <div id="woocommerce_products-3" class="widget woocommerce widget_products"><h5
-                            class="widget-title"><span>Products</span></h5>
+                            class="widget-title"><span>Nasze Produkty</span></h5>
                         <ul class="product_list_widget" th:each="product, iStat : ${products}">
                             <li>
                                 <a href="https://colorlib.com/tyche/product/marina-style/">
                                     <img width="255" height="320"
-                                         th:src="${product.photos.get(0).url}" />//todo
-                                         class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt=""/>
+                                         th:src="${product.photos.get(0).url}"/>//todo
+                                    class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt=""/>
                                     <span class="product-title" th:text="${product.name}"></span>
                                 </a>
                                 <span class="woocommerce-Price-amount amount"><span
-                                        class="woocommerce-Price-currencySymbol" th:text="${product.sellingPrize} + 'zł'"></span></span>
+                                        class="woocommerce-Price-currencySymbol"
+                                        th:text="${product.sellingPrize} + 'zł'"></span></span>
                             </li>
                         </ul>
                     </div>
@@ -86,52 +104,58 @@
                                          class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt=""/>
                                     <span class="product-title" th:text="${product.name}"></span>
                                 </a>
-                                <div class="star-rating" role="img" th:aria-label="'Rated ' + ${product.averageRate} + ' out of 5'"><span
-                                        th:style="'width=' + ${5 / product.averageRate * 100} '%'">Ocenione <strong class="rating" th:text="${product.averageRate}"></strong> out of 5</span>
+                                <div class="star-rating" role="img"
+                                     th:aria-label="'Rated ' + ${product.averageRate} + ' out of 5'"><span
+                                        th:style="'width=' + ${5 / product.averageRate * 100} '%'">Ocenione <strong
+                                        class="rating" th:text="${product.averageRate}"></strong> out of 5</span>
                                 </div>
-<!--                                <del><span class="woocommerce-Price-amount amount"><span-->
-<!--                                        class="woocommerce-Price-currencySymbol">&#36;</span>12.00</span></del>-->
+                                <!--                                <del><span class="woocommerce-Price-amount amount"><span-->
+                                <!--                                        class="woocommerce-Price-currencySymbol">&#36;</span>12.00</span></del>-->
                                 <ins><span class="woocommerce-Price-amount amount"><span
-                                        class="woocommerce-Price-currencySymbol" th:text="${product.sellingPrize} + 'zł'"></span></span></ins>
+                                        class="woocommerce-Price-currencySymbol"
+                                        th:text="${product.sellingPrize} + 'zł'"></span></span></ins>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-8 tyche-has-sidebar">
-                    <h1 class="woocommerce-products-header__title page-title">Shop</h1>
+                    <h1 class="woocommerce-products-header__title page-title">Sklep</h1>
                     <div class="woocommerce-notices-wrapper"></div>
-                    <form class="woocommerce-ordering" method="get">
-                        <select name="orderby" class="orderby" aria-label="Shop order">
-                            <option value="menu_order" selected='selected'>Default sorting</option>
-                            <option value="popularity">Sort by popularity</option>
-                            <option value="rating">Sort by average rating</option>
-                            <option value="date">Sort by latest</option>
-                            <option value="price">Sort by price: low to high</option>
-                            <option value="price-desc">Sort by price: high to low</option>
+                    <form class="woocommerce-ordering" th:action="@{'/shop'}" method="get">
+                        <select name="orderBy" class="orderby" aria-label="Shop order">
+                            <option value="menu_order" selected='selected'>Domyślne sortowanie</option>
+                            <option value="rating">Sortuj: Ocena</option>
+                            <option value="date">Sortuj: Ostatnio dodane</option>
+                            <option value="price">Sortuj: Cena Rosnąco</option>
+                            <option value="price-desc">Sortuj: Cena Malejąco</option>
                         </select>
-                        <input type="hidden" name="paged" value="1"/>
                     </form>
                     <p class="woocommerce-result-count">
                         Showing 1&ndash;12 of 22 results</p>
                     <ul class="products columns-3" th:each="product, iStat : ${products}">
                         <li class="product type-product post-41 status-publish first instock product_cat-shirts product_tag-pokemon product_tag-print product_tag-shirt product_tag-white has-post-thumbnail sale taxable shipping-taxable purchasable product-type-simple">
-                            <a th:href="@{'/product/' + ${product.productId}}" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
-<!--                                <span class="onsale">Sale!</span>-->
+                            <a th:href="@{'/product/' + ${product.productId}}"
+                               class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
+                                <!--                                <span class="onsale">Sale!</span>-->
                                 <img width="255" height="320"
                                      th:src="${product.photos.get(0).url}"
                                      class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt=""/>
                                 <h2 class="woocommerce-loop-product__title" th:text="${product.name}"></h2>
-                                <div class="star-rating" role="img" th:aria-label="'Rated ' + ${product.averageRate} + ' out of 5'"><span
-                                        th:style="'width=' + ${5 / product.averageRate * 100} '%'">Ocenione <strong class="rating" th:text="${product.averageRate}"></strong> out of 5</span>
+                                <div class="star-rating" role="img"
+                                     th:aria-label="'Rated ' + ${product.averageRate} + ' out of 5'"><span
+                                        th:style="'width=' + ${5 / product.averageRate * 100} '%'">Ocenione <strong
+                                        class="rating" th:text="${product.averageRate}"></strong> out of 5</span>
                                 </div>
                                 <span class="price"><!--<del><span class="woocommerce-Price-amount amount"><span
                                         class="woocommerce-Price-currencySymbol">&#36;</span>12.00</span></del>--> <ins><span
                                         class="woocommerce-Price-amount amount"><span
-                                        class="woocommerce-Price-currencySymbol" th:text="${product.sellingPrize} + 'zł'"></span></span></ins></span>
+                                        class="woocommerce-Price-currencySymbol"
+                                        th:text="${product.sellingPrize} + 'zł'"></span></span></ins></span>
                             </a><a th:href="'/?add-to-cart=' + product.id" data-quantity="1"
                                    class="button product_type_simple add_to_cart_button ajax_add_to_cart"
                                    data-product_id="41" data-product_sku=""
-                                   th:aria-label="'Add &ldquo;'+ ${product.name} +'&rdquo; to your cart'" rel="nofollow"><span
+                                   th:aria-label="'Add &ldquo;'+ ${product.name} +'&rdquo; to your cart'"
+                                   rel="nofollow"><span
                                 class="fa fa-shopping-cart"></span> Dodaj do Koszyka</a>
                         </li>
                     </ul>
@@ -151,6 +175,8 @@
 </div>
 
 <footer th:replace="layout/layout :: main-footer"></footer>
-
 </div>
 </body>
+</html>
+</body>
+</html>

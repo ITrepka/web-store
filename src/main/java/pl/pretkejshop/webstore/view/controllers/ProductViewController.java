@@ -8,16 +8,18 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.pretkejshop.webstore.service.dto.ProductDto;
 import pl.pretkejshop.webstore.service.exception.NotFoundException;
 import pl.pretkejshop.webstore.service.services.ProductService;
+import pl.pretkejshop.webstore.view.service.dto.ProductViewDto;
+import pl.pretkejshop.webstore.view.service.services.ShopViewService;
 
 @Controller
 public class ProductViewController {
     @Autowired
-    private ProductService productService;
+    private ShopViewService shopViewService;
 
     @GetMapping("/product/{id}")
     public ModelAndView displayProductView(@PathVariable Integer id) throws NotFoundException {
         ModelAndView mv = new ModelAndView("product");
-        ProductDto product = productService.getProductById(id);
+        ProductViewDto product = shopViewService.getProductById(id);
         mv.addObject("product", product);
         return mv;
     }

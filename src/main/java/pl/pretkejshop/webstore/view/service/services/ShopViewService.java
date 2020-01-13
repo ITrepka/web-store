@@ -40,4 +40,10 @@ public class ShopViewService {
                 .sorted((p1, p2) -> (int) (p2.getAverageRate() - p1.getAverageRate()))
                 .collect(Collectors.toList());
     }
+
+    public void sort(String orderBy, List<ProductViewDto> products) {
+        switch (orderBy) {
+//            case
+        }
+    }
 }

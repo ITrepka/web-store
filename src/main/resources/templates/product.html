@@ -19,26 +19,26 @@
                             <div data-thumb="https://colorlib.com/tyche/wp-content/uploads/sites/17/2017/06/woman-1484279_1920-100x100.jpg" data-thumb-alt="" class="woocommerce-product-gallery__image"><a href="https://colorlib.com/tyche/wp-content/uploads/sites/17/2017/06/woman-1484279_1920.jpg"><img width="540" height="359" src="https://colorlib.com/tyche/wp-content/uploads/sites/17/2017/06/woman-1484279_1920.jpg" class="wp-post-image" alt="" title="woman-1484279_1920" data-caption="" data-src="https://colorlib.com/tyche/wp-content/uploads/sites/17/2017/06/woman-1484279_1920.jpg" data-large_image="https://colorlib.com/tyche/wp-content/uploads/sites/17/2017/06/woman-1484279_1920.jpg" data-large_image_width="1920" data-large_image_height="1276" srcset="https://colorlib.com/tyche/wp-content/uploads/sites/17/2017/06/woman-1484279_1920.jpg 1920w, https://colorlib.com/tyche/wp-content/uploads/sites/17/2017/06/woman-1484279_1920-300x199.jpg 300w, https://colorlib.com/tyche/wp-content/uploads/sites/17/2017/06/woman-1484279_1920-768x510.jpg 768w, https://colorlib.com/tyche/wp-content/uploads/sites/17/2017/06/woman-1484279_1920-1024x681.jpg 1024w" sizes="(max-width: 540px) 100vw, 540px" /></a></div> </figure>
                     </div>
                     <div class="summary entry-summary">
-                        <h1 class="product_title entry-title">Marina Style</h1><div class="woocommerce-product-details__short-description">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <h1 class="product_title entry-title"th:text="${product.name}"></h1><div class="woocommerce-product-details__short-description">
+                        <p th:text="${product.description}"></p>
                     </div>
-                        <p class="price"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>35.00</span></p>
+                        <p class="price" th:text="${product.sellingPrize} + ' zł'"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span></span></p>
                         <form class="cart" action="https://colorlib.com/tyche/product/marina-style/" method="post" enctype='multipart/form-data'>
                             <div class="quantity">
                                 <label class="screen-reader-text" for="quantity_5e179a021fac5">Marina Style quantity</label>
                                 <input type="number" id="quantity_5e179a021fac5" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" inputmode="numeric" />
                             </div>
-                            <button type="submit" name="add-to-cart" value="64" class="single_add_to_cart_button button alt">Add to cart</button>
+                            <button type="submit" name="add-to-cart" value="64" class="single_add_to_cart_button button alt">Dodaj do koszyka</button>
                         </form>
                         <div class="product_meta">
-                            <span class="posted_in">Categories: <a href="https://colorlib.com/tyche/product-category/shirts/" rel="tag">Shirts</a>, <a href="https://colorlib.com/tyche/product-category/trends/" rel="tag">Trends</a></span>
-                            <span class="tagged_as">Tags: <a href="https://colorlib.com/tyche/product-tag/blouse/" rel="tag">blouse</a>, <a href="https://colorlib.com/tyche/product-tag/blue/" rel="tag">blue</a>, <a href="https://colorlib.com/tyche/product-tag/shirt/" rel="tag">shirt</a></span>
+                            <span class="posted_in">Kategoria: <a href="https://colorlib.com/tyche/product-category/shirts/" rel="tag" th:text="${product.subCategoryDto}"></a>, <a href="https://colorlib.com/tyche/product-category/trends/" rel="tag">Trends</a></span>
+                            <span class="tagged_as" th:each="tag : ${product.tagList}">Tags: <a href="https://colorlib.com/tyche/product-tag/blouse/" rel="tag" th:text="${tag.name}"></a></span>
                         </div>
                     </div>
                     <div class="woocommerce-tabs wc-tabs-wrapper">
                         <ul class="tabs wc-tabs tyche-wc-tabs" role="tablist">
                             <li class="description_tab" id="tab-title-description" role="tab" aria-controls="tab-description">
-                                <a href="#tab-description">Description</a>
+                                <a href="#tab-description" th:text="${product.description}"></a>
                             </li>
                             <li class="reviews_tab" id="tab-title-reviews" role="tab" aria-controls="tab-reviews">
                                 <a href="#tab-reviews">Reviews (0)</a>
