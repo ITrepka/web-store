@@ -20,6 +20,5 @@ public class CategoryDto {
     private String name;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    private List<Integer> productsIds;
     private List<Integer> subCategoryIds;
 }

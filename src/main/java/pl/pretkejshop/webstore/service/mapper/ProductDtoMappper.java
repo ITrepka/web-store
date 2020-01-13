@@ -6,6 +6,7 @@ import pl.pretkejshop.webstore.model.*;
 import pl.pretkejshop.webstore.repository.BrandRepository;
 import pl.pretkejshop.webstore.repository.CategoryRepository;
 import pl.pretkejshop.webstore.repository.ProductRepository;
+import pl.pretkejshop.webstore.repository.SubCategoryRepository;
 import pl.pretkejshop.webstore.service.dto.CreateUpdateProductDto;
 import pl.pretkejshop.webstore.service.dto.ProductDto;
 import pl.pretkejshop.webstore.service.exception.NotFoundException;
@@ -16,12 +17,12 @@ import java.util.stream.Collectors;
 @Service
 public class ProductDtoMappper {
     @Autowired
-    private CategoryRepository categoryRepository;
+    private SubCategoryRepository subCategoryRepository;
     @Autowired
     private BrandRepository brandRepository;
 
     public ProductDto toDto(Product product) {
-        Integer categoryId = product.getCategory() == null ? null : product.getCategory().getId();
+        Integer subCategoryId = product.getSubCategory() == null ? null : product.getSubCategory().getId();
         List <Integer> photoIds = product.getPhotos() == null ? null :
                 product.getPhotos().stream()
                 .map(Photo::getId)
@@ -47,7 +48,7 @@ public class ProductDtoMappper {
                 .productCopiesIds(productCopiesIds)
                 .name(product.getName())
                 .description(product.getDescription())
-                .categoryId(categoryId)
+                .subCategoryId(subCategoryId)
                 .photoIds(photoIds)
                 .tagListIds(tagsIds)
                 .ratesIds(ratesIds)
@@ -62,9 +63,9 @@ public class ProductDtoMappper {
     }
 
     public Product toModel(CreateUpdateProductDto createProductDto) throws NotFoundException {
-        Category category = createProductDto.getCategoryId() == null ? null :
-                categoryRepository.findById(createProductDto.getCategoryId())
-                        .orElseThrow(() -> new NotFoundException("Category with id = " + createProductDto.getCategoryId() + " not found"));
+        SubCategory subCategory = createProductDto.getSubCategoryId() == null ? null :
+                subCategoryRepository.findById(createProductDto.getSubCategoryId())
+                        .orElseThrow(() -> new NotFoundException("Category with id = " + createProductDto.getSubCategoryId() + " not found"));
         Integer brandId = createProductDto.getBrandId();
         Brand brand = brandId == null ? null : brandRepository.findById(brandId)
                 .orElseThrow(() -> new NotFoundException("Brand with id = " + brandId + " not found"));
@@ -77,7 +78,7 @@ public class ProductDtoMappper {
                 .sellingPrice(createProductDto.getSellingPrice())
                 .discount(null)
                 .targetGender(createProductDto.getTargetGender())
-                .category(category)
+                .subCategory(subCategory)
                 .brand(brand)
                 .photos(null)
                 .rates(null)

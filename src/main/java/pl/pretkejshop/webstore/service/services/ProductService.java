@@ -6,9 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.pretkejshop.webstore.model.Brand;
 import pl.pretkejshop.webstore.model.Category;
 import pl.pretkejshop.webstore.model.Product;
+import pl.pretkejshop.webstore.model.SubCategory;
 import pl.pretkejshop.webstore.repository.BrandRepository;
 import pl.pretkejshop.webstore.repository.CategoryRepository;
 import pl.pretkejshop.webstore.repository.ProductRepository;
+import pl.pretkejshop.webstore.repository.SubCategoryRepository;
 import pl.pretkejshop.webstore.service.dto.CreateUpdateProductDto;
 import pl.pretkejshop.webstore.service.dto.ProductDto;
 import pl.pretkejshop.webstore.service.exception.InvalidDataException;
@@ -26,7 +28,7 @@ public class ProductService {
     @Autowired
     private ProductDtoMappper productDtoMapper;
     @Autowired
-    private CategoryRepository categoryRepository;
+    private SubCategoryRepository subCategoryRepository;
     @Autowired
     private BrandRepository brandRepository;
 
@@ -59,14 +61,14 @@ public class ProductService {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Product with id = " + id + " not found"));
         product.setName(updateProductDto.getName());
-        Category category = updateProductDto.getCategoryId() == null ? null :
-                categoryRepository.findById(updateProductDto.getCategoryId())
-                        .orElseThrow(() -> new NotFoundException("Category with id = " + updateProductDto.getCategoryId() + " not found"));
+        SubCategory subCategory = updateProductDto.getSubCategoryId() == null ? null :
+                subCategoryRepository.findById(updateProductDto.getSubCategoryId())
+                        .orElseThrow(() -> new NotFoundException("Category with id = " + updateProductDto.getSubCategoryId() + " not found"));
         Integer brandId = updateProductDto.getBrandId();
         Brand brand = brandId == null ? null : brandRepository.findById(brandId)
                 .orElseThrow(() -> new NotFoundException("Brand with id = " + brandId + " not found"));
         product.setBrand(brand);
-        product.setCategory(category);
+        product.setSubCategory(subCategory);
         product.setDescription(updateProductDto.getDescription());
         product.setTargetGender(updateProductDto.getTargetGender());
         product.setUpdatedAt(OffsetDateTime.now());

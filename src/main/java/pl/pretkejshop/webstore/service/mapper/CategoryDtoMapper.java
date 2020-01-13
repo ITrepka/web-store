@@ -17,10 +17,6 @@ import java.util.stream.Collectors;
 @Service
 public class CategoryDtoMapper {
     public CategoryDto toDto(Category category) {
-        List<Integer> productsIds = category.getProducts() == null ? null :
-                category.getProducts().stream()
-                        .map(Product::getId)
-                        .collect(Collectors.toList());
         List<Integer> categoriesIds = category.getSubCategories() == null ? null :
                 category.getSubCategories().stream()
                         .map(SubCategory::getId)
@@ -30,7 +26,6 @@ public class CategoryDtoMapper {
                 .name(category.getName())
                 .createdAt(category.getCreatedAt())
                 .updatedAt(category.getUpdatedAt())
-                .productsIds(productsIds)
                 .subCategoryIds(categoriesIds)
                 .build();
     }
@@ -40,7 +35,6 @@ public class CategoryDtoMapper {
                 .id(null)
                 .createdAt(null)
                 .updatedAt(null)
-                .products(null)
                 .subCategories(null)
                 .name(createCategoryDto.getName())
                 .build();

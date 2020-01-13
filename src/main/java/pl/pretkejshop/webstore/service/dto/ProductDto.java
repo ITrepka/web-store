@@ -19,7 +19,7 @@ public class ProductDto {
     private List<Long> productCopiesIds;
     private String name;
     private String description;
-    private Integer categoryId;
+    private Integer subCategoryId;
     private List<Integer> tagListIds;
     private String targetGender;
     private List<Integer> photoIds;

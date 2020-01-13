@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Builder
 @NoArgsConstructor
@@ -18,6 +19,8 @@ public class SubCategory {
     private String name;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
+    @OneToMany(mappedBy = "subCategory", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<Product> products;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Category category;
 }

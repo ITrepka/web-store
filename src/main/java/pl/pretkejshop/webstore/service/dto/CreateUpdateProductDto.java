@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 public class CreateUpdateProductDto {
     private String name;
     private String description;
-    private Integer categoryId;
+    private Integer subCategoryId;
     private Sex targetGender;
     private BigDecimal sellingPrice;
     private Integer brandId;

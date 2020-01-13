@@ -31,7 +31,7 @@ public class Product {
     @ManyToOne()
     private Brand brand;
     @ManyToOne
-    private Category category;
+    private SubCategory subCategory;
     @ManyToMany(mappedBy = "products")
     @Builder.Default
     private List<Tag> tagList = new ArrayList<>();
