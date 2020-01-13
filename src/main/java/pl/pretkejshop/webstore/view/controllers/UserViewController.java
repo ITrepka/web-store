@@ -1,4 +1,4 @@
-package pl.pretkejshop.webstore.view;
+package pl.pretkejshop.webstore.view.controllers;
 
 import io.swagger.models.Model;
 import org.springframework.beans.factory.annotation.Autowired;

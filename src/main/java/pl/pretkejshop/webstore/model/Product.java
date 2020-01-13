@@ -2,6 +2,7 @@ package pl.pretkejshop.webstore.model;
 
 import lombok.*;
 import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -22,13 +23,14 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<ProductCopy> productCopies;
     private String name;
+    @Type(type = "text")
     private String description;
     private Sex targetGender;
     private BigDecimal sellingPrice;
     private BigDecimal boughtFor;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    @ManyToOne()
+    @ManyToOne
     private Brand brand;
     @ManyToOne
     private SubCategory subCategory;

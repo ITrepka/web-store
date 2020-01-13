@@ -1,4 +1,4 @@
-package pl.pretkejshop.webstore.view;
+package pl.pretkejshop.webstore.view.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
