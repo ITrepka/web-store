@@ -22,7 +22,9 @@ public class ShopViewController {
 
     @GetMapping("/shop")
     public ModelAndView displayShopView(@RequestParam(required = false) String orderBy,
-                                        @RequestParam(required = false) String s) throws NotFoundException {
+                                        @RequestParam(required = false) String s,
+                                        @RequestParam(required = false) Integer min_price,
+                                        @RequestParam(required = false) Integer max_price) throws NotFoundException {
         List<ProductViewDto> products = shopViewService.getAllProducts();
         List<ProductViewDto> topRatedProducts = shopViewService.getTopRatedProducts(products);
         if (s != null) {
@@ -30,6 +32,9 @@ public class ShopViewController {
         }
         if (orderBy != null) {
             products = shopViewService.sort(orderBy, products);
+        }
+        if (min_price != null && max_price != null) {
+            products = shopViewService.filterBy(min_price, max_price, products);
         }
         ModelAndView mv = new ModelAndView("shop");
         mv.addObject("products", products);

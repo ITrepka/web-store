@@ -69,13 +69,13 @@
                     </div>
                     <div id="woocommerce_price_filter-3" class="widget woocommerce widget_price_filter"><h5
                             class="widget-title"><span>Filtruj po cenie</span></h5>
-                        <form method="get" action="https://colorlib.com/tyche/shop/">
+                        <form method="get" th:action="@{/shop}">
                             <div class="price_slider_wrapper">
                                 <div class="price_slider" style="display:none;"></div>
                                 <div class="price_slider_amount" data-step="10">
-                                    <input type="text" id="min_price" name="min_price" value="10" data-min="10"
+                                    <input type="number" id="min_price" name="min_price" value="10" data-min="10"
                                            placeholder="Min price"/>
-                                    <input type="text" id="max_price" name="max_price" value="60" data-max="60"
+                                    <input type="number" id="max_price" name="max_price" value="60" data-max="60"
                                            placeholder="Max price"/>
                                     <button type="submit" class="button">Filter</button>
                                     <div class="price_label" style="display:none;">

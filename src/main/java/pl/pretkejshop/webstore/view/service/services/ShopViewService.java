@@ -102,4 +102,11 @@ public class ShopViewService {
     private boolean searchInTagList(String s, List<TagDto> tagList) {
         return tagList.stream().anyMatch(tag -> tag.getName().toLowerCase().contains(s.toLowerCase()));
     }
+
+    public List<ProductViewDto> filterBy(Integer minPrice, Integer maxPrice, List<ProductViewDto> products) {
+        List<ProductViewDto> filteredProducts = new ArrayList<>(products);
+        return filteredProducts.stream()
+                .filter(p -> p.getSellingPrize().doubleValue() >= minPrice && p.getSellingPrize().doubleValue() <= maxPrice)
+                .collect(Collectors.toList());
+    }
 }
