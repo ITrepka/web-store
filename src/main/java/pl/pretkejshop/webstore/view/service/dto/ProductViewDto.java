@@ -1,9 +1,6 @@
 package pl.pretkejshop.webstore.view.service.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import pl.pretkejshop.webstore.service.dto.*;
 
 import java.math.BigDecimal;
@@ -14,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@EqualsAndHashCode(of = "productId")
 public class ProductViewDto {
     private Integer productId;
     private Integer numberOfCopies;

@@ -13,6 +13,8 @@ import pl.pretkejshop.webstore.service.dto.UserDto;
 import pl.pretkejshop.webstore.service.exception.NotFoundException;
 import pl.pretkejshop.webstore.service.services.UserService;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class UserViewController {
     @Autowired

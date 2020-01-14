@@ -2,13 +2,14 @@ package pl.pretkejshop.webstore.view.service.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.pretkejshop.webstore.model.Product;
-import pl.pretkejshop.webstore.service.dto.ProductDto;
-import pl.pretkejshop.webstore.service.dto.RateDto;
-import pl.pretkejshop.webstore.service.dto.TagDto;
+import pl.pretkejshop.webstore.service.dto.*;
+import pl.pretkejshop.webstore.service.exception.InvalidDataException;
 import pl.pretkejshop.webstore.service.exception.NotFoundException;
+import pl.pretkejshop.webstore.service.services.BasketService;
 import pl.pretkejshop.webstore.service.services.ProductService;
+import pl.pretkejshop.webstore.view.service.dto.BasketViewDto;
 import pl.pretkejshop.webstore.view.service.dto.ProductViewDto;
+import pl.pretkejshop.webstore.view.service.mapper.BasketViewDtoMapper;
 import pl.pretkejshop.webstore.view.service.mapper.ProductViewDtoMapper;
 
 import java.util.ArrayList;
@@ -22,6 +23,10 @@ public class ShopViewService {
     private ProductService productService;
     @Autowired
     private ProductViewDtoMapper productViewDtoMapper;
+    @Autowired
+    private BasketService basketService;
+    @Autowired
+    private BasketViewDtoMapper basketViewDtoMapper;
 
     public List<ProductViewDto> getAllProducts() throws NotFoundException {
         List<ProductDto> allProducts = productService.getAllProducts();
@@ -108,5 +113,16 @@ public class ShopViewService {
         return filteredProducts.stream()
                 .filter(p -> p.getSellingPrize().doubleValue() >= minPrice && p.getSellingPrize().doubleValue() <= maxPrice)
                 .collect(Collectors.toList());
+    }
+
+    public BasketViewDto getBasketViewDtoBy(UserDto user) throws InvalidDataException, NotFoundException {
+        if (user.getBasketId() == null) {
+            CreateUpdateBasketDto createBasketDto = new CreateUpdateBasketDto(user.getId());
+            BasketDto basketDto = basketService.addNewBasket(createBasketDto);
+            return basketViewDtoMapper.toViewDto(basketDto);
+        }
+
+        BasketDto basketDto = basketService.getBasketById(user.getBasketId());
+        return basketViewDtoMapper.toViewDto(basketDto);
     }
 }
