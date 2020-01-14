@@ -25,7 +25,7 @@ public class ShopViewController {
         List<ProductViewDto> products = shopViewService.getAllProducts();
         List<ProductViewDto> topRatedProducts = shopViewService.getTopRatedProducts(products);
         if (orderBy != null) {
-            shopViewService.sort(orderBy, products);
+            products = shopViewService.sort(orderBy, products);
         }
         ModelAndView mv = new ModelAndView("shop");
         mv.addObject("products", products);

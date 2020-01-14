@@ -61,6 +61,7 @@ public class ProductViewDtoMapper {
                 .productId(productDto.getId())
                 .brand(brand)
                 .name(productDto.getName())
+                .createdAt(productDto.getCreatedAt())
                 .description(productDto.getDescription())
                 .discount(discount)
                 .numberOfCopies(numberOfCopies)

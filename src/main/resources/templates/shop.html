@@ -33,7 +33,16 @@
     <link rel='stylesheet' id='tyche-style-css'
           href='https://colorlib.com/tyche/wp-content/themes/tyche/assets/css/style.css?ver=5.3.2' type='text/css'
           media='all'/>
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript">
+        var timesClicked = 0;
+        function submit_form() {
+            timesClicked++;
+
+            if (timesClicked > 1){
+                document.getElementById("order_form").submit();
+            }
+        }
+    </script>
 </head>
 <body class="archive post-type-archive post-type-archive-product wp-custom-logo theme-tyche woocommerce woocommerce-page woocommerce-no-js hfeed">
 <div id="page" class="site">
@@ -50,7 +59,7 @@
                 <div class="col-md-4 hidden-xs">
                     <div id="woocommerce_product_search-3" class="widget woocommerce widget_product_search">
                         <form role="search" method="get" class="woocommerce-product-search"
-                              action="https://colorlib.com/tyche/">
+                              th:action="@{/}">
                             <label class="screen-reader-text" for="woocommerce-product-search-field-0">Wyszukaj
                                 dla:</label>
                             <input type="search" id="woocommerce-product-search-field-0" class="search-field"
@@ -121,9 +130,9 @@
                 <div class="col-md-8 tyche-has-sidebar">
                     <h1 class="woocommerce-products-header__title page-title">Sklep</h1>
                     <div class="woocommerce-notices-wrapper"></div>
-                    <form class="woocommerce-ordering" th:action="@{'/shop'}" method="get">
-                        <select name="orderBy" class="orderby" aria-label="Shop order">
-                            <option value="menu_order" selected='selected'>Domyślne sortowanie</option>
+                    <form class="woocommerce-ordering" th:action="@{'/shop'}" id="order_form" method="get">
+                        <select onclick="submit_form()" name="orderBy" class="orderby" aria-label="Shop order">
+                            <option value="menu_order" selected="selected">Domyślne sortowanie</option>
                             <option value="rating">Sortuj: Ocena</option>
                             <option value="date">Sortuj: Ostatnio dodane</option>
                             <option value="price">Sortuj: Cena Rosnąco</option>

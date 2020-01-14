@@ -2,6 +2,7 @@ package pl.pretkejshop.webstore.view.service.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.pretkejshop.webstore.model.Product;
 import pl.pretkejshop.webstore.service.dto.ProductDto;
 import pl.pretkejshop.webstore.service.dto.RateDto;
 import pl.pretkejshop.webstore.service.exception.NotFoundException;
@@ -10,6 +11,7 @@ import pl.pretkejshop.webstore.view.service.dto.ProductViewDto;
 import pl.pretkejshop.webstore.view.service.mapper.ProductViewDtoMapper;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,9 +43,27 @@ public class ShopViewService {
                 .collect(Collectors.toList());
     }
 
-    public void sort(String orderBy, List<ProductViewDto> products) {
+    public List<ProductViewDto> sort(String orderBy, List<ProductViewDto> products) {
+        List<ProductViewDto> productsAfterSort = new ArrayList<>(products);
         switch (orderBy) {
-//            case
+            case "rating":
+                return productsAfterSort.stream()
+                        .sorted(Comparator.comparingDouble(ProductViewDto::getAverageRate))
+                        .collect(Collectors.toList());
+            case "date":
+                return productsAfterSort.stream()
+                        .sorted((p1, p2) -> p2.getCreatedAt().compareTo(p1.getCreatedAt()))
+                        .collect(Collectors.toList());
+            case "price":
+                return productsAfterSort.stream()
+                        .sorted(Comparator.comparing(ProductViewDto::getSellingPrize))
+                        .collect(Collectors.toList());
+            case "price-desc":
+                return productsAfterSort.stream()
+                        .sorted((p1, p2) -> p2.getSellingPrize().compareTo(p1.getSellingPrize()))
+                        .collect(Collectors.toList());
+            default:
+                return productsAfterSort;
         }
     }
 }

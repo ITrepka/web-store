@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import pl.pretkejshop.webstore.service.dto.*;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Builder
@@ -27,4 +28,5 @@ public class ProductViewDto {
     private List<RateDto> rates;
     private BrandDto brand;
     private Double averageRate;
+    private OffsetDateTime createdAt;
 }
