@@ -59,13 +59,12 @@
                 <div class="col-md-4 hidden-xs">
                     <div id="woocommerce_product_search-3" class="widget woocommerce widget_product_search">
                         <form role="search" method="get" class="woocommerce-product-search"
-                              th:action="@{/}">
+                              th:action="@{'/shop'}">
                             <label class="screen-reader-text" for="woocommerce-product-search-field-0">Wyszukaj
                                 dla:</label>
                             <input type="search" id="woocommerce-product-search-field-0" class="search-field"
                                    placeholder="Search products&hellip;" value="" name="s"/>
                             <button type="submit" value="Search">Szukaj</button>
-                            <input type="hidden" name="post_type" value="product"/>
                         </form>
                     </div>
                     <div id="woocommerce_price_filter-3" class="widget woocommerce widget_price_filter"><h5

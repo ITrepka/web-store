@@ -21,9 +21,13 @@ public class ShopViewController {
 
 
     @GetMapping("/shop")
-    public ModelAndView displayShopView(@RequestParam(required = false) String orderBy) throws NotFoundException {
+    public ModelAndView displayShopView(@RequestParam(required = false) String orderBy,
+                                        @RequestParam(required = false) String s) throws NotFoundException {
         List<ProductViewDto> products = shopViewService.getAllProducts();
         List<ProductViewDto> topRatedProducts = shopViewService.getTopRatedProducts(products);
+        if (s != null) {
+            products = shopViewService.searchProductByText(s, products);
+        }
         if (orderBy != null) {
             products = shopViewService.sort(orderBy, products);
         }

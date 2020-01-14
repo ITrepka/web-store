@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.pretkejshop.webstore.model.Product;
 import pl.pretkejshop.webstore.service.dto.ProductDto;
 import pl.pretkejshop.webstore.service.dto.RateDto;
+import pl.pretkejshop.webstore.service.dto.TagDto;
 import pl.pretkejshop.webstore.service.exception.NotFoundException;
 import pl.pretkejshop.webstore.service.services.ProductService;
 import pl.pretkejshop.webstore.view.service.dto.ProductViewDto;
@@ -65,5 +66,40 @@ public class ShopViewService {
             default:
                 return productsAfterSort;
         }
+    }
+
+    public List<ProductViewDto> searchProductByText(String s, List<ProductViewDto> products) {
+        List<ProductViewDto> matchedProducts = new ArrayList<>();
+
+        List<ProductViewDto> matchedByProductName = products.stream()
+                .filter(p -> p.getName().toLowerCase().contains(s.toLowerCase())).collect(Collectors.toList());
+        List<ProductViewDto> matchedByBrandName = products.stream()
+                .filter(p -> p.getBrand() != null)
+                .filter(p -> p.getBrand().getName().toLowerCase().contains(s.toLowerCase()))
+                .collect(Collectors.toList());
+        List<ProductViewDto> matchedByDescription = products.stream()
+                .filter(p -> p.getDescription().toLowerCase().contains(s.toLowerCase()))
+                .collect(Collectors.toList());
+        List<ProductViewDto> matchedBySubCategory = products.stream()
+                .filter(p -> p.getSubCategoryDto() != null)
+                .filter(p -> p.getSubCategoryDto().getName().toLowerCase().contains(s.toLowerCase()))
+                .collect(Collectors.toList());
+        List<ProductViewDto> matchedByTag = products.stream()
+                .filter(p -> p.getTagList() != null)
+                .filter(p -> searchInTagList(s, p.getTagList()))
+                .collect(Collectors.toList());
+
+
+        matchedProducts.addAll(matchedByProductName);
+        matchedProducts.addAll(matchedByBrandName);
+        matchedProducts.addAll(matchedByDescription);
+        matchedProducts.addAll(matchedBySubCategory);
+        matchedProducts.addAll(matchedByTag);
+
+        return matchedProducts.stream().distinct().collect(Collectors.toList());
+    }
+
+    private boolean searchInTagList(String s, List<TagDto> tagList) {
+        return tagList.stream().anyMatch(tag -> tag.getName().toLowerCase().contains(s.toLowerCase()));
     }
 }
