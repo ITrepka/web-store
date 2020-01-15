@@ -10,6 +10,7 @@ import pl.pretkejshop.webstore.view.service.dto.BasketViewDto;
 import pl.pretkejshop.webstore.view.service.dto.ProductViewDto;
 import pl.pretkejshop.webstore.view.service.services.ShopViewService;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,20 +24,25 @@ public class BasketViewDtoMapper {
     private ProductViewDtoMapper productViewDtoMapper;
 
     public BasketViewDto toViewDto(BasketDto basketDto) throws NotFoundException {
-        List<ProductViewDto> productViewDtos = new ArrayList<>();
+        List<ProductViewDto> productsViewDtos = new ArrayList<>();
         if (basketDto.getProductsIds() != null) {
             for (Integer productId : basketDto.getProductsIds()) {
                 ProductDto productDto = productService.getProductById(productId);
-                productViewDtos.add(productViewDtoMapper.toDto(productDto));
+                productsViewDtos.add(productViewDtoMapper.toDto(productDto));
             }
         }
         Map<ProductViewDto, Integer> productsInBasket = new HashMap<>();
 
-        productViewDtos.stream().forEach(productViewDto -> productsInBasket.put(productViewDto,
+        productsViewDtos.stream().forEach(productViewDto -> productsInBasket.put(productViewDto,
                                 productsInBasket.containsKey(productViewDto) ? productsInBasket.get(productViewDto) + 1 : 1));
+
+        BigDecimal priceForCartItems = new BigDecimal(0);
+
+        productsViewDtos.stream().forEach(p -> priceForCartItems.add(p.getSellingPrize()));
 
         return BasketViewDto.builder()
                 .productsInBasket(productsInBasket)
+                .priceForCartItems(priceForCartItems)
                 .build();
     }
 }

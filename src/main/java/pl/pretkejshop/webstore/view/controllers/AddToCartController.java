@@ -30,8 +30,8 @@ public class AddToCartController {
         if (authentication.isAuthenticated()) {
             String username = authentication.getName();
             UserDto user = userService.getUserByLogin(username);
-            BasketViewDto userBasket = shopViewService.getBasketViewDtoBy(user);
-            session.setAttribute("userBasket", userBasket);
+            BasketViewDto userBasket = shopViewService.addProductToUserBasket(user, product);
+            session.setAttribute("userCart", userBasket);
         }
 
         if (session.getAttribute("sessionCart") != null) {

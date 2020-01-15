@@ -56,8 +56,9 @@
                                     <a th:href="@{/basket}">
                                         <i class="fa fa-shopping-cart"></i>
                                         Koszyk -
-                                        &#036;
-                                        <span class="price">0</span>
+                                        <span class="price" th:if="${session.userCart == null && session.sessionCart == null}">0 zł</span>
+                                        <span class="price" th:if="${session != null && session.userCart != null}" th:text="${session.userCart.priceForCartItems + ' zł'}"></span>
+                                        <span class="price" th:if="${session != null && session.userCart == null && session.sessionCart != null}" th:text="${session.sessionCart.priceForCartItems + ' zł'}"></span>
                                     </a>
                                 </li>
 

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.pretkejshop.webstore.service.dto.*;
 import pl.pretkejshop.webstore.service.exception.InvalidDataException;
 import pl.pretkejshop.webstore.service.exception.NotFoundException;
+import pl.pretkejshop.webstore.service.services.BasketProductService;
 import pl.pretkejshop.webstore.service.services.BasketService;
 import pl.pretkejshop.webstore.service.services.ProductService;
 import pl.pretkejshop.webstore.view.service.dto.BasketViewDto;
@@ -27,6 +28,8 @@ public class ShopViewService {
     private BasketService basketService;
     @Autowired
     private BasketViewDtoMapper basketViewDtoMapper;
+    @Autowired
+    private BasketProductService basketProductService;
 
     public List<ProductViewDto> getAllProducts() throws NotFoundException {
         List<ProductDto> allProducts = productService.getAllProducts();
@@ -115,14 +118,16 @@ public class ShopViewService {
                 .collect(Collectors.toList());
     }
 
-    public BasketViewDto getBasketViewDtoBy(UserDto user) throws InvalidDataException, NotFoundException {
+    public BasketViewDto addProductToUserBasket(UserDto user, ProductViewDto product) throws InvalidDataException, NotFoundException {
         if (user.getBasketId() == null) {
             CreateUpdateBasketDto createBasketDto = new CreateUpdateBasketDto(user.getId());
             BasketDto basketDto = basketService.addNewBasket(createBasketDto);
-            return basketViewDtoMapper.toViewDto(basketDto);
+            BasketDto basketWithAddedProduct = basketProductService.addProductToBasket(basketDto.getId(), product.getProductId());
+            return basketViewDtoMapper.toViewDto(basketWithAddedProduct);
         }
 
         BasketDto basketDto = basketService.getBasketById(user.getBasketId());
-        return basketViewDtoMapper.toViewDto(basketDto);
+        BasketDto basketWithAddedProduct = basketProductService.addProductToBasket(basketDto.getId(), product.getProductId());
+        return basketViewDtoMapper.toViewDto(basketWithAddedProduct);
     }
 }
