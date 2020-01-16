@@ -4,9 +4,21 @@
     <meta charset="UTF-8">
     <title>Pretchee</title>
     <div th:replace="layout/layout :: head"></div>
+    <link rel='stylesheet' id='wp-block-library-css'
+          href='https://colorlib.com/tyche/wp-includes/css/dist/block-library/style.min.css?ver=5.3.2' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='wc-block-style-css'
+          href='https://colorlib.com/tyche/wp-content/plugins/woocommerce/packages/woocommerce-blocks/build/style.css?ver=2.4.5'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='contact-form-7-css'
+          href='https://colorlib.com/tyche/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=5.1.6'
+          type='text/css' media='all'/>
     <link rel='stylesheet' id='woocommerce-layout-css'
           href='https://colorlib.com/tyche/wp-content/plugins/woocommerce/assets/css/woocommerce-layout.css?ver=3.8.1'
           type='text/css' media='all'/>
+    <link rel='stylesheet' id='woocommerce-smallscreen-css'
+          href='https://colorlib.com/tyche/wp-content/plugins/woocommerce/assets/css/woocommerce-smallscreen.css?ver=3.8.1'
+          type='text/css' media='only screen and (max-width: 768px)'/>
     <link rel='stylesheet' id='woocommerce-general-css'
           href='https://colorlib.com/tyche/wp-content/plugins/woocommerce/assets/css/woocommerce.css?ver=3.8.1'
           type='text/css' media='all'/>
@@ -33,6 +45,7 @@
     <link rel='stylesheet' id='tyche-style-css'
           href='https://colorlib.com/tyche/wp-content/themes/tyche/assets/css/style.css?ver=5.3.2' type='text/css'
           media='all'/>
+
     <script type="text/javascript">
         var timesClicked = 0;
         function submit_form() {
@@ -90,9 +103,9 @@
                             class="widget-title"><span>Nasze Produkty</span></h5>
                         <ul class="product_list_widget" th:each="product, iStat : ${products}">
                             <li>
-                                <a href="https://colorlib.com/tyche/product/marina-style/">
+                                <a th:href="@{'/product/' + ${product.productId}}">
                                     <img width="255" height="320"
-                                         th:src="${product.photos.get(0).url}"
+                                         th:src="${product.photos.get(1).url}"
                                     class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt=""/>
                                     <span class="product-title" th:text="${product.name}"></span>
                                 </a>
@@ -108,13 +121,13 @@
                             <li>
                                 <a th:href="@{'/product/' + product.id}">
                                     <img width="255" height="320"
-                                         src="https://colorlib.com/tyche/wp-content/uploads/sites/17/2017/06/woman-1211441_1920-255x320.jpg"
+                                         th:src="${product.photos.get(1).url}"
                                          class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt=""/>
                                     <span class="product-title" th:text="${product.name}"></span>
                                 </a>
                                 <div class="star-rating" role="img"
                                      th:aria-label="'Rated ' + ${product.averageRate} + ' out of 5'"><span
-                                        th:style="'width: ' + ${5 / product.averageRate * 100} + '%;'">Ocenione <strong
+                                        th:style="'width: ' + ${product.averageRate == 0 ? 0 : 5 / product.averageRate * 100} + '%;'">Ocenione <strong
                                         class="rating" th:text="${product.averageRate}"></strong> out of 5</span>
                                 </div>
                                 <!--                                <del><span class="woocommerce-Price-amount amount"><span-->
@@ -139,33 +152,34 @@
                         </select>
                     </form>
                     <p class="woocommerce-result-count" th:text="${paragraph1}"></p>
-                    <ul class="products columns-3" th:each="product, iStat : ${products}">
-                        <li class="product type-product post-41 status-publish first instock product_cat-shirts product_tag-pokemon product_tag-print product_tag-shirt product_tag-white has-post-thumbnail sale taxable shipping-taxable purchasable product-type-simple">
-                            <a th:href="@{'/product/' + ${product.productId}}"
-                               class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
-                                <!--                                <span class="onsale">Sale!</span>-->
-                                <img width="255" height="320"
-                                     th:src="${product.photos.get(0).url}"
-                                     class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt=""/>
-                                <h2 class="woocommerce-loop-product__title" th:text="${product.name}"></h2>
-                                <div class="star-rating" role="img"
-                                     th:aria-label="'Rated ' + ${product.averageRate} + ' out of 5'"><span
-                                        th:style="'width: ' + ${5 / product.averageRate * 100} + '%'">Ocenione <strong
-                                        class="rating" th:text="${product.averageRate}"></strong> out of 5</span>
-                                </div>
-                                <span class="price"><!--<del><span class="woocommerce-Price-amount amount"><span
+                    <ul class="products columns-3">
+                            <li th:each="product, iStat : ${products}" class="product type-product status-publish instock product-type-simple"
+                            th:classappend="${(iStat.index % 3 == 0 ? 'first' : '') + (iStat.index % 3 == 2 ? 'last' : '')}">
+                                <a th:href="@{'/product/' + ${product.productId}}"
+                                   class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
+                                    <!--                                <span class="onsale">Sale!</span>-->
+                                    <img width="255" height="320"
+                                         th:src="${product.photos.get(1).url}"
+                                         class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt=""/>
+                                    <h2 class="woocommerce-loop-product__title" th:text="${product.name}"></h2>
+                                    <div class="star-rating" role="img"
+                                         th:aria-label="'Rated ' + ${product.averageRate} + ' out of 5'"><span
+                                            th:style="'width: ' + ${product.averageRate == 0 ? 0 : 5 / product.averageRate * 100} + '%;'">Ocenione <strong
+                                            class="rating" th:text="${product.averageRate}"></strong> out of 5</span>
+                                    </div>
+                                    <span class="price"><!--<del><span class="woocommerce-Price-amount amount"><span
                                         class="woocommerce-Price-currencySymbol">&#36;</span>12.00</span></del>--> <ins><span
-                                        class="woocommerce-Price-amount amount"><span
-                                        class="woocommerce-Price-currencySymbol"
-                                        th:text="${product.sellingPrize} + 'zł'"></span></span></ins>
+                                            class="woocommerce-Price-amount amount"><span
+                                            class="woocommerce-Price-currencySymbol"
+                                            th:text="${product.sellingPrize} + 'zł'"></span></span></ins>
                                 </span>
-                            </a><a th:href="'/add-to-cart/' + product.id" data-quantity="1"
-                                   class="button product_type_simple add_to_cart_button ajax_add_to_cart"
-                                   data-product_id="41" data-product_sku=""
-                                   th:aria-label="'Add &ldquo;'+ ${product.name} +'&rdquo; to your cart'"
-                                   rel="nofollow"><span
-                                class="fa fa-shopping-cart"></span> Dodaj do Koszyka</a>
-                        </li>
+                                </a><a th:href="'/add-to-cart/' + product.id" data-quantity="1"
+                                       class="button product_type_simple add_to_cart_button ajax_add_to_cart"
+                                       data-product_id="41" data-product_sku=""
+                                       th:aria-label="'Add &ldquo;'+ ${product.name} +'&rdquo; to your cart'"
+                                       rel="nofollow"><span
+                                    class="fa fa-shopping-cart"></span> Dodaj do Koszyka</a>
+                            </li>
                     </ul>
                     <div class="row text-center">
                         <ul class="tyche-pager" th:each="i : ${#numbers.sequence((page - 1 == 0 ? 1 : page - 1), amountOfPages)}">
