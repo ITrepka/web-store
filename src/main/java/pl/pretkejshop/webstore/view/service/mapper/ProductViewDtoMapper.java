@@ -56,7 +56,7 @@ public class ProductViewDtoMapper {
                     }
                 }).collect(Collectors.toList());
 
-        Double averageRate = rates == null ? null : rates.stream().mapToInt(RateDto::getRate).average().getAsDouble();
+        Double averageRate = rates == null ? null : rates.stream().mapToInt(RateDto::getRate).average().orElse(0.0);
         return ProductViewDto.builder()
                 .productId(productDto.getId())
                 .brand(brand)

@@ -92,7 +92,7 @@
                             <li>
                                 <a href="https://colorlib.com/tyche/product/marina-style/">
                                     <img width="255" height="320"
-                                         th:src="${product.photos.get(0).url}"/>//todo
+                                         th:src="${product.photos.get(0).url}"
                                     class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt=""/>
                                     <span class="product-title" th:text="${product.name}"></span>
                                 </a>
@@ -114,7 +114,7 @@
                                 </a>
                                 <div class="star-rating" role="img"
                                      th:aria-label="'Rated ' + ${product.averageRate} + ' out of 5'"><span
-                                        th:style="'width=' + ${5 / product.averageRate * 100} '%'">Ocenione <strong
+                                        th:style="'width: ' + ${5 / product.averageRate * 100} + '%;'">Ocenione <strong
                                         class="rating" th:text="${product.averageRate}"></strong> out of 5</span>
                                 </div>
                                 <!--                                <del><span class="woocommerce-Price-amount amount"><span-->
@@ -138,8 +138,7 @@
                             <option value="price-desc">Sortuj: Cena Malejąco</option>
                         </select>
                     </form>
-                    <p class="woocommerce-result-count">
-                        Showing 1&ndash;12 of 22 results</p>
+                    <p class="woocommerce-result-count" th:text="${paragraph1}"></p>
                     <ul class="products columns-3" th:each="product, iStat : ${products}">
                         <li class="product type-product post-41 status-publish first instock product_cat-shirts product_tag-pokemon product_tag-print product_tag-shirt product_tag-white has-post-thumbnail sale taxable shipping-taxable purchasable product-type-simple">
                             <a th:href="@{'/product/' + ${product.productId}}"
@@ -151,14 +150,15 @@
                                 <h2 class="woocommerce-loop-product__title" th:text="${product.name}"></h2>
                                 <div class="star-rating" role="img"
                                      th:aria-label="'Rated ' + ${product.averageRate} + ' out of 5'"><span
-                                        th:style="'width=' + ${5 / product.averageRate * 100} '%'">Ocenione <strong
+                                        th:style="'width: ' + ${5 / product.averageRate * 100} + '%'">Ocenione <strong
                                         class="rating" th:text="${product.averageRate}"></strong> out of 5</span>
                                 </div>
                                 <span class="price"><!--<del><span class="woocommerce-Price-amount amount"><span
                                         class="woocommerce-Price-currencySymbol">&#36;</span>12.00</span></del>--> <ins><span
                                         class="woocommerce-Price-amount amount"><span
                                         class="woocommerce-Price-currencySymbol"
-                                        th:text="${product.sellingPrize} + 'zł'"></span></span></ins></span>
+                                        th:text="${product.sellingPrize} + 'zł'"></span></span></ins>
+                                </span>
                             </a><a th:href="'/add-to-cart/' + product.id" data-quantity="1"
                                    class="button product_type_simple add_to_cart_button ajax_add_to_cart"
                                    data-product_id="41" data-product_sku=""
@@ -168,10 +168,9 @@
                         </li>
                     </ul>
                     <div class="row text-center">
-                        <ul class="tyche-pager">
-                            <li class="active"><a href="https://colorlib.com/tyche/shop/">1</a></li>
-                            <li><a href="https://colorlib.com/tyche/shop/page/2/">2</a></li>
-                            <li><a href="https://colorlib.com/tyche/shop/page/2/"><span
+                        <ul class="tyche-pager" th:each="i : ${#numbers.sequence((page - 1 == 0 ? 1 : page - 1), amountOfPages)}">
+                            <li th:if="i <= page + 4" class="active"><a th:href="@{'/shop?page=' + ${i}}" th:text="${i}"></a></li>
+                            <li th:if="${page + 1 <= amountOfPages && i <= page + 4}"><a th:href="@{'/shop?page=' + ${i + 1}}"><span
                                     class="pager-text right">NEXT</span> <span
                                     class="fa fa-long-arrow-right"></span></a></li>
                         </ul>

@@ -24,7 +24,10 @@ public class ShopViewController {
     public ModelAndView displayShopView(@RequestParam(required = false) String orderBy,
                                         @RequestParam(required = false) String s,
                                         @RequestParam(required = false) Integer min_price,
-                                        @RequestParam(required = false) Integer max_price) throws NotFoundException {
+                                        @RequestParam(required = false) Integer max_price,
+                                        @RequestParam(required = false) Integer page) throws NotFoundException {
+        ModelAndView mv = new ModelAndView("shop");
+
         List<ProductViewDto> products = shopViewService.getAllProducts();
         List<ProductViewDto> topRatedProducts = shopViewService.getTopRatedProducts(products);
         if (s != null) {
@@ -36,9 +39,18 @@ public class ShopViewController {
         if (min_price != null && max_price != null) {
             products = shopViewService.filterBy(min_price, max_price, products);
         }
-        ModelAndView mv = new ModelAndView("shop");
+
+        page = page == null ? 1 : page;
+        mv.addObject("page", page);
+
+        int numberOfProductsOnPage = 12;
+        double numberOfProducts = (double) products.size() / numberOfProductsOnPage;
+        int amountOfPages = numberOfProducts % 1 == 0 ? (int)numberOfProducts : (int)numberOfProducts + 1;
+        mv.addObject("amountOfPages", amountOfPages == 0 ? 1 : amountOfPages);
         mv.addObject("products", products);
         mv.addObject("topRatedProducts", topRatedProducts);
+        String paragraphText = (1 + 12 * (page - 1)) + "-" + (12 * page) + " z " + products.size() + " produktów.";
+        mv.addObject("paragraph1", paragraphText);
         return mv;
     }
 }

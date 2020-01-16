@@ -38,11 +38,11 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @PostConstruct
-    public void init() {
-        userRepository.save(new User(0, "user", passwordEncoder.encode("user"), null, null, null, null, null, null, null, null, new Role(0, "USER", null, null, new ArrayList<>()), null));
-        userRepository.save(new User(1, "admin", passwordEncoder.encode("admin"), null, null, null, null, null, null, null, null, new Role(1, "ADMIN", null, null, new ArrayList<>()), null));
-    }
+//    @PostConstruct
+//    public void init() {
+//        userRepository.save(new User(0, "user", passwordEncoder.encode("user"), null, null, null, null, null, null, null, null, new Role(0, "USER", null, null, new ArrayList<>()), null));
+//        userRepository.save(new User(1, "admin", passwordEncoder.encode("admin"), null, null, null, null, null, null, null, null, new Role(1, "ADMIN", null, null, new ArrayList<>()), null));
+//    }
 
     public List<UserDto> getAllUsers() {
         return userRepository.findAll().stream()
