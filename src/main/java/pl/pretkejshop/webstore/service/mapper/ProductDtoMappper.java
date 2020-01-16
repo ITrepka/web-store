@@ -57,8 +57,8 @@ public class ProductDtoMappper {
                 .discountId(discountId)
                 .sellingPrice(product.getSellingPrice())
                 .basketsIds(basketsIds)
-                .createdAt(null)
-                .updatedAt(null)
+                .createdAt(product.getCreatedAt())
+                .updatedAt(product.getUpdatedAt())
                 .build();
     }
 

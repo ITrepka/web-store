@@ -8,6 +8,7 @@ import pl.pretkejshop.webstore.service.exception.NotFoundException;
 import pl.pretkejshop.webstore.service.services.BasketProductService;
 import pl.pretkejshop.webstore.service.services.BasketService;
 import pl.pretkejshop.webstore.service.services.ProductService;
+import pl.pretkejshop.webstore.view.model.ShopPageViewModel;
 import pl.pretkejshop.webstore.view.service.dto.BasketViewDto;
 import pl.pretkejshop.webstore.view.service.dto.ProductViewDto;
 import pl.pretkejshop.webstore.view.service.mapper.BasketViewDtoMapper;
@@ -129,5 +130,44 @@ public class ShopViewService {
         BasketDto basketDto = basketService.getBasketById(user.getBasketId());
         BasketDto basketWithAddedProduct = basketProductService.addProductToBasket(basketDto.getId(), product.getProductId());
         return basketViewDtoMapper.toViewDto(basketWithAddedProduct);
+    }
+
+    public ShopPageViewModel getShopPage(Integer pageNumber, String orderBy, String s, Integer min_price, Integer max_price) throws NotFoundException {
+        List<ProductViewDto> products = getAllProducts();
+
+        int pageNumberField = pageNumber == null ? 1 : pageNumber;
+        return ShopPageViewModel.builder()
+                .ourProductsSample(products.stream().limit(5).collect(Collectors.toList()))
+                .topRatedProducts(getTopRatedProducts(products).stream().limit(5).collect(Collectors.toList()))
+                .numberOfProductsOnTheSite(12)
+                .amountOfPages(getAmountOfPages(products.size(), 12))
+                .pageNumber(pageNumberField)
+                .paragraph1(getParagraph1(pageNumberField, products.size()))
+                .productsMainView(handleRequestParams(orderBy, s, min_price, max_price, products))
+                .build();
+    }
+
+    private List<ProductViewDto> handleRequestParams(String orderBy, String s, Integer min_price, Integer max_price, List<ProductViewDto> products) {
+        List<ProductViewDto> productsToView = new ArrayList<>(products);
+        if (s != null) {
+            productsToView = searchProductByText(s, productsToView);
+        }
+        if (min_price != null && max_price != null) {
+            productsToView = filterBy(min_price, max_price, productsToView);
+        }
+        if (orderBy != null) {
+            productsToView = sort(orderBy, productsToView);
+        }
+        return productsToView;
+    }
+
+    private String getParagraph1(int pageNumberField, int numberOfProducts) {
+        int numberOfLastProductOnPage = Math.min(12 * pageNumberField, numberOfProducts);
+        return (1 + 12 * (pageNumberField - 1)) + "-" + numberOfLastProductOnPage + " z " + numberOfProducts + " produktów.";
+    }
+
+    private int getAmountOfPages(int productsOnOnePage, int numberOfProducts) {
+        double numberOfPagesRatio = (double) numberOfProducts / productsOnOnePage;
+        return numberOfPagesRatio % 1 == 0 ? (int)numberOfPagesRatio : (int)numberOfPagesRatio + 1;
     }
 }
