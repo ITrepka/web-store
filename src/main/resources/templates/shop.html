@@ -78,12 +78,16 @@
                                 dla:</label>
                             <input type="search" id="woocommerce-product-search-field-0" class="search-field"
                                    placeholder="Search products&hellip;" value="" name="s"/>
+                            <input type="hidden" name="orderBy" th:value="${param.get('orderBy')}">
+                            <input type="hidden" name="min_price" th:value="${param.get('min_price')}">
+                            <input type="hidden" name="max_price" th:value="${param.get('max_price')}">
+                            <input type="hidden" name="page" th:value="${shopPage.pageNumber}">
                             <button type="submit" value="Search">Szukaj</button>
                         </form>
                     </div>
                     <div id="woocommerce_price_filter-3" class="widget woocommerce widget_price_filter"><h5
                             class="widget-title"><span>Filtruj po cenie</span></h5>
-                        <form method="get" th:action="@{/shop}">
+                        <form action="#" method="get" th:action="@{/shop}" th:object="${shopPage}">
                             <div class="price_slider_wrapper">
                                 <div class="price_slider" style="display:none;"></div>
                                 <div class="price_slider_amount" data-step="10">
@@ -91,6 +95,9 @@
                                            placeholder="Min price"/>
                                     <input type="number" id="max_price" name="max_price" value="60" data-max="60"
                                            placeholder="Max price"/>
+                                    <input type="hidden" name="orderBy" th:value="${param.get('orderBy')}">
+                                    <input type="hidden" name="s" th:value="${param.get('s')}">
+                                    <input type="hidden" name="page" th:value="${shopPage.pageNumber}">
                                     <button type="submit" class="button">Filter</button>
                                     <div class="price_label" style="display:none;">
                                         Price: <span class="from"></span> &mdash; <span class="to"></span>
@@ -102,7 +109,7 @@
                     </div>
                     <div id="woocommerce_products-3" class="widget woocommerce widget_products"><h5
                             class="widget-title"><span>Nasze Produkty</span></h5>
-                        <ul class="product_list_widget" th:each="product, iStat : ${ourProducts}">
+                        <ul class="product_list_widget" th:each="product, iStat : ${shopPage.ourProductsSample}">
                             <li>
                                 <a th:href="@{'/product/' + ${product.productId}}">
                                     <img width="255" height="320"
@@ -118,7 +125,7 @@
                     </div>
                     <div id="woocommerce_top_rated_products-3" class="widget woocommerce widget_top_rated_products"><h5
                             class="widget-title"><span>Najlepiej oceniane produkty</span></h5>
-                        <ul class="product_list_widget" th:each="product, iStat : ${topRatedProducts}">
+                        <ul class="product_list_widget" th:each="product, iStat : ${shopPage.topRatedProducts}">
                             <li>
                                 <a th:href="@{'/product/' + product.id}">
                                     <img width="255" height="320"
@@ -143,7 +150,8 @@
                 <div class="col-md-8 tyche-has-sidebar">
                     <h1 class="woocommerce-products-header__title page-title">Sklep</h1>
                     <div class="woocommerce-notices-wrapper"></div>
-                    <form class="woocommerce-ordering" th:action="@{'/shop'}" id="order_form" method="get">
+                    <form action="#" th:field="${shopPage}" class="woocommerce-ordering" th:action="@{'/shop'}"
+                          id="order_form" method="get">
                         <select onclick="submit_form()" name="orderBy" class="orderby" aria-label="Shop order">
                             <option value="menu_order" selected="selected">Domyślne sortowanie</option>
                             <option value="rating">Sortuj: Ocena</option>
@@ -151,10 +159,14 @@
                             <option value="price">Sortuj: Cena Rosnąco</option>
                             <option value="price-desc">Sortuj: Cena Malejąco</option>
                         </select>
+                        <input type="hidden" name="min_price" th:value="${param.get('min_price')}">
+                        <input type="hidden" name="max_price" th:value="${param.get('max_price')}">
+                        <input type="hidden" name="s" th:value="${param.get('s')}">
+                        <input type="hidden" name="page" th:value="${shopPage.pageNumber}">
                     </form>
-                    <p class="woocommerce-result-count" th:text="${paragraph1}"></p>
+                    <p class="woocommerce-result-count" th:text="${shopPage.paragraph1}"></p>
                     <ul class="products columns-3">
-                        <li th:each="product, iStat : ${products}"
+                        <li th:each="product, iStat : ${shopPage.productsMainView}"
                             class="product type-product status-publish instock product-type-simple"
                             th:classappend="${(iStat.index % 3 == 0 ? 'first' : '') + (iStat.index % 3 == 2 ? 'last' : '')}">
                             <a th:href="@{'/product/' + ${product.productId}}"
@@ -184,15 +196,18 @@
                     </ul>
                     <div class="row text-center">
                         <ul class="tyche-pager">
-                            <span th:each="i : ${#numbers.sequence((page - 1 == 0 ? 1 : page - 1), amountOfPages)}">
-                                <li th:if="${i == 1 && page > 1}"><a th:href="@{'/shop?page=' + ${page - 1}}"><span
+                            <span th:each="i : ${#numbers.sequence((shopPage.pageNumber - 1 == 0 ? 1 : shopPage.pageNumber - 1), shopPage.amountOfPages)}">
+                                <li th:if="${i == 1 && shopPage.pageNumber > 1}"><a
+                                        href="javascript:;"
+                                        th:onclick="'submit_page(\'' + ${shopPage.pageNumber - 1} + '\');'"><span
                                         class="fa fa-long-arrow-left"></span><span
                                         class="pager-text right">PREVIOUS</span></a></li>
-                                <li th:if="i <= page + 4" th:class="${i == page} ? 'active'"><a
-                                        th:href="@{'/shop?page=' + ${i}}" th:text="${i}"></a></li>
-                            <li th:if="${i == amountOfPages && page != amountOfPages}"><a
-                                    th:href="@{'/shop?page=' + ${page + 1}}"><span
-                                    class="pager-text right">NEXT</span> <span
+                                <li th:if="i <= shopPage.pageNumber + 4"
+                                    th:class="${i == shopPage.pageNumber} ? 'active'"><a
+                                        href="javascript:;" th:text="${i}"
+                                        th:onclick="'submit_page(\'' + ${i} + '\');'"></a></li>
+                            <li th:if="${i == shopPage.amountOfPages && shopPage.pageNumber != shopPage.amountOfPages}"><a
+                                    href="javascript:;" th:onclick="'submit_page(\'' + ${shopPage.pageNumber + 1} + '\');'"><span class="pager-text right">NEXT</span> <span
                                     class="fa fa-long-arrow-right"></span></a></li>
                             </span>
                         </ul>
@@ -202,6 +217,19 @@
         </div>
     </div>
 </div>
+<form id="hidden_form" action="shop">
+    <input type="hidden" name="min_price" th:value="${param.get('min_price')}">
+    <input type="hidden" name="max_price" th:value="${param.get('max_price')}">
+    <input type="hidden" name="s" th:value="${param.get('s')}">
+    <input type="hidden" name="orderBy" th:value="${param.get('orderBy')}">
+    <input type="hidden" name="page" id="pageNumberParam">
+</form>
+<script>
+    function submit_page(pageNumber) {
+        document.getElementById('pageNumberParam').value = pageNumber;
+        document.getElementById("hidden_form").submit();
+    }
+</script>
 
 <footer th:replace="layout/layout :: main-footer"></footer>
 </div>

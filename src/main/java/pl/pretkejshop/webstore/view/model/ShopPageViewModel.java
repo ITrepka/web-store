@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import pl.pretkejshop.webstore.view.service.dto.ProductViewDto;
 
 import java.util.List;
+import java.util.Map;
 
 @Builder
 @NoArgsConstructor

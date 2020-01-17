@@ -14,9 +14,7 @@ import pl.pretkejshop.webstore.view.service.dto.ProductViewDto;
 import pl.pretkejshop.webstore.view.service.mapper.BasketViewDtoMapper;
 import pl.pretkejshop.webstore.view.service.mapper.ProductViewDtoMapper;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -134,20 +132,21 @@ public class ShopViewService {
 
     public ShopPageViewModel getShopPage(Integer pageNumber, String orderBy, String s, Integer min_price, Integer max_price) throws NotFoundException {
         List<ProductViewDto> products = getAllProducts();
-
         int pageNumberField = pageNumber == null ? 1 : pageNumber;
+        List<ProductViewDto> productsMainView = handleRequestParams(products, orderBy, s, min_price, max_price, pageNumberField, 12);
+        List<ProductViewDto> productToDisplayOnPage = productsMainView.stream().skip((pageNumberField - 1) * 12).limit(12).collect(Collectors.toList());
         return ShopPageViewModel.builder()
                 .ourProductsSample(products.stream().limit(5).collect(Collectors.toList()))
                 .topRatedProducts(getTopRatedProducts(products).stream().limit(5).collect(Collectors.toList()))
                 .numberOfProductsOnTheSite(12)
-                .amountOfPages(getAmountOfPages(products.size(), 12))
                 .pageNumber(pageNumberField)
-                .paragraph1(getParagraph1(pageNumberField, products.size()))
-                .productsMainView(handleRequestParams(orderBy, s, min_price, max_price, products))
+                .amountOfPages(getAmountOfPages(productsMainView.size(), 12))
+                .paragraph1(getParagraph1(pageNumberField, productsMainView.size()))
+                .productsMainView(productToDisplayOnPage)
                 .build();
     }
 
-    private List<ProductViewDto> handleRequestParams(String orderBy, String s, Integer min_price, Integer max_price, List<ProductViewDto> products) {
+    private List<ProductViewDto> handleRequestParams(List<ProductViewDto> products, String orderBy, String s, Integer min_price, Integer max_price, int pageNumber, int numberOfProductsOnPage) {
         List<ProductViewDto> productsToView = new ArrayList<>(products);
         if (s != null) {
             productsToView = searchProductByText(s, productsToView);
@@ -155,7 +154,7 @@ public class ShopViewService {
         if (min_price != null && max_price != null) {
             productsToView = filterBy(min_price, max_price, productsToView);
         }
-        if (orderBy != null) {
+        if (orderBy != null){
             productsToView = sort(orderBy, productsToView);
         }
         return productsToView;
@@ -166,8 +165,8 @@ public class ShopViewService {
         return (1 + 12 * (pageNumberField - 1)) + "-" + numberOfLastProductOnPage + " z " + numberOfProducts + " produktów.";
     }
 
-    private int getAmountOfPages(int productsOnOnePage, int numberOfProducts) {
+    private int getAmountOfPages(int numberOfProducts, int productsOnOnePage) {
         double numberOfPagesRatio = (double) numberOfProducts / productsOnOnePage;
-        return numberOfPagesRatio % 1 == 0 ? (int)numberOfPagesRatio : (int)numberOfPagesRatio + 1;
+        return numberOfPagesRatio % 1 == 0 ? (int) numberOfPagesRatio : (int) numberOfPagesRatio + 1;
     }
 }
