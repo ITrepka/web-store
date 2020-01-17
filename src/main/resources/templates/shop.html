@@ -51,14 +51,35 @@
 
         function submit_form() {
             timesClicked++;
-
             if (timesClicked > 1) {
                 document.getElementById("order_form").submit();
             }
         }
+        function findSelectedOption() {
+            var url_string = window.location.href;
+            var url = new URL(url_string);
+            var orderBy = url.searchParams.get("orderBy");
+            switch (orderBy) {
+                case null:
+                case 'menu_order':
+                    document.getElementById("selected_option").text = 'Domyślne sortowanie';
+                    break;
+                case 'rating':
+                    document.getElementById("selected_option").text = 'Sortuj: Ocena';
+                    break;
+                case 'date':
+                    document.getElementById("selected_option").text = 'Sortuj: Ostatnio Dodane';
+                    break;
+                case 'price':
+                    document.getElementById("selected_option").text = 'Sortuj: Cena Rosnąco';
+                    break;
+                case 'price-desc':
+                    document.getElementById("selected_option").text = 'Sortuj: Cena Malejąco';
+            }
+        }
     </script>
 </head>
-<body class="archive post-type-archive post-type-archive-product wp-custom-logo theme-tyche woocommerce woocommerce-page woocommerce-no-js hfeed">
+<body onload="findSelectedOption()" class="archive post-type-archive post-type-archive-product wp-custom-logo theme-tyche woocommerce woocommerce-page woocommerce-no-js hfeed">
 <div id="page" class="site">
     <header th:replace="layout/layout :: header-bar"></header>
     <div class="site-content">
@@ -150,15 +171,18 @@
                 <div class="col-md-8 tyche-has-sidebar">
                     <h1 class="woocommerce-products-header__title page-title">Sklep</h1>
                     <div class="woocommerce-notices-wrapper"></div>
-                    <form action="#" th:field="${shopPage}" class="woocommerce-ordering" th:action="@{'/shop'}"
+                    <form class="woocommerce-ordering" th:action="@{'/shop'}"
                           id="order_form" method="get">
-                        <select onclick="submit_form()" name="orderBy" class="orderby" aria-label="Shop order">
-                            <option value="menu_order" selected="selected">Domyślne sortowanie</option>
-                            <option value="rating">Sortuj: Ocena</option>
-                            <option value="date">Sortuj: Ostatnio dodane</option>
-                            <option value="price">Sortuj: Cena Rosnąco</option>
-                            <option value="price-desc">Sortuj: Cena Malejąco</option>
-                        </select>
+                        <div class="styled-select">
+                            <select onclick="submit_form()" name="orderBy" class="orderby" aria-label="Shop order">
+                                <option disabled="disabled" type="hidden" selected="selected" id="selected_option"></option>
+                                <option value="menu_order">Domyślne sortowanie</option>
+                                <option value="rating">Sortuj: Ocena</option>
+                                <option value="date">Sortuj: Ostatnio dodane</option>
+                                <option value="price">Sortuj: Cena Rosnąco</option>
+                                <option value="price-desc">Sortuj: Cena Malejąco</option>
+                            </select>
+                        </div>
                         <input type="hidden" name="min_price" th:value="${param.get('min_price')}">
                         <input type="hidden" name="max_price" th:value="${param.get('max_price')}">
                         <input type="hidden" name="s" th:value="${param.get('s')}">
