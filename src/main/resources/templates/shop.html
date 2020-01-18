@@ -59,22 +59,23 @@
             var url_string = window.location.href;
             var url = new URL(url_string);
             var orderBy = url.searchParams.get("orderBy");
+            var selectedOption = document.getElementById("selected_option");
             switch (orderBy) {
                 case null:
                 case 'menu_order':
-                    document.getElementById("selected_option").text = 'Domyślne sortowanie';
+                    selectedOption.text = 'Domyślne sortowanie';
                     break;
                 case 'rating':
-                    document.getElementById("selected_option").text = 'Sortuj: Ocena';
+                    selectedOption.text = 'Sortuj: Ocena';
                     break;
                 case 'date':
-                    document.getElementById("selected_option").text = 'Sortuj: Ostatnio Dodane';
+                    selectedOption.text = 'Sortuj: Ostatnio Dodane';
                     break;
                 case 'price':
-                    document.getElementById("selected_option").text = 'Sortuj: Cena Rosnąco';
+                    selectedOption.text = 'Sortuj: Cena Rosnąco';
                     break;
                 case 'price-desc':
-                    document.getElementById("selected_option").text = 'Sortuj: Cena Malejąco';
+                    selectedOption.text = 'Sortuj: Cena Malejąco';
             }
         }
     </script>
