@@ -154,31 +154,18 @@
                         </div>
                         <div class="woocommerce-tabs wc-tabs-wrapper">
                             <ul class="tabs wc-tabs tyche-wc-tabs" role="tablist">
-                                <li class="description_tab" id="tab-title-description" role="tab"
-                                    aria-controls="tab-description">
-                                    <a href="#tab-description">Description</a>
-                                </li>
                                 <li class="reviews_tab" id="tab-title-reviews" role="tab" aria-controls="tab-reviews">
-                                    <a href="#tab-reviews">Reviews (0)</a>
+                                    <a class="tabs-pretchee" th:text="'Oceny (' + ${product.rates.size()} +')'"></a>
                                 </li>
                             </ul>
-                            <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--description panel entry-content wc-tab"
-                                 id="tab-description" role="tabpanel" aria-labelledby="tab-title-description">
-                                <h2>Description</h2>
-                                <p>Pri quas audiam virtute ut, case utamur fuisset eam ut, iisque accommodare an eam.
-                                    Reque blandit qui eu, cu vix nonumy volumus. Legendos intellegam id usu, vide
-                                    oporteat vix eu, id illud principes has. Nam tempor utamur gubergren no.</p>
-                                <p>Ex soleat habemus usu, te nec eligendi deserunt vituperata. Natum consulatu vel ea,
-                                    duo cetero repudiare efficiendi cu. Has at quas nonumy facilisis, enim percipitur
-                                    mei ad. Mazim possim adipisci sea ei, omnium aeterno platonem mei no.</p>
-                            </div>
                             <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--reviews panel entry-content wc-tab"
-                                 id="tab-reviews" role="tabpanel" aria-labelledby="tab-title-reviews">
+                                 id="tab-reviews" role="tabpanel" aria-labelledby="tab-title-reviews"
+                                 style="display:none;">
                                 <div id="reviews" class="woocommerce-Reviews">
                                     <div id="comments">
                                         <h2 class="woocommerce-Reviews-title">
                                             Reviews </h2>
-                                        <p class="woocommerce-noreviews">There are no reviews yet.</p>
+                                        <p class="woocommerce-noreviews" th:if="${product.rates.size() == 0}">Nie ma jeszcze żadnych recenzji produktu</p>
                                     </div>
                                     <div id="review_form_wrapper">
                                         <div id="review_form">
@@ -187,12 +174,12 @@
                                                         rel="nofollow" id="cancel-comment-reply-link"
                                                         href="/tyche/product/amari-shirt/#respond"
                                                         style="display:none;">Cancel reply</a></small></span>
-                                                <form action="https://colorlib.com/tyche/wp-comments-post.php"
-                                                      method="post" id="commentform" class="comment-form" novalidate><p
+                                                <form action="#" th:action="'/product/' + ${product.productId} + '/add-rate'"
+                                                      method="post" id="commentform" class="comment-form" th:object="${rate}"><p
                                                         class="comment-notes"><span id="email-notes">Your email address will not be published.</span>
                                                     Required fields are marked <span class="required">*</span></p>
                                                     <div class="comment-form-rating"><label for="rating">Your
-                                                        rating</label><select name="rating" id="rating" required>
+                                                        rating</label><select th:field="rate"  id="rating" required>
                                                         <option value="">Rate&hellip;</option>
                                                         <option value="5">Perfect</option>
                                                         <option value="4">Good</option>
@@ -231,14 +218,6 @@
                                                     </p><input type='hidden'
                                                                id='ct_checkjs_9b70e8fe62e40c570a322f1b0b659098'
                                                                name='ct_checkjs' value='0'/>
-                                                    <script data-cfasync="false"
-                                                            src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-                                                    <script type="dce66de9633bd1e3941a1735-text/javascript">
-                                                        window.addEventListener('load', function () {setTimeout(function(){                    apbct_sendAJAXRequest(                        {action: 'apbct_js_keys__get'},                        {callback: apbct_js_keys__set_input_value, input_name: 'ct_checkjs_9b70e8fe62e40c570a322f1b0b659098'}                    );                }, 1000);});
-
-
-
-                                                    </script>
                                                 </form>
                                             </div>
                                         </div>
@@ -249,21 +228,22 @@
                         </div>
                         <section class="related products">
                             <h2>Podobne Produkty</h2>
-                            <ul class="products columns-4">
+                            <ul class="products columns-4" th:each="product : ${relatedProducts}">
                                 <li class="product type-product post-15 status-publish first instock product_cat-tops product_tag-black product_tag-shirt product_tag-top has-post-thumbnail taxable shipping-taxable purchasable product-type-simple">
-                                    <a href="https://colorlib.com/tyche/product/little-black-shirt/"
+                                    <a th:href="'/product/' + product.id"
                                        class="woocommerce-LoopProduct-link woocommerce-loop-product__link"><img
                                             width="255" height="320"
                                             src="https://colorlib.com/tyche/wp-content/uploads/sites/17/2017/06/model-858751_1920-255x320.jpg"
                                             class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt=""/>
-                                        <h2 class="woocommerce-loop-product__title">Little Black Shirt</h2>
-                                        <span class="price"><span class="woocommerce-Price-amount amount"><span
-                                                class="woocommerce-Price-currencySymbol">&#36;</span>40.00</span></span>
-                                    </a><a href="?add-to-cart=15" data-quantity="1"
+                                        <h2 class="woocommerce-loop-product__title" th:title="${product.name}"></h2>
+                                        <span class="price" th:text="${product.sellingPrize} + 'zł'"><span
+                                                class="woocommerce-Price-amount amount"><span
+                                                class="woocommerce-Price-currencySymbol"></span></span></span>
+                                    </a><a th:href="@{'/add-to-cart/' + ${product.productId}}" data-quantity="1"
                                            class="button product_type_simple add_to_cart_button ajax_add_to_cart"
                                            data-product_id="15" data-product_sku=""
                                            aria-label="Add &ldquo;Little Black Shirt&rdquo; to your cart"
-                                           rel="nofollow"><span class="fa fa-shopping-cart"></span> Add to cart</a>
+                                           rel="nofollow"><span class="fa fa-shopping-cart"></span> Dodaj do koszyka</a>
                                 </li>
                             </ul>
                         </section>

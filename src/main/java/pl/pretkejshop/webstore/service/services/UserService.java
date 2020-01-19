@@ -115,4 +115,9 @@ public class UserService {
             throw new InvalidDataException("User must have non-empty password");
         }
     }
+
+    public UserDto getUserByEmail(String email) throws NotFoundException {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Not Found user with email " + email));
+        return userDtoMapper.toDto(user);
+    }
 }
