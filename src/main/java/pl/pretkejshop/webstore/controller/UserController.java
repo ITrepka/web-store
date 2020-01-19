@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping
-    public UserDto addNewUser(@RequestBody CreateUserDto createUserDto) throws AlreadyExistsException, InvalidDataException {
+    public UserDto addNewUser(@RequestBody CreateUserDto createUserDto) throws AlreadyExistsException, InvalidDataException, NotFoundException {
         return userService.addNewUser(createUserDto);
     }
 

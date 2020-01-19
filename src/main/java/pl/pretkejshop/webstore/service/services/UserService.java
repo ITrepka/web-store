@@ -9,10 +9,7 @@ import pl.pretkejshop.webstore.model.Role;
 import pl.pretkejshop.webstore.model.User;
 import pl.pretkejshop.webstore.repository.PersonalDataRepository;
 import pl.pretkejshop.webstore.repository.UserRepository;
-import pl.pretkejshop.webstore.service.dto.CreateUpdatePersonalDataDto;
-import pl.pretkejshop.webstore.service.dto.CreateUserDto;
-import pl.pretkejshop.webstore.service.dto.UpdateUserDto;
-import pl.pretkejshop.webstore.service.dto.UserDto;
+import pl.pretkejshop.webstore.service.dto.*;
 import pl.pretkejshop.webstore.service.exception.AlreadyExistsException;
 import pl.pretkejshop.webstore.service.exception.InvalidDataException;
 import pl.pretkejshop.webstore.service.exception.NotFoundException;
@@ -37,6 +34,10 @@ public class UserService {
     private PersonalDataRepository personalDataRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserRoleService userRoleService;
+    @Autowired
+    private RoleService roleService;
 
 //    @PostConstruct
 //    public void init() {
@@ -65,7 +66,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDto addNewUser(CreateUserDto createUserDto) throws AlreadyExistsException, InvalidDataException {
+    public UserDto addNewUser(CreateUserDto createUserDto) throws AlreadyExistsException, InvalidDataException, NotFoundException {
         validateCreateUser(createUserDto);
         if (userRepository.existsByLogin(createUserDto.getLogin())) {
             throw new AlreadyExistsException("User with login = " + createUserDto.getLogin() + " already exists");
@@ -82,9 +83,10 @@ public class UserService {
         User user = userDtoMapper.toModel(createUserDto, savedPersonalData);
         user.setLoyaltyPoints(0);
         user.setCreatedAt(OffsetDateTime.now());
-        //roleDoUstawienia todo
         user.setPassword(passwordEncoder.encode(createUserDto.getPassword()));
         User savedUser = userRepository.save(user);
+        RoleDto roleDto = roleService.getRoleByName("USER");
+        userRoleService.addRoleToUser(savedUser.getId(), roleDto.getId());
         return userDtoMapper.toDto(savedUser);
     }
 

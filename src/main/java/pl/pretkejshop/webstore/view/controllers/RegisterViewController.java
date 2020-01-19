@@ -11,6 +11,7 @@ import pl.pretkejshop.webstore.service.dto.CreateUpdatePersonalDataDto;
 import pl.pretkejshop.webstore.service.dto.CreateUserDto;
 import pl.pretkejshop.webstore.service.exception.AlreadyExistsException;
 import pl.pretkejshop.webstore.service.exception.InvalidDataException;
+import pl.pretkejshop.webstore.service.exception.NotFoundException;
 import pl.pretkejshop.webstore.service.services.UserService;
 
 import javax.transaction.Transactional;
@@ -30,7 +31,7 @@ public class RegisterViewController {
 
     @PostMapping("/register")
     public ModelAndView registerNewUser(@RequestParam String login, @RequestParam String password,
-                                        @ModelAttribute(name = "personalData") CreateUpdatePersonalDataDto personalData) throws AlreadyExistsException, InvalidDataException {
+                                        @ModelAttribute(name = "personalData") CreateUpdatePersonalDataDto personalData) throws AlreadyExistsException, InvalidDataException, NotFoundException {
         CreateUserDto createUserDto = new CreateUserDto(personalData, login, password);
         userService.addNewUser(createUserDto);
         ModelAndView mv = new ModelAndView("redirect:/login");

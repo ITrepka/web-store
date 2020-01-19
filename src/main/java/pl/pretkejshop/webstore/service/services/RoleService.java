@@ -62,4 +62,10 @@ public class RoleService {
         roleRepository.deleteById(id);
         return roleDtoMapper.toDto(role);
     }
+
+    @Transactional
+    public RoleDto getRoleByName(String name) throws NotFoundException {
+        Role role = roleRepository.findByName(name).orElseThrow(() -> new NotFoundException("Not found name with name " + name));
+        return roleDtoMapper.toDto(role);
+    }
 }
