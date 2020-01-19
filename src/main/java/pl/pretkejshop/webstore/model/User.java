@@ -17,7 +17,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(unique = true)
-    private String login;
+    private String email;
     private String password;
     private Integer loyaltyPoints;
     private OffsetDateTime createdAt;
@@ -32,7 +32,7 @@ public class User {
     private List<Message> sentMessages;
     @OneToMany(mappedBy = "userTo", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Message> receivedMessages;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne
     private Role role;
     @OneToMany(mappedBy = "user")
     private List<Rate> rates;

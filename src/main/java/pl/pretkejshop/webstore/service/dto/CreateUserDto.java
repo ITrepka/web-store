@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class CreateUserDto {
-    private CreateUpdatePersonalDataDto createPersonalData;
-    private String login;
+    private String email;
     private String password;
 }

@@ -3,7 +3,21 @@
 <head>
     <title>Login Form</title>
     <div th:replace="layout/layout :: head"></div>
+<!--    <script>-->
+<!--        var password = document.getElementById("password"),-->
+<!--            confirm_password = document.getElementById("confirm_password");-->
 
+<!--        function validatePassword() {-->
+<!--            if (password.value !== confirm_password.value) {-->
+<!--                confirm_password.setCustomValidity("Podałeś różne hasła");-->
+<!--            } else {-->
+<!--                confirm_password.setCustomValidity('');-->
+<!--            }-->
+<!--        }-->
+
+<!--        password.onchange = validatePassword;-->
+<!--        confirm_password.onkeyup = validatePassword;-->
+<!--    </script>-->
 <body class="page-template-default page page-id-7 wp-custom-logo theme-tyche woocommerce-account woocommerce-page woocommerce-no-js">
 <div id="page" class="site">
     <header th:replace="layout/layout :: header-bar"></header>
@@ -21,52 +35,33 @@
                                 </header>
                             </div>
                         </div>
-                        <div class="woocommerce"><div class="woocommerce-notices-wrapper"></div>
+                        <div class="woocommerce">
+                            <div class="woocommerce-notices-wrapper"></div>
 
-<!--                            private String name;-->
-<!--                            private String surname;-->
-<!--                            private String address;-->
-<!--                            private String email;-->
-<!--                            @JsonFormat(pattern = "yyyy-MM-dd")-->
-<!--                            private String birthDate;-->
-<!--                            private Sex sex;-->
-<!--                            private String phoneNumber;-->
-<!--                            private CreateUpdatePersonalDataDto createPersonalData;-->
-<!--                            private String login;-->
-<!--                            private String password;-->
-                            <form action="#" th:action="@{'/register'}" th:object="${personalData}" class="woocommerce-form woocommerce-form-login login" method="post">
-                                <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                                    <label>Username&nbsp;<span class="required">*</span></label>
-                                    <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="login"/>			</p>
-                                <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                                    <label for="password">Password&nbsp;<span class="required">*</span></label>
-                                    <input class="woocommerce-Input woocommerce-Input--text input-text" type="password" name="password" id="password"/>
-                                </p>
-                                <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                                    <label>Imię&nbsp;<span class="required">*</span></label>
-                                    <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" th:field="*{name}"/>			</p>
-                                <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                                    <label>Nazwisko&nbsp;<span class="required">*</span></label>
-                                    <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" th:field="*{surname}"/>			</p>
+                            <form action="#" th:action="@{'/register'}" th:object="${user}"
+                                  class="woocommerce-form woocommerce-form-login login" method="post">
                                 <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                     <label>Email&nbsp;<span class="required">*</span></label>
-                                    <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" th:field="*{email}"/>			</p>
-                                <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                                    <label>Adres&nbsp;<span class="required">*</span></label>
-                                    <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" th:field="*{address}"/>			</p>
-                                <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                                    <label>Numer Telefonu&nbsp;<span class="required">*</span></label>
-                                    <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" th:field="*{phoneNumber}"/>			</p>
-                                <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                                    <label>Płeć&nbsp;<span class="required">*</span></label>
-                                    <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" th:field="*{sex}"/>			</p>
+                                    <input type="text" class="woocommerce-Input woocommerce-Input--text input-text"
+                                           th:field="*{email}"/></p>
 
-                                <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                                    <label>Data urodzenia&nbsp;<span class="required">*</span></label>
-                                    <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" th:field="*{birthDate}"/>			</p>
+                                    <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                        <label>Hasło&nbsp;<span class="required">*</span></label>
+                                        <input class="woocommerce-Input woocommerce-Input--text input-text" type="password"
+                                               id="password" required placeholder="Hasło" th:field="*{password}"/>
+                                    </p>
+<!--                                    <p class="woocommerce-form-row woocommerce-form-row&#45;&#45;wide form-row form-row-wide">-->
+<!--                                        <label>Powtórz hasło&nbsp;<span class="required">*</span></label>-->
+<!--                                        <input class="woocommerce-Input woocommerce-Input&#45;&#45;text input-text" type="password"-->
+<!--                                              id="confirm_password" required placeholder="Powtórz hasło" name="password"/>-->
+<!--                                    </p>-->
+
 
                                 <p class="form-row">
-                                    <button type="submit" class="woocommerce-button button woocommerce-form-login__submit" value="Register">Register</button>
+                                    <button type="submit"
+                                            class="woocommerce-button button woocommerce-form-login__submit"
+                                            value="Register">Zarejestruj
+                                    </button>
                                 </p>
                             </form>
 
@@ -85,4 +80,5 @@
 <footer th:replace="layout/layout :: main-footer"></footer>
 
 </div><!-- #page -->
-</body></html>
+</body>
+</html>

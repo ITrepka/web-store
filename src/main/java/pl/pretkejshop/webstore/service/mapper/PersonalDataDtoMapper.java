@@ -25,7 +25,6 @@ public class PersonalDataDtoMapper {
                 .name(personalData.getName())
                 .surname(personalData.getSurname())
                 .address(personalData.getAddress())
-                .email(personalData.getEmail())
                 .sex(personalData.getSex())
                 .birthDate(personalData.getBirthDate())
                 .createdAt(personalData.getCreatedAt())
@@ -40,9 +39,8 @@ public class PersonalDataDtoMapper {
                 .id(null)
                 .name(createPersonalDataDto.getName())
                 .surname(createPersonalDataDto.getSurname())
-                .email(createPersonalDataDto.getEmail())
                 .birthDate(LocalDate.parse(createPersonalDataDto.getBirthDate()))
-                .sex(Sex.MALE) //todo
+                .sex(Sex.valueOf(createPersonalDataDto.getSex())) //todo
                 .address(createPersonalDataDto.getAddress())
                 .phoneNumber(createPersonalDataDto.getPhoneNumber())
                 .createdAt(null)

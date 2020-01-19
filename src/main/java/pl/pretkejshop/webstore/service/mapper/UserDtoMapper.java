@@ -25,7 +25,7 @@ public class UserDtoMapper {
         return UserDto.builder()
                 .id(user.getId())
                 .personalDataId(personalDataId)
-                .login(user.getLogin())
+                .email(user.getEmail())
                 .basketId(basketId)
                 .createdAt(user.getCreatedAt())
                 .updatedAt(user.getUpdatedAt())
@@ -37,11 +37,11 @@ public class UserDtoMapper {
                 .build();
     }
 
-    public User toModel(CreateUserDto createUserDto, PersonalData personalData) {
+    public User toModel(CreateUserDto createUserDto) {
         return User.builder()
                 .id(null)
-                .personalData(personalData)
-                .login(createUserDto.getLogin())
+                .personalData(null)
+                .email(createUserDto.getEmail())
                 .password(null) //todo
                 .basket(null)
                 .loyaltyPoints(null) //todo

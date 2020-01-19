@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import pl.pretkejshop.webstore.model.Sex;
 import pl.pretkejshop.webstore.service.dto.CreateUpdatePersonalDataDto;
 import pl.pretkejshop.webstore.service.dto.CreateUserDto;
 import pl.pretkejshop.webstore.service.exception.AlreadyExistsException;
@@ -24,16 +25,14 @@ public class RegisterViewController {
     @GetMapping("/register")
     public ModelAndView displayRegisterForm() {
         ModelAndView mv = new ModelAndView("register");
-        CreateUpdatePersonalDataDto personalData = new CreateUpdatePersonalDataDto();
-        mv.addObject("personalData",personalData);
+        CreateUserDto user = new CreateUserDto();
+        mv.addObject("user", user);
         return mv;
     }
 
     @PostMapping("/register")
-    public ModelAndView registerNewUser(@RequestParam String login, @RequestParam String password,
-                                        @ModelAttribute(name = "personalData") CreateUpdatePersonalDataDto personalData) throws AlreadyExistsException, InvalidDataException, NotFoundException {
-        CreateUserDto createUserDto = new CreateUserDto(personalData, login, password);
-        userService.addNewUser(createUserDto);
+    public ModelAndView registerNewUser(@ModelAttribute(name = "user") CreateUserDto user) throws AlreadyExistsException, InvalidDataException, NotFoundException {
+        userService.addNewUser(user);
         ModelAndView mv = new ModelAndView("redirect:/login");
         return mv;
     }

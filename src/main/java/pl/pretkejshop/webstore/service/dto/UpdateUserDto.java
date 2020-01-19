@@ -10,6 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class UpdateUserDto {
-    private CreateUpdatePersonalDataDto createUpdatePersonalDataDto;
     private String password;
 }

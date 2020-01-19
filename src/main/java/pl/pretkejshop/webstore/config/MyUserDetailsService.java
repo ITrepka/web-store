@@ -17,13 +17,13 @@ public class MyUserDetailsService implements UserDetailsService {
     @SneakyThrows
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByLogin(username)
+        User user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User does not exist"));
 
         String role = user.getRole().getName();
 
         return org.springframework.security.core.userdetails.User.builder()
-        .username(username)
+        .username(user.getEmail())
         .password(user.getPassword())
         .roles(role)
         .build();

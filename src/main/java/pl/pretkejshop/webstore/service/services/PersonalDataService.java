@@ -77,8 +77,7 @@ public class PersonalDataService {
     }
 
     private void validCreateUpdatePersonalData(CreateUpdatePersonalDataDto createPersonalDataDto) throws InvalidDataException {
-        if (createPersonalDataDto.getAddress() == null || createPersonalDataDto.getName() == null || createPersonalDataDto.getBirthDate() == null ||
-                createPersonalDataDto.getEmail().length() < 3 || !createPersonalDataDto.getEmail().contains("@")) {
+        if (createPersonalDataDto.getAddress() == null || createPersonalDataDto.getName() == null || createPersonalDataDto.getBirthDate() == null) {
             throw new InvalidDataException("valid personal date");
         }
     }

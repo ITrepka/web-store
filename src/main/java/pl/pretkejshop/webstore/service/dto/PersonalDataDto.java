@@ -19,7 +19,6 @@ public class PersonalDataDto {
     private String name;
     private String surname;
     private String address;
-    private String email;
     private LocalDate birthDate;
     private Sex sex;
     private OffsetDateTime createdAt;

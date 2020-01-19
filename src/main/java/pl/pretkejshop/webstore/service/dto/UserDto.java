@@ -16,7 +16,7 @@ import java.util.List;
 public class UserDto {
     private Integer id;
     private Integer personalDataId;
-    private String login;
+    private String email;
     private Integer basketId;
     private Integer loyaltyPoints;
     private List<Integer> ordersIds;

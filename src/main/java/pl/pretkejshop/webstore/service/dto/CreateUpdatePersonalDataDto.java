@@ -17,8 +17,7 @@ public class CreateUpdatePersonalDataDto {
     private String name;
     private String surname;
     private String address;
-    private String email;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private String birthDate;
     private String sex;
     private String phoneNumber;
