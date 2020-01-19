@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login Form</title>
+    <div th:replace="layout/layout :: head"></div>
+
+<body class="page-template-default page page-id-7 wp-custom-logo theme-tyche woocommerce-account woocommerce-page woocommerce-no-js">
+<div id="page" class="site">
+    <header th:replace="layout/layout :: header-bar"></header>
+    <div class="container">
+        <div class="row">
+            <div id="primary" class="content-area col-md-12">
+                <main id="main" class="site-main" role="main">
+
+
+                    <article id="post-7" class="post-7 page type-page status-publish hentry">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <header>
+                                    <h1 class="page-title margin-top">Rejestracja</h1>
+                                </header>
+                            </div>
+                        </div>
+                        <div class="woocommerce"><div class="woocommerce-notices-wrapper"></div>
+
+<!--                            private String name;-->
+<!--                            private String surname;-->
+<!--                            private String address;-->
+<!--                            private String email;-->
+<!--                            @JsonFormat(pattern = "yyyy-MM-dd")-->
+<!--                            private String birthDate;-->
+<!--                            private Sex sex;-->
+<!--                            private String phoneNumber;-->
+<!--                            private CreateUpdatePersonalDataDto createPersonalData;-->
+<!--                            private String login;-->
+<!--                            private String password;-->
+                            <form action="#" th:action="@{'/register'}" th:object="${personalData}" class="woocommerce-form woocommerce-form-login login" method="post">
+                                <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                    <label>Username&nbsp;<span class="required">*</span></label>
+                                    <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="login"/>			</p>
+                                <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                    <label for="password">Password&nbsp;<span class="required">*</span></label>
+                                    <input class="woocommerce-Input woocommerce-Input--text input-text" type="password" name="password" id="password"/>
+                                </p>
+                                <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                    <label>Imię&nbsp;<span class="required">*</span></label>
+                                    <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" th:field="*{name}"/>			</p>
+                                <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                    <label>Nazwisko&nbsp;<span class="required">*</span></label>
+                                    <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" th:field="*{surname}"/>			</p>
+                                <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                    <label>Email&nbsp;<span class="required">*</span></label>
+                                    <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" th:field="*{email}"/>			</p>
+                                <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                    <label>Adres&nbsp;<span class="required">*</span></label>
+                                    <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" th:field="*{address}"/>			</p>
+                                <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                    <label>Numer Telefonu&nbsp;<span class="required">*</span></label>
+                                    <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" th:field="*{phoneNumber}"/>			</p>
+                                <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                    <label>Płeć&nbsp;<span class="required">*</span></label>
+                                    <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" th:field="*{sex}"/>			</p>
+
+                                <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                    <label>Data urodzenia&nbsp;<span class="required">*</span></label>
+                                    <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" th:field="*{birthDate}"/>			</p>
+
+                                <p class="form-row">
+                                    <button type="submit" class="woocommerce-button button woocommerce-form-login__submit" value="Register">Register</button>
+                                </p>
+                            </form>
+
+
+                        </div>
+                    </article><!-- #post-## -->
+
+                </main><!-- #main -->
+            </div><!-- #primary -->
+
+        </div>
+    </div>
+</div><!-- #content -->
+
+<!-- Footer -->
+<footer th:replace="layout/layout :: main-footer"></footer>
+
+</div><!-- #page -->
+</body></html>

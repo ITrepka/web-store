@@ -3,6 +3,7 @@ package pl.pretkejshop.webstore.service.mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.pretkejshop.webstore.model.PersonalData;
+import pl.pretkejshop.webstore.model.Sex;
 import pl.pretkejshop.webstore.model.User;
 import pl.pretkejshop.webstore.repository.UserRepository;
 import pl.pretkejshop.webstore.service.dto.CreateUpdatePersonalDataDto;
@@ -41,7 +42,7 @@ public class PersonalDataDtoMapper {
                 .surname(createPersonalDataDto.getSurname())
                 .email(createPersonalDataDto.getEmail())
                 .birthDate(LocalDate.parse(createPersonalDataDto.getBirthDate()))
-                .sex(createPersonalDataDto.getSex())
+                .sex(Sex.MALE) //todo
                 .address(createPersonalDataDto.getAddress())
                 .phoneNumber(createPersonalDataDto.getPhoneNumber())
                 .createdAt(null)

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pretkejshop.webstore.model.PersonalData;
+import pl.pretkejshop.webstore.model.Sex;
 import pl.pretkejshop.webstore.repository.PersonalDataRepository;
 import pl.pretkejshop.webstore.service.dto.CreateUpdatePersonalDataDto;
 import pl.pretkejshop.webstore.service.dto.PersonalDataDto;
@@ -61,7 +62,7 @@ public class PersonalDataService {
         personalData.setSurname(updatePersonalDataDto.getSurname());
         personalData.setAddress(updatePersonalDataDto.getAddress());
         personalData.setBirthDate(LocalDate.parse(updatePersonalDataDto.getBirthDate()));
-        personalData.setSex(updatePersonalDataDto.getSex());
+        personalData.setSex(Sex.MALE); // todo
         personalData.setUpdatedAt(OffsetDateTime.now());
         PersonalData savedPersonalData = personalDataRepository.save(personalData);
         return personalDataDtoMapper.toDto(savedPersonalData);

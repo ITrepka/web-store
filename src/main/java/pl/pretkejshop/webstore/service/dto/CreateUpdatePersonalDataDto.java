@@ -20,6 +20,6 @@ public class CreateUpdatePersonalDataDto {
     private String email;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private String birthDate;
-    private Sex sex;
+    private String sex;
     private String phoneNumber;
 }
