@@ -100,6 +100,25 @@
             var pStars = document.getElementById('stars');
             pStars.classList.add("selected")
         }
+
+        function increase_products_number(limit) {
+            var quantity = document.getElementById("quantity").value;
+            quantity++;
+            if (quantity >= limit) {
+                quantity = limit;
+            }
+            document.getElementById("quantity").value = quantity;
+        }
+
+        function decrease_products_number(limit) {
+            var quantity = document.getElementById("quantity").value;
+            quantity--;
+            if (quantity <= limit) {
+                quantity = limit;
+            }
+            document.getElementById("quantity").value = quantity;
+        }
+
     </script>
 </head>
 <body class="product-template-default single single-product postid-62 wp-custom-logo theme-tyche woocommerce woocommerce-page woocommerce-no-js">
@@ -142,19 +161,30 @@
                             <p class="price" th:text="${product.sellingPrize} + 'zł'"><span
                                     class="woocommerce-Price-amount amount"><span
                                     class="woocommerce-Price-currencySymbol"></span></span></p>
-                            <form class="cart" action="https://colorlib.com/tyche/product/amari-shirt/" method="post"
+                            <form th:if="${product.numberOfCopies} > 0" class="cart" th:action="'/add-to-cart/' + ${product.productId}" method="post"
                                   enctype='multipart/form-data'>
                                 <div class="quantity">
-                                    <label class="screen-reader-text" for="quantity_5e24a5f02e61d">Amari Shirt
+                                    <label class="screen-reader-text" for="quantity">Amari Shirt
                                         quantity</label>
-                                    <input type="number" id="quantity_5e24a5f02e61d" class="input-text qty text"
-                                           step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4"
-                                           inputmode="numeric"/>
+                                    <div class="styled-number">
+                                        <a href="javascript:;" th:onclick="'decrease_products_number(' + ${1} +')'"
+                                           class="arrow-up incrementor" data-increment="down">
+                                            <span class="dashicons dashicons-minus"></span>
+                                        </a>
+                                        <input type="number" id="quantity" class="input-text qty text"
+                                               step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4"
+                                               inputmode="numeric"/>
+                                        <a href="javascript:;" th:onclick="'increase_products_number(' + ${product.numberOfCopies} +')'"
+                                           class="arrow-up incrementor" data-increment="up">
+                                            <span class="dashicons dashicons-plus"></span>
+                                        </a>
+                                    </div>
                                 </div>
                                 <button type="submit" name="add-to-cart" value="62"
                                         class="single_add_to_cart_button button alt">Dodaj do koszyka
                                 </button>
                             </form>
+                            <div th:if="${product.numberOfCopies} == 0" style="margin-bottom: 20px"><strong>Produkt niedostępny, przepraszamy!</strong></div>
                             <div class="product_meta">
                                 <span class="posted_in">Kategoria: <a
                                         th:href="@{'/shop?s=' + ${product.subCategoryDto.name}}" rel="tag"
