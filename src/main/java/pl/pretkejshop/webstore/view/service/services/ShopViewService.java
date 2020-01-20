@@ -188,6 +188,6 @@ public class ShopViewService {
         getProductById(productId);
         CreateUpdateRateDto rateDto = new CreateUpdateRateDto(rate, commentDto.getId(), user.getId());
         RateDto savedRate = rateService.addNewRate(rateDto);
-        rateProductService.addPhotoToProduct(productId, savedRate.getId());
+        rateProductService.addRateToProduct(productId, savedRate.getId());
     }
 }

@@ -12,6 +12,7 @@ import pl.pretkejshop.webstore.service.dto.CreateUpdateRateDto;
 import pl.pretkejshop.webstore.service.dto.RateDto;
 import pl.pretkejshop.webstore.service.exception.NotFoundException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,7 +54,7 @@ public class RateDtoMapper {
                 .rate(createRateDto.getRate())
                 .user(user)
                 .comment(comment)
-                .products(null) // todo
+                .products(new ArrayList<>())
                 .build();
     }
 }

@@ -26,7 +26,7 @@ public class RateProductService {
     @Autowired
     private RateDtoMapper rateDtoMapper;
 
-    public List<RateDto> getProductPhotos(Integer productId) throws NotFoundException {
+    public List<RateDto> getProductRates(Integer productId) throws NotFoundException {
         return productRepository.findById(productId)
                 .orElseThrow(() -> new NotFoundException("Product with id = " + productId + "not found"))
                 .getRates().stream()
@@ -34,7 +34,7 @@ public class RateProductService {
                 .collect(Collectors.toList());
     }
 
-    public ProductDto addPhotoToProduct(Integer productId, Integer rateId) throws NotFoundException {
+    public ProductDto addRateToProduct(Integer productId, Integer rateId) throws NotFoundException {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new NotFoundException("Product with id = " + productId + "not found"));
         Rate rate = rateRepository.findById(rateId)
@@ -47,7 +47,7 @@ public class RateProductService {
         return productDtoMappper.toDto(savedProduct);
     }
 
-    public ProductDto deletePhotoFromProduct(Integer productId, Integer rateId) throws NotFoundException {
+    public ProductDto deleteRateFromProduct(Integer productId, Integer rateId) throws NotFoundException {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new NotFoundException("Product with id = " + productId + "not found"));
         Rate rate = rateRepository.findById(rateId)

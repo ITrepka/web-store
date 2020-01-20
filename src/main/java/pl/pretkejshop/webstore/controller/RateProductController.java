@@ -16,17 +16,17 @@ public class RateProductController {
     private RateProductService rateProductService;
 
     @GetMapping("/products/{productId}/rates")
-    public List<RateDto> getProductPhotos(@PathVariable Integer productId) throws NotFoundException {
-        return rateProductService.getProductPhotos(productId);
+    public List<RateDto> getProductRates(@PathVariable Integer productId) throws NotFoundException {
+        return rateProductService.getProductRates(productId);
     }
 
     @PostMapping("/products/{productId}/rates/{rateId}")
     private ProductDto addRateToProduct(@PathVariable Integer productId, @PathVariable Integer rateId) throws NotFoundException {
-        return rateProductService.addPhotoToProduct(productId, rateId);
+        return rateProductService.addRateToProduct(productId, rateId);
     }
 
     @DeleteMapping("/product/{productId}/rate/{rateId}")
     private ProductDto deleteRateFromProduct(@PathVariable Integer productId, @PathVariable Integer rateId) throws NotFoundException {
-        return rateProductService.deletePhotoFromProduct(productId, rateId);
+        return rateProductService.deleteRateFromProduct(productId, rateId);
     }
 }

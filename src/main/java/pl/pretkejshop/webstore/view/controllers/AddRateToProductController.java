@@ -23,7 +23,7 @@ public class AddRateToProductController {
                                          @RequestParam Integer rate,
                                          @PathVariable Integer productId, Authentication authentication) throws NotFoundException {
         shopViewService.addRateToProduct(rate, comment, productId, authentication.getName());
-        ModelAndView mv = new ModelAndView("redirect:/product/product/" + productId);
+        ModelAndView mv = new ModelAndView("redirect:/product/" + productId);
         return mv;
     }
 }

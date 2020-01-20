@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -24,5 +25,5 @@ public class Rate {
     @ManyToOne
     private User user;
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 }
