@@ -157,7 +157,7 @@
                                 </a>
                                 <div class="star-rating" role="img"
                                      th:aria-label="'Rated ' + ${product.averageRate} + ' out of 5'"><span
-                                        th:style="'width: ' + ${product.averageRate == 0 ? 0 : 5 / product.averageRate * 100} + '%;'">Ocenione <strong
+                                        th:style="'width: ' + ${product.averageRate == 0 ? 0 : (product.averageRate / 5 * 100)} + '%;'">Ocenione <strong
                                         class="rating" th:text="${product.averageRate}"></strong> out of 5</span>
                                 </div>
                                 <!--                                <del><span class="woocommerce-Price-amount amount"><span-->
@@ -203,7 +203,7 @@
                                 <h2 class="woocommerce-loop-product__title" th:text="${product.name}"></h2>
                                 <div class="star-rating" role="img"
                                      th:aria-label="'Rated ' + ${product.averageRate} + ' out of 5'"><span
-                                        th:style="'width: ' + ${product.averageRate == 0 ? 0 : 5 / product.averageRate * 100} + '%;'">Ocenione <strong
+                                        th:style="'width: ' + ${product.averageRate == 0 ? 0 : (product.averageRate / 5  * 100)} + '%;'">Ocenione <strong
                                         class="rating" th:text="${product.averageRate}"></strong> out of 5</span>
                                 </div>
                                 <span class="price"><!--<del><span class="woocommerce-Price-amount amount"><span

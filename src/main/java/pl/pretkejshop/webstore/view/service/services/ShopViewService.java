@@ -62,7 +62,7 @@ public class ShopViewService {
         switch (orderBy) {
             case "rating":
                 return productsAfterSort.stream()
-                        .sorted(Comparator.comparingDouble(ProductViewDto::getAverageRate))
+                        .sorted((p1, p2) -> p2.getAverageRate() - p1.getAverageRate() > 0 ? 1 : p2.getAverageRate() - p1.getAverageRate() == 0 ? 0 : -1 )
                         .collect(Collectors.toList());
             case "date":
                 return productsAfterSort.stream()
