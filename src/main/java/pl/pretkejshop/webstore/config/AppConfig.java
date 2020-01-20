@@ -52,6 +52,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests() //autoryzuj wszystkie zadania
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user").hasRole("USER")
+                .antMatchers("/product/{productId}/add-rate").hasRole("USER")
                 .antMatchers(staticResources).permitAll()
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
