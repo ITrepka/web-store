@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <div th:replace="layout/layout :: head"></div>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="profile" href="https://gmpg.org/xfn/11">
@@ -89,6 +88,19 @@
           href="https://colorlib.com/tyche/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fcolorlib.com%2Ftyche%2Fproduct%2Famari-shirt%2F"/>
     <link rel="alternate" type="text/xml+oembed"
           href="https://colorlib.com/tyche/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fcolorlib.com%2Ftyche%2Fproduct%2Famari-shirt%2F&#038;format=xml"/>
+    <div th:replace="layout/layout :: head"></div>
+    <script type="text/javascript">
+        function select_rating(value) {
+            document.getElementById("rating").value = value;
+            var aStar = document.getElementById('star' + value);
+            for (var i = 1; i < 5; i++) {
+                document.getElementById('star' + i).classList.remove('active');
+            }
+            aStar.classList.add("active");
+            var pStars = document.getElementById('stars');
+            pStars.classList.add("selected")
+        }
+    </script>
 </head>
 <body class="product-template-default single single-product postid-62 wp-custom-logo theme-tyche woocommerce woocommerce-page woocommerce-no-js">
 <div id="page" class="site">
@@ -160,59 +172,53 @@
                             </ul>
                             <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--reviews panel entry-content wc-tab"
                                  id="tab-reviews" role="tabpanel" aria-labelledby="tab-title-reviews"
-                                 style="display:none;">
+                                 style="display:block;">
                                 <div id="reviews" class="woocommerce-Reviews">
                                     <div id="comments">
                                         <h2 class="woocommerce-Reviews-title">
-                                            Reviews </h2>
-                                        <p class="woocommerce-noreviews" th:if="${product.rates.size() == 0}">Nie ma jeszcze żadnych recenzji produktu</p>
+                                            Oceny </h2>
+                                        <p class="woocommerce-noreviews" th:if="${product.rates.size() == 0}">Nie ma
+                                            jeszcze żadnych recenzji produktu</p>
                                     </div>
                                     <div id="review_form_wrapper">
                                         <div id="review_form">
                                             <div id="respond" class="comment-respond">
-                                                <span id="reply-title" class="comment-reply-title">Be the first to review &ldquo;Amari Shirt&rdquo; <small><a
-                                                        rel="nofollow" id="cancel-comment-reply-link"
-                                                        href="/tyche/product/amari-shirt/#respond"
-                                                        style="display:none;">Cancel reply</a></small></span>
-                                                <form action="#" th:action="'/product/' + ${product.productId} + '/add-rate'"
-                                                      method="post" id="commentform" class="comment-form" th:object="${rate}"><p
-                                                        class="comment-notes"><span id="email-notes">Your email address will not be published.</span>
-                                                    Required fields are marked <span class="required">*</span></p>
-                                                    <div class="comment-form-rating"><label for="rating">Your
-                                                        rating</label><select th:field="rate"  id="rating" required>
-                                                        <option value="">Rate&hellip;</option>
-                                                        <option value="5">Perfect</option>
-                                                        <option value="4">Good</option>
-                                                        <option value="3">Average</option>
-                                                        <option value="2">Not that bad</option>
-                                                        <option value="1">Very poor</option>
-                                                    </select></div>
-                                                    <p class="comment-form-comment"><label for="comment">Your
-                                                        review&nbsp;<span
-                                                                class="required">*</span></label><textarea id="comment"
-                                                                                                           name="comment"
-                                                                                                           cols="45"
-                                                                                                           rows="8"
-                                                                                                           required></textarea>
+                                                <form action="#"
+                                                      th:action="'/product/' + ${product.productId} + '/add-rate'"
+                                                      method="post" id="commentform" class="comment-form"
+                                                      th:object="${comment}">
+                                                    <div class="comment-form-rating"><label>Twoja ocena</label>
+                                                        <p id="stars" class="stars">
+                                                            <span style="cursor: pointer">
+                                                                <a href="javascript:;" id="star1" class="star-1"
+                                                                   onclick="select_rating(1)">1</a>
+                                                                <a href="javascript:;" id="star2" class="star-2"
+                                                                   onclick="select_rating(2)">2</a>
+                                                                <a href="javascript:;" id="star3" class="star-3"
+                                                                   onclick="select_rating(3)">3</a>
+                                                                <a href="javascript:;" id="star4" class="star-4"
+                                                                   onclick="select_rating(4)">4</a>
+                                                                <a href="javascript:;" id="star5" class="star-5"
+                                                                   onclick="select_rating(5)">5</a>
+                                                            </span>
+                                                        </p>
+                                                        <input type="number" id="rating" name="rate" required
+                                                               style="display: none;" value="5">
+                                                    </div>
+                                                    <p class="comment-form-comment"><label for="comment">Twoja recenzja&nbsp;<span
+                                                            class="required">*</span></label><textarea id="comment"
+                                                                                                       th:field="*{text}"
+                                                                                                       cols="45"
+                                                                                                       rows="8"
+                                                                                                       required></textarea>
                                                     </p>
-                                                    <p class="comment-form-author"><label for="author">Name&nbsp;<span
-                                                            class="required">*</span></label><input id="author"
-                                                                                                    name="author"
-                                                                                                    type="text" value=""
-                                                                                                    size="30" required/>
-                                                    </p>
-                                                    <p class="comment-form-email"><label for="email">Email&nbsp;<span
-                                                            class="required">*</span></label><input id="email"
-                                                                                                    name="email"
-                                                                                                    type="email"
-                                                                                                    value="" size="30"
-                                                                                                    required/></p>
                                                     <p class="form-submit"><input name="submit" type="submit"
                                                                                   id="submit" class="submit"
-                                                                                  value="Submit"/> <input type='hidden'
-                                                                                                          name='comment_post_ID'
-                                                                                                          value='62'
-                                                                                                          id='comment_post_ID'/>
+                                                                                  value="Dodaj ocenę"/> <input
+                                                            type='hidden'
+                                                            name='comment_post_ID'
+                                                            value='62'
+                                                            id='comment_post_ID'/>
                                                         <input type='hidden' name='comment_parent' id='comment_parent'
                                                                value='0'/>
                                                     </p><input type='hidden'
