@@ -12,18 +12,20 @@ import pl.pretkejshop.webstore.repository.UserRepository;
 import pl.pretkejshop.webstore.service.dto.UserDto;
 import pl.pretkejshop.webstore.service.exception.NotFoundException;
 import pl.pretkejshop.webstore.service.services.UserService;
+import pl.pretkejshop.webstore.view.service.dto.UserViewDto;
+import pl.pretkejshop.webstore.view.service.services.ShopViewService;
 
 import javax.servlet.http.HttpSession;
 
 @Controller
 public class UserViewController {
     @Autowired
-    private UserService userService;
+    private ShopViewService shopViewService;
 
     @GetMapping("/user")
     public ModelAndView displayMyAccountPage(Authentication authentication) throws NotFoundException {
         String username = authentication.getName();
-        UserDto user = userService.getUserByLogin(username);
+        UserViewDto user = shopViewService.getUserViewByLogin(username);
         ModelAndView mv = new ModelAndView("my-account");
         mv.addObject("user", user);
         return mv;

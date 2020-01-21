@@ -9,8 +9,10 @@ import pl.pretkejshop.webstore.service.services.*;
 import pl.pretkejshop.webstore.view.model.ShopPageViewModel;
 import pl.pretkejshop.webstore.view.service.dto.BasketViewDto;
 import pl.pretkejshop.webstore.view.service.dto.ProductViewDto;
+import pl.pretkejshop.webstore.view.service.dto.UserViewDto;
 import pl.pretkejshop.webstore.view.service.mapper.BasketViewDtoMapper;
 import pl.pretkejshop.webstore.view.service.mapper.ProductViewDtoMapper;
+import pl.pretkejshop.webstore.view.service.mapper.UserViewDtoMapper;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -35,6 +37,8 @@ public class ShopViewService {
     private CommentService commentService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserViewDtoMapper userViewDtoMapper;
 
     public List<ProductViewDto> getAllProducts() throws NotFoundException {
         List<ProductDto> allProducts = productService.getAllProducts();
@@ -189,5 +193,10 @@ public class ShopViewService {
         CreateUpdateRateDto rateDto = new CreateUpdateRateDto(rate, commentDto.getId(), user.getId());
         RateDto savedRate = rateService.addNewRate(rateDto);
         rateProductService.addRateToProduct(productId, savedRate.getId());
+    }
+
+    public UserViewDto getUserViewByLogin(String username) throws NotFoundException {
+        UserDto userByLogin = userService.getUserByLogin(username);
+        return userViewDtoMapper.toDto(userByLogin);
     }
 }
