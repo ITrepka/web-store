@@ -161,7 +161,7 @@
                             <p class="price" th:text="${product.sellingPrize} + 'zł'"><span
                                     class="woocommerce-Price-amount amount"><span
                                     class="woocommerce-Price-currencySymbol"></span></span></p>
-                            <form th:if="${product.numberOfCopies} > 0" class="cart" th:action="'/add-to-cart/' + ${product.productId}" method="post"
+                            <form th:if="${product.numberOfCopies} > 0" class="cart" th:action="'/add-to-cart/' + ${product.productId}" method="get"
                                   enctype='multipart/form-data'>
                                 <div class="quantity">
                                     <label class="screen-reader-text" for="quantity">Amari Shirt
