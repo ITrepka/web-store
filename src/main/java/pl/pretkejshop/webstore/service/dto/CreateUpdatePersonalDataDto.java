@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import pl.pretkejshop.webstore.model.Sex;
 
 import java.time.LocalDate;
@@ -17,8 +18,8 @@ public class CreateUpdatePersonalDataDto {
     private String name;
     private String surname;
     private String address;
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    private String birthDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birthDate;
     private String sex;
     private String phoneNumber;
 }

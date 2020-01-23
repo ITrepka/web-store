@@ -206,6 +206,6 @@ public class ShopViewService {
         UserDto userDto = userService.getUserById(userId);
         Integer personalDataId = userDto.getPersonalDataId();
         CreateUpdatePersonalDataDto createUpdatePersonalDataDto = userViewDtoMapper.toPersonalDataDto(user);
-        personalDataService.updatePersonalData(personalDataId, createUpdatePersonalDataDto);
+        personalDataService.updatePersonalData(personalDataId, createUpdatePersonalDataDto); //todo data różnica jednego dnia przy edycji
     }
 }

@@ -39,7 +39,7 @@ public class PersonalDataDtoMapper {
                 .id(null)
                 .name(createPersonalDataDto.getName())
                 .surname(createPersonalDataDto.getSurname())
-                .birthDate(null) //todo
+                .birthDate(createPersonalDataDto.getBirthDate()) //todo
                 .sex(null) //todo
                 .address(createPersonalDataDto.getAddress())
                 .phoneNumber(createPersonalDataDto.getPhoneNumber())

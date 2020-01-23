@@ -3,6 +3,7 @@ package pl.pretkejshop.webstore.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -22,6 +23,7 @@ public class PersonalData {
     private String name;
     private String surname;
     private String address;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
     private Sex sex;
     private String phoneNumber;
