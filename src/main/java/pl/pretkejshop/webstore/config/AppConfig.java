@@ -51,7 +51,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable() // tymczasowe wylaczenie zabezpieczenia przed csrf
                 .authorizeRequests() //autoryzuj wszystkie zadania
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user").hasRole("USER")
+                .antMatchers("/my-account").hasRole("USER")
                 .antMatchers("/product/{productId}/add-rate").hasRole("USER")
                 .antMatchers(staticResources).permitAll()
                 .antMatchers("/**").permitAll()

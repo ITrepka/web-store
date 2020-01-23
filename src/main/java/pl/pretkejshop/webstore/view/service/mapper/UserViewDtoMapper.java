@@ -22,7 +22,7 @@ public class UserViewDtoMapper {
 
     public UserViewDto toDto(UserDto user) throws NotFoundException {
         Integer personalDataId = user.getPersonalDataId();
-        PersonalDataDto personalData = personalDataService.getPersonalDataById(personalDataId);
+        PersonalDataDto personalData = personalDataId == null ? new PersonalDataDto() : personalDataService.getPersonalDataById(personalDataId);
         List<OrderDto> orderDtos = user.getOrdersIds() == null ? null : user.getOrdersIds().stream().map(id -> {
             try {
                 return orderService.getOrderById(id);
@@ -32,7 +32,12 @@ public class UserViewDtoMapper {
         }).collect(Collectors.toList());
         return UserViewDto.builder()
                 .userId(user.getId())
-                .personalDataDto(personalData)
+                .name(personalData.getName())
+                .surname(personalData.getSurname())
+                .address(personalData.getAddress())
+                .phoneNumber(personalData.getPhoneNumber())
+                .birthDate(personalData.getBirthDate() == null ? null : personalData.getBirthDate().toString())
+                .sex(personalData.getSex() == null ? null : String.valueOf(personalData.getSex()))
                 .orders(orderDtos)
                 .loyaltyPoints(user.getLoyaltyPoints())
                 .build();

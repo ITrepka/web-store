@@ -22,7 +22,7 @@ public class UserViewController {
     @Autowired
     private ShopViewService shopViewService;
 
-    @GetMapping("/user")
+    @GetMapping("/my-account")
     public ModelAndView displayMyAccountPage(Authentication authentication) throws NotFoundException {
         String username = authentication.getName();
         UserViewDto user = shopViewService.getUserViewByLogin(username);
