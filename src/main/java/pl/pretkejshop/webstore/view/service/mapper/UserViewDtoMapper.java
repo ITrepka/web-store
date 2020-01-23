@@ -2,6 +2,7 @@ package pl.pretkejshop.webstore.view.service.mapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import pl.pretkejshop.webstore.service.dto.CreateUpdatePersonalDataDto;
 import pl.pretkejshop.webstore.service.dto.OrderDto;
 import pl.pretkejshop.webstore.service.dto.PersonalDataDto;
 import pl.pretkejshop.webstore.service.dto.UserDto;
@@ -40,6 +41,17 @@ public class UserViewDtoMapper {
                 .sex(personalData.getSex() == null ? null : String.valueOf(personalData.getSex()))
                 .orders(orderDtos)
                 .loyaltyPoints(user.getLoyaltyPoints())
+                .build();
+    }
+
+    public CreateUpdatePersonalDataDto toPersonalDataDto(UserViewDto user) {
+        return CreateUpdatePersonalDataDto.builder()
+                .name(user.getName())
+                .surname(user.getSurname())
+                .address(user.getAddress())
+                .phoneNumber(user.getPhoneNumber())
+                .birthDate(user.getBirthDate())
+                .sex(user.getSex())
                 .build();
     }
 }

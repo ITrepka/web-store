@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <div class="woocommerce">
-                        <form action="#" th:object="${user}" th:action="@{/userViewController}" method="post">
+                        <form action="#" th:object="${user}" th:action="@{'/my-account/' + ${user.userId}}" method="post">
                             <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                 <label>Imię</label>
                                 <label>

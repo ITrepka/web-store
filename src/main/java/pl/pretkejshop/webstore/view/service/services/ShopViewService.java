@@ -39,6 +39,8 @@ public class ShopViewService {
     private UserService userService;
     @Autowired
     private UserViewDtoMapper userViewDtoMapper;
+    @Autowired
+    private PersonalDataService personalDataService;
 
     public List<ProductViewDto> getAllProducts() throws NotFoundException {
         List<ProductDto> allProducts = productService.getAllProducts();
@@ -198,5 +200,12 @@ public class ShopViewService {
     public UserViewDto getUserViewByLogin(String username) throws NotFoundException {
         UserDto userByLogin = userService.getUserByLogin(username);
         return userViewDtoMapper.toDto(userByLogin);
+    }
+
+    public void updateUserView(Integer userId, UserViewDto user) throws NotFoundException, InvalidDataException {
+        UserDto userDto = userService.getUserById(userId);
+        Integer personalDataId = userDto.getPersonalDataId();
+        CreateUpdatePersonalDataDto createUpdatePersonalDataDto = userViewDtoMapper.toPersonalDataDto(user);
+        personalDataService.updatePersonalData(personalDataId, createUpdatePersonalDataDto);
     }
 }

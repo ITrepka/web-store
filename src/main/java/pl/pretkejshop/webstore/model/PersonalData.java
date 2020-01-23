@@ -27,6 +27,6 @@ public class PersonalData {
     private String phoneNumber;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    @OneToOne(mappedBy = "personalData")
+    @OneToOne(mappedBy = "personalData", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private User user;
 }
