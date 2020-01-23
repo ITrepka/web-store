@@ -20,6 +20,6 @@ public class CreateUpdatePersonalDataDto {
     private String address;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
-    private String sex;
+    private Sex sex;
     private String phoneNumber;
 }

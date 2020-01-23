@@ -55,10 +55,11 @@
                                 </label>
                             </p>
                             <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                                <label>Płeć&nbsp;</label>
-                                <label>
-                                    <input type="text" th:field="*{sex}"/>
-                                </label>
+                                <select th:field="*{sex}" onclick="substitute_option_text()">
+                                    <option id="gender_hidden" th:value="${user.sex}" disabled="disabled" type="hidden" th:text="${user.sex.equals(T(pl.pretkejshop.webstore.model.Sex).MALE)} ? 'MĘŻCZYZNA' : 'KOBIETA'"></option>
+                                    <option th:value="${T(pl.pretkejshop.webstore.model.Sex).MALE}">MĘŻCZYZNA</option>
+                                    <option th:value="${T(pl.pretkejshop.webstore.model.Sex).FEMALE}">KOBIETA</option>
+                                </select>
                             </p>
                             <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                 <label>Punkty lojalnościowe&nbsp;</label>
@@ -90,5 +91,17 @@
 </div>
 
 <footer th:replace="layout/layout :: main-footer"></footer>
+<script>
+    var genderValue = document.getElementById("gender_hidden").text;
+    var timesClicked = 0;
+    function substitute_option_text() {
+        timesClicked++;
+        if (timesClicked % 2 == 1) {
+            document.getElementById("gender_hidden").text = '';
+        }else {
+            document.getElementById("gender_hidden").text = genderValue;
+        }
+    }
+</script>
 </body>
 </html>

@@ -62,7 +62,7 @@ public class PersonalDataService {
         personalData.setSurname(updatePersonalDataDto.getSurname());
         personalData.setAddress(updatePersonalDataDto.getAddress());
         personalData.setBirthDate(updatePersonalDataDto.getBirthDate());
-        personalData.setSex(Sex.MALE); // todo
+        personalData.setSex(updatePersonalDataDto.getSex()); // todo
         personalData.setUpdatedAt(OffsetDateTime.now());
         PersonalData savedPersonalData = personalDataRepository.save(personalData);
         return personalDataDtoMapper.toDto(savedPersonalData);

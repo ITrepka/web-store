@@ -38,7 +38,7 @@ public class UserViewDtoMapper {
                 .address(personalData.getAddress())
                 .phoneNumber(personalData.getPhoneNumber())
                 .birthDate(personalData.getBirthDate())
-                .sex(personalData.getSex() == null ? null : String.valueOf(personalData.getSex()))
+                .sex(personalData.getSex())
                 .orders(orderDtos)
                 .loyaltyPoints(user.getLoyaltyPoints())
                 .build();

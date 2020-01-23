@@ -2,6 +2,7 @@ package pl.pretkejshop.webstore.view.service.dto;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.pretkejshop.webstore.model.Sex;
 import pl.pretkejshop.webstore.service.dto.OrderDto;
 
 import java.time.LocalDate;
@@ -19,7 +20,7 @@ public class UserViewDto {
     private String address;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
-    private String sex;
+    private Sex sex;
     private String phoneNumber;
     private Integer loyaltyPoints;
     private List<OrderDto> orders;
