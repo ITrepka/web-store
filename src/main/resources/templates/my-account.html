@@ -9,7 +9,7 @@
 <header th:replace="layout/layout :: header-bar"></header>
 <div class="container">
     <div class="row">
-        <div id="primary" class="content-area col-xl-6">
+        <div id="primary" class="content-area col-md-6">
             <main id="main" class="site-main" role="main">
                 <article id="post-7" class="post-7 page type-page status-publish hentry">
                     <div class="row">
@@ -64,7 +64,7 @@
                             <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                 <label>Punkty lojalnościowe&nbsp;</label>
                                 <label>
-                                    <input type="text" th:value="*{loyaltyPoints}"/>
+                                    <input th:field="*{loyaltyPoints}" th:value="${user.loyaltyPoints}" type="hidden" disabled="disabled" th:text="${user.loyaltyPoints}"/>
                                 </label>
                             </p>
                             <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
