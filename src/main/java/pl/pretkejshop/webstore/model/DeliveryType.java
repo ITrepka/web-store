@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -22,5 +23,5 @@ public class DeliveryType {
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
     @OneToMany(mappedBy = "deliveryType")
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
 }

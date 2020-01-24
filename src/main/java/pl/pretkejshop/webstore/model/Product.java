@@ -21,7 +21,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @OneToMany(mappedBy = "product")
-    private List<ProductCopy> productCopies;
+    private List<ProductCopy> productCopies = new ArrayList<>();
     private String name;
     @Type(type = "text")
     private String description;

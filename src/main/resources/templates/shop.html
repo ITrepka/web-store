@@ -211,7 +211,7 @@
                                         class="woocommerce-Price-amount amount"
                                         th:text="${product.sellingPrize} + 'zł'"></span></ins>
                                 </span>
-                            </a><a th:href="'/add-to-cart/' + product.id" data-quantity="1"
+                            </a><a th:href="'/add-to-cart/' + ${product.productId}" data-quantity="1"
                                    class="button product_type_simple add_to_cart_button ajax_add_to_cart"
                                    data-product_id="41" data-product_sku=""
                                    th:aria-label="'Add &ldquo;'+ ${product.name} +'&rdquo; to your cart'"

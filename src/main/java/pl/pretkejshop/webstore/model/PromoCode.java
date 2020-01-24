@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -23,5 +24,5 @@ public class PromoCode {
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
     @OneToMany(mappedBy = "promoCode")
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
 }

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <div th:replace="layout/layout :: head"></div>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header th:replace="layout/layout :: header-bar"></header>
+
+<div class="container">
+    <div class="row">
+        <div id="primary" class="content-area col-md-6">
+            <main id="main" class="site-main" role="main">
+                <article id="post-7" class="post-7 page type-page status-publish hentry">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <header>
+                                <h1 class="page-title margin-top">Mój koszyk</h1>
+                            </header>
+                        </div>
+                    </div>
+                    <div class="woocommerce">
+                        <div class="row" th:each="product : ${cart.productsInBasket.keySet()}">
+                            <figure class="woocommerce-product-gallery__wrapper">
+                                <div th:data-thumb="${product.photos.get(0).url}"
+                                     data-thumb-alt="" class="woocommerce-product-gallery__image"><img
+                                        width="540" height="556"
+                                        src=".."
+                                        th:src="${product.photos.get(0).url}"
+                                        class="wp-post-image" alt="" title="key-692199_1920" data-caption=""
+                                        th:data-src="${product.photos.get(0).url}"
+                                        th:data-large_image="${product.photos.get(0).url}"
+                                        data-large_image_width="1128" data-large_image_height="1161"
+                                        sizes="(max-width: 540px) 100vw, 540px"/></div>
+                            </figure>
+                        </div>
+                    </div>
+                </article>
+            </main>
+        </div>
+    </div>
+</div>
+<footer th:replace="layout/layout :: main-footer"></footer>
+</body>
+</html>

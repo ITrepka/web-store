@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -21,5 +22,5 @@ public class Role {
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
     @OneToMany(mappedBy = "role",cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private List<User> userList;
+    private List<User> userList = new ArrayList<>();
 }

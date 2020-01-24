@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -27,13 +28,13 @@ public class User {
     @OneToOne
     private Basket basket;
     @OneToMany(mappedBy = "user")
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
     @OneToMany(mappedBy = "userFrom", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private List<Message> sentMessages;
+    private List<Message> sentMessages = new ArrayList<>();
     @OneToMany(mappedBy = "userTo", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private List<Message> receivedMessages;
+    private List<Message> receivedMessages = new ArrayList<>();
     @ManyToOne
     private Role role;
     @OneToMany(mappedBy = "user")
-    private List<Rate> rates;
+    private List<Rate> rates = new ArrayList<>();
 }

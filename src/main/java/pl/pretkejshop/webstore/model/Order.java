@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -25,7 +26,7 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
     @OneToMany(mappedBy = "order")
-    private List<ProductCopy> productCopies;
+    private List<ProductCopy> productCopies = new ArrayList<>();
     @ManyToOne
     private DeliveryType deliveryType;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})

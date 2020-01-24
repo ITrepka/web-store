@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -22,5 +23,5 @@ public class Basket {
     @JoinColumn(name = "user_id")
     private User user;
     @ManyToMany(mappedBy = "baskets", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 }
