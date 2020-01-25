@@ -14,6 +14,7 @@ import pl.pretkejshop.webstore.view.service.mapper.BasketViewDtoMapper;
 import pl.pretkejshop.webstore.view.service.mapper.ProductViewDtoMapper;
 import pl.pretkejshop.webstore.view.service.mapper.UserViewDtoMapper;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -129,18 +130,6 @@ public class ShopViewService {
                 .collect(Collectors.toList());
     }
 
-    public BasketViewDto addProductToUserBasket(UserDto user, ProductViewDto product) throws InvalidDataException, NotFoundException {
-        if (user.getBasketId() == null) {
-            CreateUpdateBasketDto createBasketDto = new CreateUpdateBasketDto(user.getId());
-            BasketDto basketDto = basketService.addNewBasket(createBasketDto);
-            BasketDto basketWithAddedProduct = basketProductService.addProductToBasket(basketDto.getId(), product.getProductId());
-            return basketViewDtoMapper.toViewDto(basketWithAddedProduct);
-        }
-
-        BasketDto basketDto = basketService.getBasketById(user.getBasketId());
-        BasketDto basketWithAddedProduct = basketProductService.addProductToBasket(basketDto.getId(), product.getProductId());
-        return basketViewDtoMapper.toViewDto(basketWithAddedProduct);
-    }
 
     public ShopPageViewModel getShopPage(Integer pageNumber, String orderBy, String s, Integer min_price, Integer max_price) throws NotFoundException {
         List<ProductViewDto> products = getAllProducts();
@@ -208,4 +197,6 @@ public class ShopViewService {
         CreateUpdatePersonalDataDto createUpdatePersonalDataDto = userViewDtoMapper.toPersonalDataDto(user);
         personalDataService.updatePersonalData(personalDataId, createUpdatePersonalDataDto); //todo data różnica jednego dnia przy edycji
     }
+
+
 }

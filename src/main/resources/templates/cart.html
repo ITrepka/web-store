@@ -8,17 +8,35 @@
 <body>
 <header th:replace="layout/layout :: header-bar"></header>
 <style>
-    .vcenter {
-        display: inline-block;
-        vertical-align: middle;
-        float: none;
-    }
     .element {
         position: relative;
         top: 50%;
         transform: translateY(-50%);
     }
 </style>
+<script>
+    function increase_products_number(limit, product_id) {
+        var quantity = document.getElementById("quantity").value;
+        quantity++;
+        if (quantity >= limit) {
+            quantity = limit;
+        }
+        document.getElementById("quantity").value = quantity;
+        document.getElementById("ratio").value = 1;
+        document.getElementById('submit_' + product_id).submit();
+    }
+
+    function decrease_products_number(limit, product_id) {
+        var quantity = document.getElementById("quantity").value;
+        quantity--;
+        if (quantity <= limit) {
+            quantity = limit;
+        }
+        document.getElementById("quantity").value = quantity;
+        document.getElementById("ratio").value = -1;
+        document.getElementById('submit_' + product_id).submit();
+    }
+</script>
 <div class="container">
     <div class="row">
         <div id="primary" class="content-area">
@@ -61,7 +79,7 @@
                                                 <span class="dashicons dashicons-minus"></span>
                                             </a>
                                             <input type="number" id="quantity" class="input-text qty text"
-                                                   step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4"
+                                                   step="1" min="1" max="" name="newQuantity" value="1" title="Qty" size="4"
                                                    inputmode="numeric"/>
                                             <a href="javascript:;" th:onclick="'increase_products_number(' + ${product.getKey().numberOfCopies} +')'"
                                                class="arrow-up incrementor" data-increment="up">
@@ -69,6 +87,8 @@
                                             </a>
                                         </div>
                                     </div>
+                                    <input type="number" hidden="hidden" name="ratio" id="ratio" value="0">
+                                    <input type="submit" hidden="hidden" th:id="'submit_' + ${product.getKey().productId}">
                                 </form>
                             </div>
                             <div class="col-md-3 col-md-offset-6 element">
