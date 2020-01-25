@@ -70,13 +70,19 @@ public class CartViewService {
         }
     }
 
-    public BasketViewDto updateProductQuantityInSessionBasket(BasketViewDto sessionCart, Integer productId, Integer ratio) throws NotFoundException {
+    public BasketViewDto updateProductQuantityInSessionBasket(BasketViewDto sessionCart, Integer productId, Integer ratio) throws NotFoundException, InvalidDataException {
         ProductViewDto product = shopViewService.getProductById(productId);
         Map<ProductViewDto, Integer> productsInBasket = sessionCart.getProductsInBasket();
         Integer currentProductQuantity = productsInBasket.get(product);
         if (ratio == 1) {
+            if (currentProductQuantity + 1 > product.getNumberOfCopies()) {
+                throw new InvalidDataException("We havent enough copies of this product");
+            }
             productsInBasket.put(product, currentProductQuantity + 1);
         } else {
+            if (currentProductQuantity - 1 < 1) {
+                throw new InvalidDataException("You can't order less than one copy of the product");
+            }
             productsInBasket.put(product, currentProductQuantity - 1);
         }
         BigDecimal priceForCartItems = calculatePriceForCartItems(productsInBasket);

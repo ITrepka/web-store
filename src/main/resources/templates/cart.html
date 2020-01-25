@@ -68,27 +68,26 @@
                                 </figure>
                             </div>
                             <div class="col-md-3 col-md-offset-3 element">
-                                <form class="cart" th:action="'/add-to-cart/' + ${product.getKey().productId}" method="get"
+                                <form th:id="'submit_' + ${product.getKey().productId}" class="cart" th:action="'/update-products-quantity/' + ${product.getKey().productId}" method="get"
                                       enctype='multipart/form-data'>
                                     <div class="quantity">
                                         <label class="screen-reader-text" for="quantity">Amari Shirt
                                             quantity</label>
                                         <div class="styled-number">
-                                            <a href="javascript:;" th:onclick="'decrease_products_number(' + ${1} +')'"
+                                            <a href="javascript:;" th:onclick="'decrease_products_number(' + ${1} + ',' + ${product.getKey().productId} + ')'"
                                                class="arrow-up incrementor" data-increment="down">
                                                 <span class="dashicons dashicons-minus"></span>
                                             </a>
                                             <input type="number" id="quantity" class="input-text qty text"
-                                                   step="1" min="1" max="" name="newQuantity" value="1" title="Qty" size="4"
+                                                   step="1" min="1" max="" name="newQuantity" th:value="${product.getValue()}" title="Qty" size="4"
                                                    inputmode="numeric"/>
-                                            <a href="javascript:;" th:onclick="'increase_products_number(' + ${product.getKey().numberOfCopies} +')'"
+                                            <a href="javascript:;" th:onclick="'increase_products_number(' + ${product.getKey().numberOfCopies} + ',' + ${product.getKey().productId} +')'"
                                                class="arrow-up incrementor" data-increment="up">
                                                 <span class="dashicons dashicons-plus"></span>
                                             </a>
                                         </div>
                                     </div>
                                     <input type="number" hidden="hidden" name="ratio" id="ratio" value="0">
-                                    <input type="submit" hidden="hidden" th:id="'submit_' + ${product.getKey().productId}">
                                 </form>
                             </div>
                             <div class="col-md-3 col-md-offset-6 element">

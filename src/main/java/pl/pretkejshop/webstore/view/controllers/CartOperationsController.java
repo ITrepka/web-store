@@ -18,6 +18,7 @@ import pl.pretkejshop.webstore.view.service.services.ShopViewService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -48,9 +49,9 @@ public class CartOperationsController {
         }
 
         if (session.getAttribute("sessionCart") == null) {
-            BasketViewDto newBasket = new BasketViewDto();
+            BasketViewDto newBasket = new BasketViewDto(new HashMap<>(), new BigDecimal(0));
             Map<ProductViewDto, Integer> productsInBasket = newBasket.getProductsInBasket();
-            productsInBasket.put(product, productsInBasket.get(product) + productQuantityToAdd);
+            productsInBasket.put(product, productQuantityToAdd);
             newBasket.setProductsInBasket(productsInBasket);
             BigDecimal priceForCartItems = cartViewService.calculatePriceForCartItems(productsInBasket);
             newBasket.setPriceForCartItems(priceForCartItems);

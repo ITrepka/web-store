@@ -36,11 +36,15 @@ public class BasketProductService {
     }
 
     @Transactional
-    public BasketDto addProductToBasket(Integer basketId, Integer productId) throws NotFoundException {
+    public BasketDto addProductToBasket(Integer basketId, Integer productId) throws NotFoundException, InvalidDataException {
         Basket basket = basketRepository.findById(basketId)
                 .orElseThrow(() -> new NotFoundException("Not found basket with id = " + basketId));
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new NotFoundException("Not found product with id = " + productId));
+
+        if (basket.getProducts().size() + 1 > product.getProductCopies().size()) {
+            throw new InvalidDataException("We havent enough product copies to add another one to the basket!");
+        }
 
         product.getBaskets().add(basket);
         basket.getProducts().add(product);
