@@ -7,10 +7,21 @@
 </head>
 <body>
 <header th:replace="layout/layout :: header-bar"></header>
-
+<style>
+    .vcenter {
+        display: inline-block;
+        vertical-align: middle;
+        float: none;
+    }
+    .element {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+</style>
 <div class="container">
     <div class="row">
-        <div id="primary" class="content-area col-md-6">
+        <div id="primary" class="content-area">
             <main id="main" class="site-main" role="main">
                 <article id="post-7" class="post-7 page type-page status-publish hentry">
                     <div class="row">
@@ -21,19 +32,53 @@
                         </div>
                     </div>
                     <div class="woocommerce">
-                        <div class="row" th:each="product : ${cart.productsInBasket.keySet()}">
-                            <figure class="woocommerce-product-gallery__wrapper">
-                                <div th:data-thumb="${product.photos.get(0).url}"
-                                     data-thumb-alt="" class="woocommerce-product-gallery__image"><img
-                                        width="540" height="556"
-                                        src=".."
-                                        th:src="${product.photos.get(0).url}"
-                                        class="wp-post-image" alt="" title="key-692199_1920" data-caption=""
-                                        th:data-src="${product.photos.get(0).url}"
-                                        th:data-large_image="${product.photos.get(0).url}"
-                                        data-large_image_width="1128" data-large_image_height="1161"
-                                        sizes="(max-width: 540px) 100vw, 540px"/></div>
-                            </figure>
+                        <div class="row" th:each="product : ${cart.productsInBasket.entrySet()}">
+                            <div class="col-md-3">
+                                <figure class="woocommerce-product-gallery__wrapper">
+                                    <div th:data-thumb="${product.getKey().photos.get(1).url}"
+                                         data-thumb-alt="" class="woocommerce-product-gallery__image"><img
+                                            width="255" height="320"
+                                            src=".."
+                                            th:src="${product.getKey().photos.get(1).url}"
+                                            class="wp-post-image" alt="" title="key-692199_1920" data-caption=""
+                                            th:data-src="${product.getKey().photos.get(1).url}"
+                                            th:data-large_image="${product.getKey().photos.get(1).url}"
+                                            data-large_image_width="1128" data-large_image_height="1161"
+                                            sizes="(max-width: 255px) 100vw, 255px"/>
+                                    </div>
+                                    <figcaption th:text="${product.getKey().name}"></figcaption>
+                                </figure>
+                            </div>
+                            <div class="col-md-3 col-md-offset-3 element">
+                                <form class="cart" th:action="'/add-to-cart/' + ${product.getKey().productId}" method="get"
+                                      enctype='multipart/form-data'>
+                                    <div class="quantity">
+                                        <label class="screen-reader-text" for="quantity">Amari Shirt
+                                            quantity</label>
+                                        <div class="styled-number">
+                                            <a href="javascript:;" th:onclick="'decrease_products_number(' + ${1} +')'"
+                                               class="arrow-up incrementor" data-increment="down">
+                                                <span class="dashicons dashicons-minus"></span>
+                                            </a>
+                                            <input type="number" id="quantity" class="input-text qty text"
+                                                   step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4"
+                                                   inputmode="numeric"/>
+                                            <a href="javascript:;" th:onclick="'increase_products_number(' + ${product.getKey().numberOfCopies} +')'"
+                                               class="arrow-up incrementor" data-increment="up">
+                                                <span class="dashicons dashicons-plus"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-3 col-md-offset-6 element">
+                                <span th:text="'Cena: ' + ${product.getKey().getSellingPrize().doubleValue() * product.getValue() + 'zł'}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4 text-center">
+                            <a style="background-color: #0c0c0c; font-size: 24px;" th:href="@{/buy-your-cart}">Złóż zamówienie!</a>
                         </div>
                     </div>
                 </article>
