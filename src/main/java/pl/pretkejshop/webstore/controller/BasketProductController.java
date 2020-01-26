@@ -6,6 +6,7 @@ import pl.pretkejshop.webstore.model.Basket;
 import pl.pretkejshop.webstore.model.Product;
 import pl.pretkejshop.webstore.service.dto.BasketDto;
 import pl.pretkejshop.webstore.service.dto.ProductDto;
+import pl.pretkejshop.webstore.service.exception.InvalidDataException;
 import pl.pretkejshop.webstore.service.exception.NotFoundException;
 import pl.pretkejshop.webstore.service.services.BasketProductService;
 
@@ -23,7 +24,7 @@ public class BasketProductController {
     }
 
     @PostMapping("/baskets/{basketId}/products/{productId}")
-    private BasketDto addProductToBasket(@PathVariable Integer basketId, @PathVariable Integer productId) throws NotFoundException {
+    private BasketDto addProductToBasket(@PathVariable Integer basketId, @PathVariable Integer productId) throws NotFoundException, InvalidDataException {
         return basketProductService.addProductToBasket(basketId, productId);
     }
 
