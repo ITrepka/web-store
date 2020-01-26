@@ -28,7 +28,13 @@
     <div class="row">
         <div class="col-xs-3 col-xs-offset-9 border" th:text="'Łącznie: ' + ${cart.priceForCartItems} + 'zł'"></div>
     </div>
+    <h3>Wybierz sposób dostawy</h3>
+    <select>
+        <option th:each="deliveryType : ${deliveryTypesList}" name=""></option>
+    </select>
 </div>
+
+
 
 <footer th:replace="layout/layout :: main-footer"></footer>
 </body>
