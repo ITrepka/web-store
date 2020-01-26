@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.pretkejshop.webstore.model.*;
 import pl.pretkejshop.webstore.repository.*;
-import pl.pretkejshop.webstore.service.dto.CreateUpdateOrderUserDto;
+import pl.pretkejshop.webstore.service.dto.CreateUpdateOrderDto;
 import pl.pretkejshop.webstore.service.dto.OrderDto;
 import pl.pretkejshop.webstore.service.exception.NotFoundException;
 import pl.pretkejshop.webstore.service.mapper.OrderDtoMapper;
@@ -40,16 +40,16 @@ public class OrderService {
                 .orElseThrow(() -> new NotFoundException("Order with id = " + id + " not found"));
     }
 
-    public OrderDto addNewOrder(CreateUpdateOrderUserDto createUpdateOrderUserDto) throws NotFoundException {
+    public OrderDto addNewOrder(CreateUpdateOrderDto createUpdateOrderDto) throws NotFoundException {
         //todo validate
-        Order order = orderDtoMapper.toModel(createUpdateOrderUserDto);
+        Order order = orderDtoMapper.toModel(createUpdateOrderDto);
         order.setCreatedAt(OffsetDateTime.now());
         order.setOrderPrice(null); //todo
         Order savedOrder = orderRepository.save(order);
         return orderDtoMapper.toDto(savedOrder);
     }
 
-    public OrderDto updateOrder(int id, CreateUpdateOrderUserDto orderToUpdate) throws NotFoundException {
+    public OrderDto updateOrder(int id, CreateUpdateOrderDto orderToUpdate) throws NotFoundException {
         //todo validate
         Order order = orderRepository.findById(id).orElseThrow(() -> new NotFoundException("Order with id = " + id + " not found"));
         Integer userId = orderToUpdate.getUserId();

@@ -2,10 +2,7 @@ package pl.pretkejshop.webstore.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.OffsetDateTime;
 
 @Builder
@@ -24,4 +21,6 @@ public class ShippingDetails {
     private String phoneNumber;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
+    @OneToOne
+    private Order order;
 }

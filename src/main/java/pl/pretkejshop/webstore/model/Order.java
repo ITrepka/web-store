@@ -22,6 +22,8 @@ public class Order {
     private BigDecimal orderPrice;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
+    @OneToOne(mappedBy = "order", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private ShippingDetails shippingDetails;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

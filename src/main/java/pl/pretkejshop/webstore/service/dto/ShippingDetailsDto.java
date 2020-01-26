@@ -19,4 +19,5 @@ public class ShippingDetailsDto {
     private String phoneNumber;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
+    private Integer orderId;
 }

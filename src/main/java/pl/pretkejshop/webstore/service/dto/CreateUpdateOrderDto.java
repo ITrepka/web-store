@@ -11,8 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class CreateUpdateOrderUserDto {
-    private Integer userId;
+public class CreateUpdateOrderDto {
+    private Long shippingDetailsId;
     private List<Long> productsCopiesIds;
     private Integer deliveryTypeId;
     private Integer promoCodeId;
