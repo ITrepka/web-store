@@ -2,6 +2,7 @@ package pl.pretkejshop.webstore.view.service.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 import pl.pretkejshop.webstore.config.AuthenticationSystem;
 import pl.pretkejshop.webstore.model.Basket;
 import pl.pretkejshop.webstore.service.dto.BasketDto;
@@ -87,5 +88,16 @@ public class CartViewService {
         }
         BigDecimal priceForCartItems = calculatePriceForCartItems(productsInBasket);
         return new BasketViewDto(productsInBasket, priceForCartItems);
+    }
+
+    public ModelAndView getCurrentCart(HttpSession session, ModelAndView mv) {
+        if (session.getAttribute("userCart") != null) {
+            mv.addObject("cart" , (BasketViewDto)session.getAttribute("userCart"));
+        } else if (session.getAttribute("sessionCart") != null) {
+            mv.addObject("cart" , (BasketViewDto)session.getAttribute("sessionCart"));
+        } else {
+            mv.addObject("cart", new BasketViewDto());
+        }
+        return mv;
     }
 }

@@ -4,39 +4,39 @@
     <div th:replace="layout/layout :: head"></div>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .element {
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    </style>
+    <script>
+        function increase_products_number(limit, product_id) {
+            var quantity = document.getElementById("quantity").value;
+            quantity++;
+            if (quantity >= limit) {
+                quantity = limit;
+            }
+            document.getElementById("quantity").value = quantity;
+            document.getElementById("ratio").value = 1;
+            document.getElementById('submit_' + product_id).submit();
+        }
+
+        function decrease_products_number(limit, product_id) {
+            var quantity = document.getElementById("quantity").value;
+            quantity--;
+            if (quantity <= limit) {
+                quantity = limit;
+            }
+            document.getElementById("quantity").value = quantity;
+            document.getElementById("ratio").value = -1;
+            document.getElementById('submit_' + product_id).submit();
+        }
+    </script>
 </head>
 <body>
 <header th:replace="layout/layout :: header-bar"></header>
-<style>
-    .element {
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-</style>
-<script>
-    function increase_products_number(limit, product_id) {
-        var quantity = document.getElementById("quantity").value;
-        quantity++;
-        if (quantity >= limit) {
-            quantity = limit;
-        }
-        document.getElementById("quantity").value = quantity;
-        document.getElementById("ratio").value = 1;
-        document.getElementById('submit_' + product_id).submit();
-    }
-
-    function decrease_products_number(limit, product_id) {
-        var quantity = document.getElementById("quantity").value;
-        quantity--;
-        if (quantity <= limit) {
-            quantity = limit;
-        }
-        document.getElementById("quantity").value = quantity;
-        document.getElementById("ratio").value = -1;
-        document.getElementById('submit_' + product_id).submit();
-    }
-</script>
 <div class="container">
     <div class="row">
         <div id="primary" class="content-area">
@@ -97,7 +97,11 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4 col-md-offset-4 text-center">
-                            <a style="background-color: #0c0c0c; font-size: 24px;" th:href="@{/buy-your-cart}">Złóż zamówienie!</a>
+                            <form action="#" th:action="@{/submit-your-order}" method="get">
+<!--                              <input th:field="*{priceForCartItems}" type="hidden">-->
+<!--                              <input th:field="*{productsInBasket}" type="hidden">-->
+                              <button type="submit">Złóż zamówienie!</button>
+                            </form>
                         </div>
                     </div>
                 </article>

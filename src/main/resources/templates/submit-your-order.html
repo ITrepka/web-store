@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <div th:replace="layout/layout :: head"></div>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .border {
+            border: #6c7781 1px solid;
+        }
+    </style>
+</head>
+<body>
+<header th:replace="layout/layout :: header-bar"></header>
+<div class="container">
+    <h1>Potwierdź swoje zamówienie</h1>
+    <h3>Zamawiane przedmioty</h3>
+    <div class="row">
+        <div class="col-xs-3 border">Nazwa</div>
+        <div class="col-xs-3 border">Ilość</div>
+        <div class="col-xs-3 border">Cena</div>
+    </div>
+    <div class="row" th:each="product : ${cart.productsInBasket.entrySet()}">
+        <div class="col-xs-3 border" th:text="${product.getKey().name}"></div>
+        <div class="col-xs-3 border" th:text="${product.getValue()}"></div>
+        <div class="col-xs-3 border" th:text="${product.getKey().sellingPrize.doubleValue() * product.getValue()} + 'zł'"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3 col-xs-offset-9 border" th:text="'Łącznie: ' + ${cart.priceForCartItems} + 'zł'"></div>
+    </div>
+</div>
+
+<footer th:replace="layout/layout :: main-footer"></footer>
+</body>
+</html>
