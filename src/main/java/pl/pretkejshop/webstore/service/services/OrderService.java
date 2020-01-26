@@ -20,13 +20,13 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
     private DeliveryTypeRepository deliveryTypeRepository;
     @Autowired
     private PromoCodeRepository promoCodeRepository;
     @Autowired
     private ProductCopyRepository productCopyRepository;
+    @Autowired
+    private ShippingDetailsRepository shippingDetailsRepository;
 
     public List<OrderDto> getAllOrders() {
         return orderRepository.findAll().stream()
@@ -52,10 +52,10 @@ public class OrderService {
     public OrderDto updateOrder(int id, CreateUpdateOrderDto orderToUpdate) throws NotFoundException {
         //todo validate
         Order order = orderRepository.findById(id).orElseThrow(() -> new NotFoundException("Order with id = " + id + " not found"));
-        Integer userId = orderToUpdate.getUserId();
-        User user = userId == null ? null : userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException("Not found user with id = " + userId));
-        order.setUser(user);
+        Long shippingDetailsId = orderToUpdate.getShippingDetailsId();
+        ShippingDetails shippingDetails = shippingDetailsId == null ? null : shippingDetailsRepository.findById(shippingDetailsId)
+                .orElseThrow(() -> new NotFoundException("Not found user with id = " + shippingDetailsId));
+        order.setShippingDetails(shippingDetails);
         Integer deliveryTypeId = orderToUpdate.getDeliveryTypeId();
         DeliveryType deliveryType = deliveryTypeId == null ? null : deliveryTypeRepository.findById(deliveryTypeId)
                 .orElseThrow(() -> new NotFoundException("Delivery Type not found id =" + deliveryTypeId));

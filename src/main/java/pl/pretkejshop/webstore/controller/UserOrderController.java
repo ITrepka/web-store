@@ -21,7 +21,7 @@ public class UserOrderController {
     }
 
     @PostMapping("/users/{userId}/orders/{orderId}")
-    private OrderDto addOrderToUser(@PathVariable Integer userId, @PathVariable Integer orderId) {
+    private UserDto addOrderToUser(@PathVariable Integer userId, @PathVariable Integer orderId) throws NotFoundException {
         return userOrderService.addOrderToUser(userId, orderId);
     }
 

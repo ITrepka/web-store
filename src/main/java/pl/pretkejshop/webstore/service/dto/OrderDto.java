@@ -23,6 +23,7 @@ public class OrderDto {
     private Integer orderStatusId;
     private Integer personalDataId;
     private Integer paymentTypeId;
+    private Long shippingDetailsId;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.pretkejshop.webstore.model.*;
 import pl.pretkejshop.webstore.repository.ProductCopyRepository;
+import pl.pretkejshop.webstore.repository.ShippingDetailsRepository;
 import pl.pretkejshop.webstore.repository.UserRepository;
 import pl.pretkejshop.webstore.service.dto.CreateUpdateOrderDto;
 import pl.pretkejshop.webstore.service.dto.OrderDto;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 @Service
 public class OrderDtoMapper {
     @Autowired
-    private UserRepository userRepository;
+    private ShippingDetailsRepository shippingDetailsRepository;
     @Autowired
     private ProductCopyRepository productCopyRepository;
 
@@ -29,9 +30,11 @@ public class OrderDtoMapper {
                 order.getProductCopies().stream()
                         .map(ProductCopy::getId)
                         .collect(Collectors.toList());
+        Long shippingDetailsId = order.getShippingDetails() == null ? null : order.getShippingDetails().getId();
 
         return OrderDto.builder()
                 .id(order.getId())
+                .shippingDetailsId(shippingDetailsId)
                 .orderPrice(order.getOrderPrice())
                 .deliveryTypeId(deliveryTypeId)
                 .orderStatusId(orderStatusId)
@@ -43,18 +46,18 @@ public class OrderDtoMapper {
     }
 
     public Order toModel(CreateUpdateOrderDto createUpdateOrderDto) throws NotFoundException {
-        Integer userId = createUpdateOrderDto.getUserId();
-        User user = userId == null ? null : userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException("Not found user with id = " + userId));
-
+        Long shippingDetailsId = createUpdateOrderDto.getShippingDetailsId();
+        ShippingDetails shippingDetails = shippingDetailsId == null ? null : shippingDetailsRepository.findById(shippingDetailsId)
+                .orElseThrow(() -> new NotFoundException("Not found shipping details with id=" + shippingDetailsId));
         List<ProductCopy> productsCopies = createUpdateOrderDto.getProductsCopiesIds() == null ? null :
                 createUpdateOrderDto.getProductsCopiesIds().stream()
                         .map(id -> productCopyRepository.findById(id).orElse(null))
                         .collect(Collectors.toList());
         return Order.builder()
                 .id(null)
+                .shippingDetails(shippingDetails)
                 .orderPrice(null)
-                .user(user)
+                .user(null)
                 .deliveryType(null)
                 .promoCode(null)
                 .orderStatus(null)
