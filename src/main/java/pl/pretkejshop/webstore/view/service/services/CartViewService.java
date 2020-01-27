@@ -7,6 +7,7 @@ import pl.pretkejshop.webstore.config.AuthenticationSystem;
 import pl.pretkejshop.webstore.model.Basket;
 import pl.pretkejshop.webstore.service.dto.BasketDto;
 import pl.pretkejshop.webstore.service.dto.CreateUpdateBasketDto;
+import pl.pretkejshop.webstore.service.dto.ProductCopyDto;
 import pl.pretkejshop.webstore.service.dto.UserDto;
 import pl.pretkejshop.webstore.service.exception.InvalidDataException;
 import pl.pretkejshop.webstore.service.exception.NotFoundException;
@@ -19,6 +20,7 @@ import pl.pretkejshop.webstore.view.service.mapper.BasketViewDtoMapper;
 
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -90,14 +92,15 @@ public class CartViewService {
         return new BasketViewDto(productsInBasket, priceForCartItems);
     }
 
-    public ModelAndView getCurrentCart(HttpSession session, ModelAndView mv) {
+    public BasketViewDto getCurrentCart(HttpSession session) {
+        BasketViewDto basketViewDto;
         if (session.getAttribute("userCart") != null) {
-            mv.addObject("cart" , (BasketViewDto)session.getAttribute("userCart"));
+            basketViewDto = (BasketViewDto) session.getAttribute("userCart");
         } else if (session.getAttribute("sessionCart") != null) {
-            mv.addObject("cart" , (BasketViewDto)session.getAttribute("sessionCart"));
+            basketViewDto = (BasketViewDto) session.getAttribute("sessionCart");
         } else {
-            mv.addObject("cart", new BasketViewDto());
+            basketViewDto = new BasketViewDto();
         }
-        return mv;
+        return basketViewDto;
     }
 }

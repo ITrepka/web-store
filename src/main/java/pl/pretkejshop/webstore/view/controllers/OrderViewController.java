@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pl.pretkejshop.webstore.model.Order;
-import pl.pretkejshop.webstore.service.dto.CreateUpdateShippingDetailsDto;
-import pl.pretkejshop.webstore.service.dto.DeliveryTypeDto;
+import pl.pretkejshop.webstore.service.dto.*;
+import pl.pretkejshop.webstore.service.exception.NotFoundException;
+import pl.pretkejshop.webstore.view.service.dto.BasketViewDto;
 import pl.pretkejshop.webstore.view.service.services.CartViewService;
 import pl.pretkejshop.webstore.view.service.services.OrderViewService;
 
@@ -26,18 +27,23 @@ public class OrderViewController {
     @GetMapping("/submit-your-order")
     public ModelAndView submitYourOrder(HttpSession session) {
         ModelAndView mv = new ModelAndView("submit-your-order");
-        mv = cartViewService.getCurrentCart(session, mv);
+        BasketViewDto currentCart = cartViewService.getCurrentCart(session);
+        mv.addObject("cart", currentCart);
         List<DeliveryTypeDto> deliveryTypesList = orderViewService.getDeliveryTypes();
+        List<PaymentTypeDto> paymentTypesList = orderViewService.getPaymentTypesList();
         mv.addObject("deliveryTypesList", deliveryTypesList);
         mv.addObject("shippingDetails", new CreateUpdateShippingDetailsDto());
+        mv.addObject("paymentTypesList", paymentTypesList);
         return mv;
     }
 
     @PostMapping("/submit-your-order")
     public ModelAndView submitOrder(@ModelAttribute CreateUpdateShippingDetailsDto shippingDetailsDto,
-                                    @RequestParam Long deliveryTypeId, @RequestParam Integer paymentTypeId) {
-        //todo adding order
+                                    @RequestParam Integer deliveryTypeId, @RequestParam Integer paymentTypeId,
+                                    @RequestParam String promoCode, HttpSession session) throws NotFoundException {
         ModelAndView mv = new ModelAndView("order-info");
+        BasketViewDto currentCart = cartViewService.getCurrentCart(session);
+        OrderDto orderDto = orderViewService.submitTheOrder(shippingDetailsDto, currentCart, deliveryTypeId, paymentTypeId, promoCode);
         return mv;
     }
 

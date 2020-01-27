@@ -35,6 +35,13 @@ public class PromoCodeService {
     }
 
     @Transactional
+    public PromoCodeDto getPromoCodeByName(String name) throws NotFoundException {
+        return promoCodeRepository.findByName(name)
+                .map(promoCode -> promoCodeDtoMapper.toDto(promoCode))
+                .orElseThrow(() -> new NotFoundException("Not found promoCode with name = " + name));
+    }
+
+    @Transactional
     public PromoCodeDto addNewPromoCode(CreateUpdatePromoCodeDto createPromoCodeDto) {
         PromoCode promoCode = promoCodeDtoMapper.toModel(createPromoCodeDto);
         promoCode.setCreatedAt(OffsetDateTime.now());

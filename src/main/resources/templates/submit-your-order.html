@@ -23,48 +23,70 @@
     <div class="row" th:each="product : ${cart.productsInBasket.entrySet()}">
         <div class="col-xs-3 border" th:text="${product.getKey().name}"></div>
         <div class="col-xs-3 border" th:text="${product.getValue()}"></div>
-        <div class="col-xs-3 border" th:text="${product.getKey().sellingPrize.doubleValue() * product.getValue()} + 'zł'"></div>
+        <div class="col-xs-3 border"
+             th:text="${product.getKey().sellingPrize.doubleValue() * product.getValue()} + 'zł'"></div>
     </div>
     <div class="row">
         <div class="col-xs-3 col-xs-offset-9 border" th:text="'Łącznie: ' + ${cart.priceForCartItems} + 'zł'"></div>
     </div>
-    <h3>Wybierz sposób dostawy</h3>
-    <select>
-        <option th:each="deliveryType : ${deliveryTypesList}" name="deliveryType" th:value="${deliveryType.id}"
-        th:text="${deliveryType.name} + ' cena: ' + ${deliveryType.price} + 'zł'">
-        </option>
-    </select>
-    <h3>Podaj dane wysyłki</h3>
-    <form action="#" th:action="@{/submit-your-order}" th:object="${shippingDetails}">
-        <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-            <label>Imię</label>
-            <label>
-                <input type="text" th:field="*{name}"/>
-            </label>
-        </p>
-        <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-            <label>Nazwisko&nbsp;</label>
-            <label>
-                <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" th:field="*{surname}"/>
-            </label>
-        </p>
+    <form action="#" th:action="@{/submit-your-order}" th:object="${shippingDetails}" method="post">
+        <h3>Wybierz sposób dostawy</h3>
+        <fieldset>
+            <input list="deliveryTypesList" name="deliveryType">
+            <datalist id="deliveryTypesList">
+                <option th:each="deliveryType : ${deliveryTypesList}" th:value="${deliveryType.id}"
+                        th:text="${deliveryType.name} + ' cena: ' + ${deliveryType.price} + 'zł'">
+                </option>
+            </datalist>
+        </fieldset>
+        <h3>Podaj dane wysyłki</h3>
+        <fieldset>
+            <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                Imię
+                <br>
+                <label>
+                    <input type="text" th:field="*{name}"/>
+                </label>
+            </p>
+            <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                Nazwisko
+                <br>&nbsp;
+                <label>
+                    <input type="text" th:field="*{surname}"/>
+                </label>
+            </p>
 
-        <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-            <label>Adres</label>
-            <label>
-                <textarea class="woocommerce-Input woocommerce-Input--text input-text" th:field="*{address}"></textarea>
-            </label>
-        </p>
-        <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-            <label>Numer Telefonu&nbsp;</label>
-            <label>
-                <input type="tel" class="woocommerce-Input woocommerce-Input--text input-text"
-                       th:field="*{phoneNumber}"/>
-            </label>
-        </p>
+            <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                Adres
+                <br>
+                <label>
+                    <textarea class="woocommerce-Input woocommerce-Input--text input-text" th:field="*{address}"></textarea>
+                </label>
+            </p>
+            <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                Numer Telefonu
+                <br>
+                <label>
+                    <input type="tel" th:field="*{phoneNumber}"/>
+                </label>
+            </p>
+        </fieldset>
+        <h3>Wybierz sposób płatności</h3>
+        <fieldset>
+            <input list="paymentTypesList" name="paymentType">
+            <datalist id="paymentTypesList">
+                <option th:each="paymentType : ${paymentTypesList}" th:value="${paymentType.id}"
+                        th:text="${paymentType.paymentType}">
+                </option>
+            </datalist>
+        </fieldset>
+        <h3>Wpisz kod promocyjny</h3>
+        <label>
+            <input type="text" name="promoCode"/>
+        </label>
+        <input type="submit" value="Potwierdzam zamówienie!">
     </form>
 </div>
-
 
 
 <footer th:replace="layout/layout :: main-footer"></footer>

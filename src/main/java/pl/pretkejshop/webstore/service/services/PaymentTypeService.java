@@ -9,8 +9,10 @@ import pl.pretkejshop.webstore.service.dto.PaymentTypeDto;
 import pl.pretkejshop.webstore.service.exception.NotFoundException;
 import pl.pretkejshop.webstore.service.mapper.PaymentTypeDtoMapper;
 
+import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +22,13 @@ public class PaymentTypeService {
     private PaymentTypeRepository paymentTypeRepository;
     @Autowired
     private PaymentTypeDtoMapper paymentTypeDtoMapper;
+
+//    @PostConstruct
+//    public void init(){
+//        paymentTypeRepository.save(new PaymentType(null, "PRZELEWY24", OffsetDateTime.now(), null, new ArrayList<>()));
+//        paymentTypeRepository.save(new PaymentType(null, "TRADYCYJNY PRZELEW", OffsetDateTime.now(), null, new ArrayList<>()));
+//    }
+
 
     public List<PaymentTypeDto> getAllPaymentTypes() {
         return paymentTypeRepository.findAll().stream()
