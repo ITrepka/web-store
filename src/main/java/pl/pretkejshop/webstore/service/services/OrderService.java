@@ -9,6 +9,7 @@ import pl.pretkejshop.webstore.service.dto.OrderDto;
 import pl.pretkejshop.webstore.service.exception.NotFoundException;
 import pl.pretkejshop.webstore.service.mapper.OrderDtoMapper;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,9 +45,22 @@ public class OrderService {
         //todo validate
         Order order = orderDtoMapper.toModel(createUpdateOrderDto);
         order.setCreatedAt(OffsetDateTime.now());
-        order.setOrderPrice(null); //todo
+        BigDecimal price = calculateOrderPrice(order);
+        order.setOrderPrice(price);
         Order savedOrder = orderRepository.save(order);
         return orderDtoMapper.toDto(savedOrder);
+    }
+
+    private BigDecimal calculateOrderPrice(Order order) {
+        List<BigDecimal> everyPrices = order.getProductCopies().stream()
+                .map(productCopy -> productCopy.getProduct().getSellingPrice())
+                .collect(Collectors.toList());
+
+        BigDecimal sum = new BigDecimal(0);
+        for (BigDecimal price : everyPrices) {
+            sum.add(price);
+        }
+        return sum;
     }
 
     public OrderDto updateOrder(int id, CreateUpdateOrderDto orderToUpdate) throws NotFoundException {

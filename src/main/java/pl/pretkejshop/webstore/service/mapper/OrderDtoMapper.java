@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.pretkejshop.webstore.model.*;
 import pl.pretkejshop.webstore.repository.ProductCopyRepository;
+import pl.pretkejshop.webstore.repository.PromoCodeRepository;
 import pl.pretkejshop.webstore.repository.ShippingDetailsRepository;
 import pl.pretkejshop.webstore.repository.UserRepository;
 import pl.pretkejshop.webstore.service.dto.CreateUpdateOrderDto;
@@ -19,6 +20,8 @@ public class OrderDtoMapper {
     private ShippingDetailsRepository shippingDetailsRepository;
     @Autowired
     private ProductCopyRepository productCopyRepository;
+    @Autowired
+    private PromoCodeRepository promoCodeRepository;
 
     public OrderDto toDto(Order order) {
         Integer orderStatusId = order.getOrderStatus() == null ? null : order.getOrderStatus().getId();
@@ -53,13 +56,16 @@ public class OrderDtoMapper {
                 createUpdateOrderDto.getProductsCopiesIds().stream()
                         .map(id -> productCopyRepository.findById(id).orElse(null))
                         .collect(Collectors.toList());
+        PromoCode promoCode = createUpdateOrderDto.getPromoCodeId() == null ? null :
+                promoCodeRepository.findById(createUpdateOrderDto.getPromoCodeId())
+                .orElseThrow(() -> new NotFoundException("Not found promo code with id = " + createUpdateOrderDto.getPromoCodeId()));
         return Order.builder()
                 .id(null)
                 .shippingDetails(shippingDetails)
                 .orderPrice(null)
                 .user(null)
                 .deliveryType(null)
-                .promoCode(null)
+                .promoCode(promoCode)
                 .orderStatus(null)
                 .paymentType(null)
                 .productCopies(productsCopies)

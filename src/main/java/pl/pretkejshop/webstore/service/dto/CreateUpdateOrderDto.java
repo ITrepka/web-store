@@ -15,4 +15,5 @@ public class CreateUpdateOrderDto {
     private Long shippingDetailsId;
     private List<Long> productsCopiesIds;
     private Integer deliveryTypeId;
+    private Integer promoCodeId;
 }
