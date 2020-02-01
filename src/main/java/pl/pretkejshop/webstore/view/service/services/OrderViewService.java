@@ -70,7 +70,7 @@ public class OrderViewService {
         Integer amount = entry.getValue();
         List<ProductCopyDto> productCopyDtos = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
-            ProductCopyDto productCopy = productCopyService.getFirstProductCopyByProductId(product.getProductId());
+            ProductCopyDto productCopy = productCopyService.getFirstNotOrderedProductCopyByProductId(product.getProductId());
             productCopyDtos.add(productCopy);
         }
         return productCopyDtos;
