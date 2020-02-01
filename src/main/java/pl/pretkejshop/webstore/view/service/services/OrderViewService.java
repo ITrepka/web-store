@@ -9,6 +9,9 @@ import pl.pretkejshop.webstore.service.services.*;
 import pl.pretkejshop.webstore.view.service.dto.BasketViewDto;
 import pl.pretkejshop.webstore.view.service.dto.ProductViewDto;
 
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -29,6 +32,8 @@ public class OrderViewService {
     private PromoCodeOrderService promoCodeOrderService;
     @Autowired
     private OrderPaymentTypeService orderPaymentTypeService;
+    @Autowired
+    private ProductCopyService productCopyService;
 
     public List<DeliveryTypeDto> getDeliveryTypes() {
         return deliveryTypeService.getAllDeliveryTypes();
@@ -41,7 +46,7 @@ public class OrderViewService {
     public OrderDto submitTheOrder(CreateUpdateShippingDetailsDto createShippingDetailsDto, BasketViewDto currentCart, Integer deliveryTypeId,
                                    Integer paymentTypeId, String promoCode) throws NotFoundException {
         List<Long> productsCopiesIds = orderProductsFromCart(currentCart).stream()
-                .map(productCopyDto -> productCopyDto.getId())
+                .map(ProductCopyDto::getId)
                 .collect(Collectors.toList());
         PromoCodeDto promoCodeDto = promoCodeService.getPromoCodeByName(promoCode);
         ShippingDetailsDto shippingDetailsDto = shippingDetailsService.addNewShippingDetails(createShippingDetailsDto);
@@ -53,9 +58,24 @@ public class OrderViewService {
         return orderDto;
     }
 
-    public List<ProductCopyDto> orderProductsFromCart(BasketViewDto currentCart) {
+    @Transactional
+    public List<ProductCopyDto> orderProductsFromCart(BasketViewDto currentCart) throws NotFoundException {
         Map<ProductViewDto, Integer> productsInBasket = currentCart.getProductsInBasket();
-        //todo
-        return null;
+        List<ProductCopyDto> productCopiesToOrder = new ArrayList<>();
+        for (Map.Entry<ProductViewDto, Integer> entry : productsInBasket.entrySet()) {
+            productCopiesToOrder.addAll(findProductCopies(entry));
+        }
+        return productCopiesToOrder;
+    }
+
+    private List<ProductCopyDto> findProductCopies(Map.Entry<ProductViewDto, Integer> entry) throws NotFoundException {
+        ProductViewDto product = entry.getKey();
+        Integer amount = entry.getValue();
+        List<ProductCopyDto> productCopyDtos = new ArrayList<>();
+        for (int i = 0; i < amount; i++) {
+            ProductCopyDto productCopy = productCopyService.getFirstProductCopyByProductId(product.getProductId());
+            productCopyDtos.add(productCopy);
+        }
+        return productCopyDtos;
     }
 }

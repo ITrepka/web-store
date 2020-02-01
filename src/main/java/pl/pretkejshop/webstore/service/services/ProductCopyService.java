@@ -39,6 +39,15 @@ public class ProductCopyService {
     }
 
     @Transactional
+    public ProductCopyDto getFirstProductCopyByProductId(int productId) throws NotFoundException {
+        ProductCopy productCopy = productRepository.findById(productId)
+                .map(product -> product.getProductCopies().get(0))
+                .orElseThrow(() -> new NotFoundException("Not found product with id = " + productId));
+
+        return productCopyDtoMapper.toDto(productCopy);
+    }
+
+    @Transactional
     public ProductCopyDto addNewProductCopy(CreateUpdateProductCopyDto createProductCopyDto) throws NotFoundException {
         ProductCopy productCopy = productCopyDtoMapper.toModel(createProductCopyDto);
         productCopy.setCreatedAt(OffsetDateTime.now());

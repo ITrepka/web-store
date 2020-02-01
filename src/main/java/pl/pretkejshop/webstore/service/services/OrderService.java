@@ -59,13 +59,9 @@ public class OrderService {
         Integer deliveryTypeId = orderToUpdate.getDeliveryTypeId();
         DeliveryType deliveryType = deliveryTypeId == null ? null : deliveryTypeRepository.findById(deliveryTypeId)
                 .orElseThrow(() -> new NotFoundException("Delivery Type not found id =" + deliveryTypeId));
-        Integer promoCodeId = orderToUpdate.getPromoCodeId();
-        PromoCode promoCode = promoCodeId == null ? null : promoCodeRepository.findById(promoCodeId)
-                .orElseThrow(() -> new NotFoundException("Promo Code not found id =" + promoCodeId));
         List<Long> productsCopiesIds = orderToUpdate.getProductsCopiesIds();
         List<ProductCopy> productsCopies = productsCopiesIds == null ? null : productCopyRepository.findAllById(productsCopiesIds);
         order.setProductCopies(productsCopies);
-        order.setPromoCode(promoCode);
         order.setDeliveryType(deliveryType);
         order.setUpdatedAt(OffsetDateTime.now());
         order.setOrderPrice(null); // todo

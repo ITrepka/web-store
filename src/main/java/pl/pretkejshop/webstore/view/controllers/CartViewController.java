@@ -20,6 +20,8 @@ public class CartViewController {
     public ModelAndView displayYourCart(HttpSession session) {
         ModelAndView mv = new ModelAndView("cart");
 
-        return cartViewService.getCurrentCart(session, mv);
+        BasketViewDto currentCart = cartViewService.getCurrentCart(session);
+        mv.addObject("cart", currentCart);
+        return mv;
     }
 }
