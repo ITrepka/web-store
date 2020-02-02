@@ -7,14 +7,11 @@ import pl.pretkejshop.webstore.service.exception.InvalidDataException;
 import pl.pretkejshop.webstore.service.exception.NotFoundException;
 import pl.pretkejshop.webstore.service.services.*;
 import pl.pretkejshop.webstore.view.model.ShopPageViewModel;
-import pl.pretkejshop.webstore.view.service.dto.BasketViewDto;
 import pl.pretkejshop.webstore.view.service.dto.ProductViewDto;
 import pl.pretkejshop.webstore.view.service.dto.UserViewDto;
-import pl.pretkejshop.webstore.view.service.mapper.BasketViewDtoMapper;
 import pl.pretkejshop.webstore.view.service.mapper.ProductViewDtoMapper;
 import pl.pretkejshop.webstore.view.service.mapper.UserViewDtoMapper;
 
-import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -24,12 +21,6 @@ public class ShopViewService {
     private ProductService productService;
     @Autowired
     private ProductViewDtoMapper productViewDtoMapper;
-    @Autowired
-    private BasketService basketService;
-    @Autowired
-    private BasketViewDtoMapper basketViewDtoMapper;
-    @Autowired
-    private BasketProductService basketProductService;
     @Autowired
     private RateProductService rateProductService;
     @Autowired
@@ -43,8 +34,8 @@ public class ShopViewService {
     @Autowired
     private PersonalDataService personalDataService;
 
-    public List<ProductViewDto> getAllProducts() throws NotFoundException {
-        List<ProductDto> allProducts = productService.getAllProducts();
+    public List<ProductViewDto> getAllAvaibleProducts() throws NotFoundException {
+        List<ProductDto> allProducts = productService.getAllAvaibleProducts();
         List<ProductViewDto> products = new ArrayList<>();
         for (ProductDto product : allProducts) {
             products.add(productViewDtoMapper.toDto(product));
@@ -132,7 +123,7 @@ public class ShopViewService {
 
 
     public ShopPageViewModel getShopPage(Integer pageNumber, String orderBy, String s, Integer min_price, Integer max_price) throws NotFoundException {
-        List<ProductViewDto> products = getAllProducts();
+        List<ProductViewDto> products = getAllAvaibleProducts();
         int pageNumberField = pageNumber == null ? 1 : pageNumber;
         List<ProductViewDto> productsMainView = handleRequestParams(products, orderBy, s, min_price, max_price, pageNumberField, 12);
         List<ProductViewDto> productToDisplayOnPage = productsMainView.stream().skip((pageNumberField - 1) * 12).limit(12).collect(Collectors.toList());
@@ -172,7 +163,7 @@ public class ShopViewService {
     }
 
     public List<ProductViewDto> getRelatedProducts(ProductViewDto product) throws NotFoundException {
-      return searchProductByText(product.getSubCategoryDto().getName(), getAllProducts()).stream()
+      return searchProductByText(product.getSubCategoryDto().getName(), getAllAvaibleProducts()).stream()
               .limit(4)
               .collect(Collectors.toList());
     }

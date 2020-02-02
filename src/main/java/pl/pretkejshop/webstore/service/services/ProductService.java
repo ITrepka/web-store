@@ -3,10 +3,7 @@ package pl.pretkejshop.webstore.service.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.pretkejshop.webstore.model.Brand;
-import pl.pretkejshop.webstore.model.Category;
-import pl.pretkejshop.webstore.model.Product;
-import pl.pretkejshop.webstore.model.SubCategory;
+import pl.pretkejshop.webstore.model.*;
 import pl.pretkejshop.webstore.repository.BrandRepository;
 import pl.pretkejshop.webstore.repository.CategoryRepository;
 import pl.pretkejshop.webstore.repository.ProductRepository;
@@ -89,5 +86,22 @@ public class ProductService {
                 createProductDto.getDescription().length() < 5 || createProductDto.getSellingPrice().doubleValue() < 0) {
             throw new InvalidDataException("Product invalid data");
         }
+    }
+
+    public List<ProductDto> getAllAvaibleProducts() {
+        return productRepository.findAll().stream()
+                .filter(this::isAnyCopyAvaibleToBuy)
+                .map(product -> productDtoMapper.toDto(product))
+                .collect(Collectors.toList());
+    }
+
+    private boolean isAnyCopyAvaibleToBuy(Product product) {
+        List<ProductCopy> productCopies = product.getProductCopies();
+        for (ProductCopy productCopy : productCopies) {
+            if (productCopy.getOrder() == null) {
+                return true;
+            }
+        }
+        return false;
     }
 }

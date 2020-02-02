@@ -39,11 +39,13 @@ public class OrderViewController {
 
     @PostMapping("/submit-your-order")
     public ModelAndView submitOrder(@ModelAttribute CreateUpdateShippingDetailsDto shippingDetailsDto,
-                                    @RequestParam Integer deliveryTypeId, @RequestParam Integer paymentTypeId,
+                                    @RequestParam String deliveryTypeId, @RequestParam String paymentTypeId,
                                     @RequestParam String promoCode, HttpSession session) throws NotFoundException {
+        Integer deliveryTypeIdAsInt = Integer.parseInt(deliveryTypeId);
+        Integer paymentTypeIdAsInt = Integer.valueOf(paymentTypeId);
         ModelAndView mv = new ModelAndView("order-info");
         BasketViewDto currentCart = cartViewService.getCurrentCart(session);
-        OrderDto orderDto = orderViewService.submitTheOrder(shippingDetailsDto, currentCart, deliveryTypeId, paymentTypeId, promoCode);
+        OrderDto orderDto = orderViewService.submitTheOrder(shippingDetailsDto, currentCart, deliveryTypeIdAsInt, paymentTypeIdAsInt, promoCode);
         return mv;
     }
 

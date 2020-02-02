@@ -32,7 +32,7 @@
     <form action="#" th:action="@{/submit-your-order}" th:object="${shippingDetails}" method="post">
         <h3>Wybierz sposób dostawy</h3>
         <fieldset>
-            <input list="deliveryTypesList" name="deliveryType">
+            <input list="deliveryTypesList" name="deliveryTypeId">
             <datalist id="deliveryTypesList">
                 <option th:each="deliveryType : ${deliveryTypesList}" th:value="${deliveryType.id}"
                         th:text="${deliveryType.name} + ' cena: ' + ${deliveryType.price} + 'zł'">
@@ -73,7 +73,7 @@
         </fieldset>
         <h3>Wybierz sposób płatności</h3>
         <fieldset>
-            <input list="paymentTypesList" name="paymentType">
+            <input list="paymentTypesList" name="paymentTypeId">
             <datalist id="paymentTypesList">
                 <option th:each="paymentType : ${paymentTypesList}" th:value="${paymentType.id}"
                         th:text="${paymentType.paymentType}">
@@ -81,10 +81,14 @@
             </datalist>
         </fieldset>
         <h3>Wpisz kod promocyjny</h3>
-        <label>
-            <input type="text" name="promoCode"/>
-        </label>
-        <input type="submit" value="Potwierdzam zamówienie!">
+        <fieldset>
+            <label>
+                <input type="text" name="promoCode"/>
+            </label>
+        </fieldset>
+        <fieldset>
+            <input type="submit" value="Potwierdzam zamówienie!">
+        </fieldset>
     </form>
 </div>
 
