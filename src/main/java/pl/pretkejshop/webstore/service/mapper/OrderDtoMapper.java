@@ -3,10 +3,7 @@ package pl.pretkejshop.webstore.service.mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.pretkejshop.webstore.model.*;
-import pl.pretkejshop.webstore.repository.ProductCopyRepository;
-import pl.pretkejshop.webstore.repository.PromoCodeRepository;
-import pl.pretkejshop.webstore.repository.ShippingDetailsRepository;
-import pl.pretkejshop.webstore.repository.UserRepository;
+import pl.pretkejshop.webstore.repository.*;
 import pl.pretkejshop.webstore.service.dto.CreateUpdateOrderDto;
 import pl.pretkejshop.webstore.service.dto.OrderDto;
 import pl.pretkejshop.webstore.service.exception.NotFoundException;
@@ -22,6 +19,8 @@ public class OrderDtoMapper {
     private ProductCopyRepository productCopyRepository;
     @Autowired
     private PromoCodeRepository promoCodeRepository;
+    @Autowired
+    private DeliveryTypeRepository deliveryTypeRepository;
 
     public OrderDto toDto(Order order) {
         Integer orderStatusId = order.getOrderStatus() == null ? null : order.getOrderStatus().getId();
@@ -59,12 +58,15 @@ public class OrderDtoMapper {
         PromoCode promoCode = createUpdateOrderDto.getPromoCodeId() == null ? null :
                 promoCodeRepository.findById(createUpdateOrderDto.getPromoCodeId())
                 .orElseThrow(() -> new NotFoundException("Not found promo code with id = " + createUpdateOrderDto.getPromoCodeId()));
+        Integer deliveryTypeId = createUpdateOrderDto.getDeliveryTypeId();
+        DeliveryType deliveryType = deliveryTypeId == null ? null : deliveryTypeRepository.findById(deliveryTypeId)
+                .orElseThrow(() -> new NotFoundException("Not Found Delivery Type with id = " + deliveryTypeId));
         return Order.builder()
                 .id(null)
                 .shippingDetails(shippingDetails)
                 .orderPrice(null)
                 .user(null)
-                .deliveryType(null)
+                .deliveryType(deliveryType)
                 .promoCode(promoCode)
                 .orderStatus(null)
                 .paymentType(null)

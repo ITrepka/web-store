@@ -46,6 +46,7 @@ public class OrderViewController {
         ModelAndView mv = new ModelAndView("order-info");
         BasketViewDto currentCart = cartViewService.getCurrentCart(session);
         OrderDto orderDto = orderViewService.submitTheOrder(shippingDetailsDto, currentCart, deliveryTypeIdAsInt, paymentTypeIdAsInt, promoCode);
+        mv.addObject(orderDto);
         return mv;
     }
 
