@@ -7,7 +7,14 @@
 </head>
 <body>
 <header th:replace="layout/layout :: header-bar"></header>
-
+<div class="container">
+    <h1>Zamówienie zostało złożone!</h1>
+    <h3>Dane do przelewu</h3>
+    <p>Pretchee ul. Dworkowa 99, 49-345 Skorogoszcz</p>
+    <p>Numer konta bankowego: 01002100120012212121</p>
+    <p th:text="'Lączna kwota do zapłaty: ' + ${orderDto.orderPrice} + 'zł'"></p>
+    <p th:text="'W tytule przelewu proszę wpisać numer zamówienia: ' + ${orderDto.id}"></p>
+</div>
 <footer th:replace="layout/layout :: main-footer"></footer>
 </body>
 </html>
