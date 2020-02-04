@@ -21,6 +21,7 @@ public class ShippingDetails {
     private String phoneNumber;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "order_id")
     private Order order;
 }

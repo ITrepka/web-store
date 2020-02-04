@@ -21,7 +21,6 @@ public class OrderDto {
     private Integer promoCodeId;
     private BigDecimal orderPrice;
     private Integer orderStatusId;
-    private Integer personalDataId;
     private Integer paymentTypeId;
     private Long shippingDetailsId;
     private OffsetDateTime createdAt;

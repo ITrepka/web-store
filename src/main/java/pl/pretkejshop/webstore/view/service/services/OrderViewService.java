@@ -39,13 +39,16 @@ public class OrderViewService {
         return paymentTypeService.getAllPaymentTypes();
     }
 
+    @Transactional
     public OrderDto submitTheOrder(CreateUpdateShippingDetailsDto createShippingDetailsDto, BasketViewDto currentCart, Integer deliveryTypeId,
                                    Integer paymentTypeId, String promoCode) throws NotFoundException {
         List<Long> productsCopiesIds = getProductsCopiesFromCartProducts(currentCart).stream()
-                .map(ProductCopyDto::getId)
+                .map(productCopyDto -> productCopyDto.getId())
                 .collect(Collectors.toList());
         PromoCodeDto promoCodeDto = promoCodeService.getPromoCodeByName(promoCode);
         ShippingDetailsDto shippingDetailsDto = shippingDetailsService.addNewShippingDetails(createShippingDetailsDto);
+        System.out.println(shippingDetailsDto.getId());
+        System.out.println(productsCopiesIds);
         CreateUpdateOrderDto createUpdateOrderDto = new CreateUpdateOrderDto(shippingDetailsDto.getId(),
                 productsCopiesIds, deliveryTypeId, promoCodeDto.getId());
         OrderDto orderDto = orderService.addNewOrder(createUpdateOrderDto);
@@ -69,10 +72,7 @@ public class OrderViewService {
         ProductViewDto product = entry.getKey();
         Integer amount = entry.getValue();
         List<ProductCopyDto> productCopyDtos = new ArrayList<>();
-        for (int i = 0; i < amount; i++) {
-            ProductCopyDto productCopy = productCopyService.getFirstNotOrderedProductCopyByProductId(product.getProductId());
-            productCopyDtos.add(productCopy);
-        }
+        productCopyDtos = productCopyService.getSpecifiedNumberOfNotOrderedProductCopyByProductId(product.getProductId(), amount);
         return productCopyDtos;
     }
 }

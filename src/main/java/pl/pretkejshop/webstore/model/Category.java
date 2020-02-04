@@ -13,7 +13,8 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(of = "id")
 @Entity
-public class Category {
+public class
+Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;

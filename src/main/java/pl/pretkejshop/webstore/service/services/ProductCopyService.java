@@ -39,15 +39,16 @@ public class ProductCopyService {
     }
 
     @Transactional
-    public ProductCopyDto getFirstNotOrderedProductCopyByProductId(int productId) throws NotFoundException {
+    public List<ProductCopyDto> getSpecifiedNumberOfNotOrderedProductCopyByProductId(int productId, int amount) throws NotFoundException {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new NotFoundException("Not found product with id = " + productId));
-        ProductCopy copy = product.getProductCopies().stream()
+        List<ProductCopy> productCopies = product.getProductCopies().stream()
                 .filter(productCopy -> productCopy.getOrder() == null)
-                .findFirst()
-                .orElseThrow(() -> new NotFoundException("Not found product copy of product with id = " + productId));
-
-        return productCopyDtoMapper.toDto(copy);
+                .limit(amount)
+                .collect(Collectors.toList());
+        return productCopies.stream()
+                .map(productCopy -> productCopyDtoMapper.toDto(productCopy))
+                .collect(Collectors.toList());
     }
 
     @Transactional

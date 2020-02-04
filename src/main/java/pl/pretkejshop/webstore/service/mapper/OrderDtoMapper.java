@@ -8,6 +8,7 @@ import pl.pretkejshop.webstore.service.dto.CreateUpdateOrderDto;
 import pl.pretkejshop.webstore.service.dto.OrderDto;
 import pl.pretkejshop.webstore.service.exception.NotFoundException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,8 +33,8 @@ public class OrderDtoMapper {
                 order.getProductCopies().stream()
                         .map(ProductCopy::getId)
                         .collect(Collectors.toList());
+        System.out.println(productsCopiesIds + "Product copies ids from dto mapper to DtoMethod");
         Long shippingDetailsId = order.getShippingDetails() == null ? null : order.getShippingDetails().getId();
-
         return OrderDto.builder()
                 .id(order.getId())
                 .shippingDetailsId(shippingDetailsId)
@@ -44,6 +45,8 @@ public class OrderDtoMapper {
                 .promoCodeId(promoCodeId)
                 .userId(userId)
                 .productsCopiesIds(productsCopiesIds)
+                .createdAt(order.getCreatedAt())
+                .updatedAt(order.getUpdatedAt())
                 .build();
     }
 
@@ -51,10 +54,12 @@ public class OrderDtoMapper {
         Long shippingDetailsId = createUpdateOrderDto.getShippingDetailsId();
         ShippingDetails shippingDetails = shippingDetailsId == null ? null : shippingDetailsRepository.findById(shippingDetailsId)
                 .orElseThrow(() -> new NotFoundException("Not found shipping details with id=" + shippingDetailsId));
-        List<ProductCopy> productsCopies = createUpdateOrderDto.getProductsCopiesIds() == null ? null :
-                createUpdateOrderDto.getProductsCopiesIds().stream()
-                        .map(id -> productCopyRepository.findById(id).orElse(null))
-                        .collect(Collectors.toList());
+        System.out.println("product Copies from orderDtoMapper " + createUpdateOrderDto.getProductsCopiesIds());
+        List<ProductCopy> productsCopies = new ArrayList<>();
+        for (Long productCopyId : createUpdateOrderDto.getProductsCopiesIds()) {
+            ProductCopy productCopy = productCopyRepository.findById(productCopyId).orElseThrow(() -> new NotFoundException("Not found product copy with id = " + productCopyId));
+            productsCopies.add(productCopy);
+        }
         PromoCode promoCode = createUpdateOrderDto.getPromoCodeId() == null ? null :
                 promoCodeRepository.findById(createUpdateOrderDto.getPromoCodeId())
                 .orElseThrow(() -> new NotFoundException("Not found promo code with id = " + createUpdateOrderDto.getPromoCodeId()));

@@ -46,7 +46,19 @@ public class OrderService {
         BigDecimal price = calculateOrderPrice(order.getProductCopies(), order.getPromoCode());
         order.setOrderPrice(price);
         Order savedOrder = orderRepository.save(order);
-        return orderDtoMapper.toDto(savedOrder);
+        //cascade nie ogarnia
+        List<ProductCopy> productCopies = order.getProductCopies();
+        for (ProductCopy productCopy : productCopies) {
+            productCopy.setOrder(order);
+            productCopyRepository.save(productCopy);
+        }
+        ShippingDetails shippingDetails = savedOrder.getShippingDetails();
+        shippingDetails.setOrder(order);
+        shippingDetailsRepository.save(shippingDetails);
+        //end
+        OrderDto orderDto = orderDtoMapper.toDto(savedOrder);
+        System.out.println("OrderDto from order service: " + orderDto);
+        return orderDto;
     }
 
     private BigDecimal calculateOrderPrice(List<ProductCopy> productCopies, PromoCode promoCode) {

@@ -17,7 +17,7 @@ public class ProductCopy {
     private Long id;
     @ManyToOne
     private Product product;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Order order;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;

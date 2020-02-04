@@ -27,7 +27,7 @@ public class ShippingDetailsController {
     }
 
     @PostMapping
-    public ShippingDetailsDto addNewShippingDetails(@RequestBody CreateUpdateShippingDetailsDto createShippingDetailsDto) throws InvalidDataException {
+    public ShippingDetailsDto addNewShippingDetails(@RequestBody CreateUpdateShippingDetailsDto createShippingDetailsDto) throws InvalidDataException, NotFoundException {
         return shippingDetailsService.addNewShippingDetails(createShippingDetailsDto);
     }
 

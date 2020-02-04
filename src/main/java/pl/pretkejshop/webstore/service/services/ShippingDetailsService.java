@@ -32,7 +32,7 @@ public class ShippingDetailsService {
         return shippingDetailsDtoMapper.toDto(shippingDetails);
     }
 
-    public ShippingDetailsDto addNewShippingDetails(CreateUpdateShippingDetailsDto createShippingDetailsDto) {
+    public ShippingDetailsDto addNewShippingDetails(CreateUpdateShippingDetailsDto createShippingDetailsDto) throws NotFoundException {
         ShippingDetails shippingDetails = shippingDetailsDtoMapper.toModel(createShippingDetailsDto);
         shippingDetails.setCreatedAt(OffsetDateTime.now());
         ShippingDetails savedShippingDetails = shippingDetailsRepository.save(shippingDetails);
