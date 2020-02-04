@@ -43,7 +43,7 @@ public class OrderService {
         //todo validate
         Order order = orderDtoMapper.toModel(createUpdateOrderDto);
         order.setCreatedAt(OffsetDateTime.now());
-        BigDecimal price = calculateOrderPrice(order.getProductCopies(), order.getPromoCode());
+        BigDecimal price = calculateOrderPrice(order.getProductCopies(), order.getPromoCode(), order.getDeliveryType());
         order.setOrderPrice(price);
         Order savedOrder = orderRepository.save(order);
         //cascade nie ogarnia
@@ -61,7 +61,7 @@ public class OrderService {
         return orderDto;
     }
 
-    private BigDecimal calculateOrderPrice(List<ProductCopy> productCopies, PromoCode promoCode) {
+    private BigDecimal calculateOrderPrice(List<ProductCopy> productCopies, PromoCode promoCode, DeliveryType deliveryType) {
         List<BigDecimal> everyPrices = productCopies.stream()
                 .map(productCopy -> productCopy.getProduct().getSellingPrice())
                 .collect(Collectors.toList());
@@ -71,7 +71,9 @@ public class OrderService {
             sum = sum.add(price);
         }
         BigDecimal discount = promoCode.getDiscount();
-        return sum.subtract(discount);
+        BigDecimal deliveryTypeCharge = deliveryType.getPrice();
+        sum = sum.subtract(discount).subtract(deliveryTypeCharge);
+        return sum;
     }
 
     public OrderDto updateOrder(int id, CreateUpdateOrderDto orderToUpdate) throws NotFoundException {
