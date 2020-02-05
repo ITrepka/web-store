@@ -19,14 +19,13 @@ public class MessageDtoMapper {
 
     public MessageDto toDto(Message message) {
         Integer userFromId = message.getUserFrom() == null ? null : message.getUserFrom().getId();
-        Integer userToId = message.getUserTo() == null ? null : message.getUserTo().getId();
         return MessageDto.builder()
                 .id(message.getId())
+                .subject(message.getSubject())
                 .text(message.getText())
                 .createdAt(message.getCreatedAt())
                 .updatedAt(message.getUpdatedAt())
                 .userFromId(userFromId)
-                .userToId(userToId)
                 .build();
     }
 
@@ -35,17 +34,13 @@ public class MessageDtoMapper {
         User userFrom = userFromId == null ? null :
                 userRepository.findById(userFromId)
                         .orElseThrow(() -> new NotFoundException("Not found user with id =" + userFromId));
-        Integer userToId = createMessageDto.getUserToId();
-        User userTo = userToId == null ? null :
-                userRepository.findById(userToId)
-                        .orElseThrow(() -> new NotFoundException("Not found user with id =" + userToId));
         return Message.builder()
                 .id(null)
+                .subject(createMessageDto.getSubject())
                 .createdAt(null)
                 .updatedAt(null)
                 .text(createMessageDto.getText())
                 .userFrom(userFrom)
-                .userTo(userTo)
                 .build();
     }
 }

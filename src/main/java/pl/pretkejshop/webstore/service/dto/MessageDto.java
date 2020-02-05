@@ -17,8 +17,8 @@ import java.time.OffsetDateTime;
 public class MessageDto {
     private Integer id;
     private String text;
+    private String subject;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
     private Integer userFromId;
-    private Integer userToId;
 }

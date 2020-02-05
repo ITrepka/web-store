@@ -16,12 +16,10 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String text;
+    private String subject;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "user_from_id")
     private User userFrom;
-    @ManyToOne
-    @JoinColumn(name = "user_to_id")
-    private User userTo;
 }

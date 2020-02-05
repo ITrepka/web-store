@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <title>Pretchee</title>
     <div th:replace="layout/layout :: head"></div>
+    <script>
+        window.setTimeout("fade_out();", 1000);
+        function fade_out() {
+            document.getElementById("send-info").style.display = "none";
+        }
+    </script>
 </head>
 <body class="page-template page-template-page-templates page-template-contact page-template-page-templatescontact-php page page-id-10 wp-custom-logo theme-tyche woocommerce-no-js">
 <div id="page" class="site">
@@ -12,17 +18,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="tyche-breadcrumbs"><span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="https://colorlib.com/tyche"><span itemprop="title">Home </span></a></span><span class="tyche-breadcrumb-sep">/</span><span class="breadcrumb-leaf">Contact</span></div> </div>
+                    <div class="tyche-breadcrumbs"><span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" th:href="@{/}"><span itemprop="title">Strona Domowa </span></a></span><span class="tyche-breadcrumb-sep">/</span><span class="breadcrumb-leaf">Kontakt</span></div> </div>
             </div>
         </div>
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h2 class="custom-page-title">Contact</h2> </div>
+                    <h2 class="custom-page-title">Kontakt</h2> </div>
             </div>
             <div class="row">
                 <div class="col-sm-6">
-                    <p>Pri quas audiam virtute ut, case utamur fuisset eam ut, iisque accommodare an eam. Reque blandit qui eu, cu vix nonumy volumus. Legendos intellegam id usu, vide oporteat vix eu, id illud principes has. Nam tempor utamur gubergren n</p>
+                    <p>W razie jakichkolwiek pytań dotyczących naszych produktów prosimy pozostawić wiadomość. <b>Opcja dostępna tylko dla zalogowanych użytkowników</b></p>
                 </div>
                 <div class="col-sm-6">
                     <div class="row">
@@ -32,7 +38,7 @@
                                     <span class="fa fa-mobile"></span>
                                 </div>
                                 <div class="text">
-                                    GIVE US A CALL <span>0123456789</span>
+                                    Zadzwoń do nas <span>0123456789</span>
                                 </div>
                             </div>
                         </div>
@@ -42,35 +48,26 @@
                                     <span class="fa fa-map-marker"></span>
                                 </div>
                                 <div class="text">
-                                    OUR LOCATION <span>New York City Hall, NY 10007, USA</span>
+                                    Znajdziesz nas pod adresem <span>New York City Hall, NY 10007, USA</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <h6 th:if="${messageSent != null}" id="send-info" style="color: #0577b5">Twoja wiadomość została wysłana</h6>
             <div class="row">
                 <div class="col-sm-4">
                     <div role="form" class="wpcf7" id="wpcf7-f98-o1" lang="en-US" dir="ltr">
                         <div class="screen-reader-response"></div>
-                        <form action="/tyche/contact/#wpcf7-f98-o1" method="post" class="wpcf7-form" novalidate="novalidate">
-                            <div style="display: none;">
-                                <input type="hidden" name="_wpcf7" value="98" />
-                                <input type="hidden" name="_wpcf7_version" value="5.1.6" />
-                                <input type="hidden" name="_wpcf7_locale" value="en_US" />
-                                <input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f98-o1" />
-                                <input type="hidden" name="_wpcf7_container_post" value="0" />
-                            </div>
-                            <p><label> Your Name (required)<br />
-                                <span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" /></span> </label></p>
-                            <p><label> Your Email (required)<br />
-                                <span class="wpcf7-form-control-wrap your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" /></span> </label></p>
+                        <form action="#" th:action="@{/contact}" th:object="${message}" method="post" class="wpcf7-form" novalidate="novalidate">
+                            <input type="hidden" th:field="*{userFromId}" th:value="${userId}">
                             <p><label> Subject<br />
-                                <span class="wpcf7-form-control-wrap your-subject"><input type="text" name="your-subject" value="" size="40" class="wpcf7-form-control wpcf7-text" aria-invalid="false" /></span> </label></p>
+                                <span class="wpcf7-form-control-wrap your-subject"><input th:field="*{subject}" type="text" name="your-subject" value="" size="40" class="wpcf7-form-control wpcf7-text" aria-invalid="false" /></span> </label></p>
                             <p><label> Your Message<br />
-                                <span class="wpcf7-form-control-wrap your-message"><textarea name="your-message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false"></textarea></span> </label></p>
+                                <span class="wpcf7-form-control-wrap your-message"><textarea th:field="*{text}" name="your-message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false"></textarea></span> </label></p>
                             <p><input type="submit" value="Send" class="wpcf7-form-control wpcf7-submit" /></p>
-                            <input type='hidden' id='ct_checkjs_cf7_5ef698cd9fe650923ea331c15af3b160' name='ct_checkjs_cf7' value='0' /><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="2da328308a5cd4ea2cac1ded-text/javascript">window.addEventListener('load', function () {setTimeout(function(){                    apbct_sendAJAXRequest(                        {action: 'apbct_js_keys__get'},                        {callback: apbct_js_keys__set_input_value, input_name: 'ct_checkjs_cf7_5ef698cd9fe650923ea331c15af3b160'}                    );                }, 1000);});</script><div class="wpcf7-response-output wpcf7-display-none"></div></form></div> </div>
+                            </form></div> </div>
                 <div class="col-sm-8">
                     <div id="tyche-map">
                         <div class="clear-float" style="

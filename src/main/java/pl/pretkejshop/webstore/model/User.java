@@ -31,8 +31,6 @@ public class User {
     private List<Order> orders = new ArrayList<>();
     @OneToMany(mappedBy = "userFrom", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Message> sentMessages = new ArrayList<>();
-    @OneToMany(mappedBy = "userTo", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private List<Message> receivedMessages = new ArrayList<>();
     @ManyToOne
     private Role role;
     @OneToMany(mappedBy = "user")

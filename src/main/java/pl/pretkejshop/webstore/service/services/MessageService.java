@@ -55,13 +55,8 @@ public class MessageService {
         User userFrom = userFromId == null ? null :
                 userRepository.findById(userFromId)
                         .orElseThrow(() -> new NotFoundException("Not found user with id =" + userFromId));
-        Integer userToId = messageToUpdate.getUserToId();
-        User userTo = userToId == null ? null :
-                userRepository.findById(userToId)
-                        .orElseThrow(() -> new NotFoundException("Not found user with id =" + userToId));
 
         message.setUserFrom(userFrom);
-        message.setUserTo(userTo);
         message.setText(messageToUpdate.getText());
         message.setUpdatedAt(OffsetDateTime.now());
         Message savedMessage = messageRepository.save(message);

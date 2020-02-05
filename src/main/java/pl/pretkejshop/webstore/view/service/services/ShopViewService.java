@@ -33,6 +33,8 @@ public class ShopViewService {
     private UserViewDtoMapper userViewDtoMapper;
     @Autowired
     private PersonalDataService personalDataService;
+    @Autowired
+    private MessageService messageService;
 
     public List<ProductViewDto> getAllAvaibleProducts() throws NotFoundException {
         List<ProductDto> allProducts = productService.getAllAvaibleProducts();
@@ -189,5 +191,7 @@ public class ShopViewService {
         personalDataService.updatePersonalData(personalDataId, createUpdatePersonalDataDto); //todo data różnica jednego dnia przy edycji
     }
 
-
+    public MessageDto sendMessage(CreateUpdateMessageDto message) throws NotFoundException {
+        return messageService.addNewMessage(message);
+    }
 }

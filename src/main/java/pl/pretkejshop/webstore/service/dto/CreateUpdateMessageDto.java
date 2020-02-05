@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class CreateUpdateMessageDto {
     private String text;
+    private String subject;
     private Integer userFromId;
-    private Integer userToId;
 }
