@@ -93,6 +93,7 @@
                             <div class="col-md-3 col-md-offset-6 element">
                                 <span th:text="'Cena: ' + ${product.getKey().getSellingPrize().doubleValue() * product.getValue() + 'zł'}"></span>
                             </div>
+                            <div><a th:href="'/delete-product-from-cart/' + ${product.getKey().productId}">Usuń z koszyka</a></div>
                         </div>
                     </div>
                     <div class="row">

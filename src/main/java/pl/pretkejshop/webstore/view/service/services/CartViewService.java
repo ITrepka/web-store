@@ -103,4 +103,17 @@ public class CartViewService {
         }
         return basketViewDto;
     }
+
+    public BasketViewDto deleteProductInLoggedUserBasket(String username, Integer productId) throws NotFoundException {
+        UserDto user = userService.getUserByLogin(username);
+        BasketDto basketDto = basketProductService.deleteProductFromBasket(user.getBasketId(), productId);
+        return basketViewDtoMapper.toViewDto(basketDto);
+    }
+
+    public BasketViewDto deleteProductInSessionBasket(BasketViewDto sessionCart, Integer productId) throws NotFoundException {
+        ProductViewDto product = shopViewService.getProductById(productId);
+
+        sessionCart.getProductsInBasket().remove(product);
+        return sessionCart;
+    }
 }

@@ -94,4 +94,23 @@ public class CartOperationsController {
         String referer = request.getHeader("Referer");
         return "redirect:" + referer;
     }
+
+    @GetMapping("/delete-product-from-cart/{productId}")
+    public String deleteProductFromCart(@PathVariable Integer productId, HttpSession session, HttpServletRequest request,
+                                        AuthenticationSystem authentication) throws NotFoundException {
+        if (authentication.isLogged()) {
+            String username = authentication.getName();
+            BasketViewDto userCart = cartViewService.deleteProductInLoggedUserBasket(username, productId);
+            session.setAttribute("userCart", userCart);
+        } else {
+            BasketViewDto sessionCart = (BasketViewDto)session.getAttribute("sessionCart");
+            cartViewService.deleteProductInSessionBasket(sessionCart, productId);
+            BigDecimal fullBasketItemsPrice = cartViewService.calculatePriceForCartItems(sessionCart.getProductsInBasket());
+            sessionCart.setPriceForCartItems(fullBasketItemsPrice);
+            session.setAttribute("sessionCart", sessionCart);
+        }
+
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
+    }
 }
