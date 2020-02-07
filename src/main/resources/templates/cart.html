@@ -6,7 +6,7 @@
     <title>Title</title>
     <style>
         .element {
-            position: relative;
+            position: absolute;
             top: 50%;
             transform: translateY(-50%);
         }
@@ -55,14 +55,14 @@
                                 <figure class="woocommerce-product-gallery__wrapper">
                                     <div th:data-thumb="${product.getKey().photos.get(1).url}"
                                          data-thumb-alt="" class="woocommerce-product-gallery__image"><img
-                                            width="255" height="320"
+                                            width="125" height="140"
                                             src=".."
                                             th:src="${product.getKey().photos.get(1).url}"
-                                            class="wp-post-image" alt="" title="key-692199_1920" data-caption=""
+                                            class="wp-post-image attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" th:title="${product.getKey().name}" data-caption=""
                                             th:data-src="${product.getKey().photos.get(1).url}"
                                             th:data-large_image="${product.getKey().photos.get(1).url}"
-                                            data-large_image_width="1128" data-large_image_height="1161"
-                                            sizes="(max-width: 255px) 100vw, 255px"/>
+                                            data-large_image_width="255" data-large_image_height="320"
+                                            sizes="(max-width: 255px) 320px, 255px"/>
                                     </div>
                                     <figcaption th:text="${product.getKey().name}"></figcaption>
                                 </figure>
@@ -90,10 +90,10 @@
                                     <input type="number" hidden="hidden" name="ratio" id="ratio" value="0">
                                 </form>
                             </div>
-                            <div class="col-md-3 col-md-offset-6 element">
+                            <div class="col-md-3 col-md-offset-6 element mr-2">
                                 <span th:text="'Cena: ' + ${product.getKey().getSellingPrize().doubleValue() * product.getValue() + 'zł'}"></span>
                             </div>
-                            <div><a th:href="'/delete-product-from-cart/' + ${product.getKey().productId}">Usuń z koszyka</a></div>
+                                <div class="col-md-3 col-md-offset-9 element"><a th:href="'/delete-product-from-cart/' + ${product.getKey().productId}">Usuń z koszyka</a></div>
                         </div>
                     </div>
                     <div class="row">
