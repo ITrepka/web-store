@@ -46,6 +46,7 @@ public class UserDtoMapper {
                 .orders(null)
                 .sentMessages(null)
                 .role(null) //todo
+                .basket(null)
                 .createdAt(null) //todo
                 .updatedAt(null)
                 .build();
