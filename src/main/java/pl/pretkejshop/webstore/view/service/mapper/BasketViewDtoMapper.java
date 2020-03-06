@@ -38,7 +38,9 @@ public class BasketViewDtoMapper {
 
         BigDecimal priceForCartItems = new BigDecimal(0);
 
-        productsViewDtos.stream().forEach(p -> priceForCartItems.add(p.getSellingPrize()));
+        for (ProductViewDto productsViewDto : productsViewDtos) {
+            priceForCartItems = priceForCartItems.add(productsViewDto.getSellingPrize());
+        }
 
         return BasketViewDto.builder()
                 .productsInBasket(productsInBasket)

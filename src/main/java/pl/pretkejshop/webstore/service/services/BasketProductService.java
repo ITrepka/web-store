@@ -43,7 +43,7 @@ public class BasketProductService {
                 .orElseThrow(() -> new NotFoundException("Not found product with id = " + productId));
 
         if (basket.getProducts().size() + 1 > product.getProductCopies().size()) {
-            throw new InvalidDataException("We havent enough product copies to add another one to the basket!");
+            throw new InvalidDataException("We havent enough product copies to add another one to the cart!");
         }
 
         product.getBaskets().add(basket);
