@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.pretkejshop.webstore.model.Basket;
 import pl.pretkejshop.webstore.model.PersonalData;
 import pl.pretkejshop.webstore.model.Role;
 import pl.pretkejshop.webstore.model.User;
+import pl.pretkejshop.webstore.repository.BasketRepository;
 import pl.pretkejshop.webstore.repository.PersonalDataRepository;
 import pl.pretkejshop.webstore.repository.RoleRepository;
 import pl.pretkejshop.webstore.repository.UserRepository;
@@ -37,6 +39,8 @@ public class UserService {
     private UserRoleService userRoleService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private BasketRepository basketRepository;
 
     //    @PostConstruct
 //    public void init() {
@@ -72,6 +76,8 @@ public class UserService {
         }
         PersonalData newPersonalData = personalDataRepository.save(new PersonalData());
         User user = userDtoMapper.toModel(createUserDto);
+        Basket newCart = basketRepository.save(new Basket());
+        user.setBasket(newCart);
         user.setPersonalData(newPersonalData);
         user.setLoyaltyPoints(0);
         user.setCreatedAt(OffsetDateTime.now());

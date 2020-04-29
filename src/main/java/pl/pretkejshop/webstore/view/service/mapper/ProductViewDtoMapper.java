@@ -30,13 +30,8 @@ public class ProductViewDtoMapper {
         DiscountDto discount = productDto.getDiscountId() == null ? null : discountService.getDiscountById(productDto.getDiscountId());
         Integer numberOfCopies = productDto.getProductCopiesIds() == null ? null : productDto.getProductCopiesIds().size();
         List<PhotoDto> photos = productDto.getPhotoIds() == null ? null : productDto.getPhotoIds().stream()
-                .map(photoId -> {
-                    try {
-                        return photoService.getPhotoById(photoId);
-                    } catch (NotFoundException e) {
-                        throw new RuntimeException("Photo not found/Product View Dto Mapper");
-                    }
-                }).collect(Collectors.toList());
+                .map(this::getPhoto)
+                .collect(Collectors.toList());
         List<RateDto> rates = productDto.getRatesIds() == null ? null : productDto.getRatesIds().stream()
                 .map(rateId -> {
                     try {
@@ -73,5 +68,13 @@ public class ProductViewDtoMapper {
                 .tagList(tagList)
                 .targetGender(productDto.getTargetGender())
                 .build();
+    }
+
+    private PhotoDto getPhoto(Integer photoId) {
+        try {
+            return photoService.getPhotoById(photoId);
+        } catch (NotFoundException e) {
+            throw new RuntimeException("Photo not found/Product View Dto Mapper");
+        }
     }
 }
