@@ -42,7 +42,7 @@ public class AuthenticationSuccessListener implements ApplicationListener<Intera
         BasketDto basketById = basketService.getBasketById(basketId);
         BasketViewDto basketViewDto = basketViewDtoMapper.toViewDto(basketById);
         httpSession.setAttribute("userCart", basketViewDto);
+        httpSession.setAttribute("username", login);
         System.out.println("User Logged In");
-
     }
 }

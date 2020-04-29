@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head th:fragment="head">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -63,9 +63,8 @@
                                 </li>
 
                                 <li class="top-account">
-                                    <a th:href="@{/my-account}">
+                                    <a th:href="@{/my-account}" th:text="${session.username == null ? 'Moje Konto' : session.username.toString()}">
                                         <i class="fa fa-user"></i>
-                                        Moje Konto
                                     </a>
                                 </li>
 
@@ -75,7 +74,7 @@
                                         <label>
                                             <span class="screen-reader-text"></span>
                                             <input class="search-field-top-bar" id="search-field-top-bar"
-                                                   placeholder="Search ..." value="" name="s" type="search">
+                                                   placeholder="Szukaj ..." value="" name="s" type="search">
                                         </label>
                                         <button id="search-top-bar-submit" type="submit" class="search-top-bar-submit">
                                             <span class="fa fa-search"></span>
